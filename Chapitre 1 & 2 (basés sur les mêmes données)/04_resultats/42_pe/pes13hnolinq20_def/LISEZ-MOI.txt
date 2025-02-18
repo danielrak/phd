@@ -1,0 +1,3 @@
+2022_01_15. 
+
+Une des tests de robustesse des résultats hnolinq5. 

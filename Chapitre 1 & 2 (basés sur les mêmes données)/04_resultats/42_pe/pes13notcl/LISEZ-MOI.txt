@@ -1,0 +1,3 @@
+2022_01_11. 
+	Qui crée le plus de biais ? Âge et position ou bien taille de classe ?
+		Je suspecte que c'est la taille de classe puisqu'il n'y a pas de raison que le niveau des pairs soit corrélé avec l'âge ou la position. Nous avons montré dans le chapitre précédent qu'il n'y a pas de politique de groupement d'âge a priori (de mois de naissance surtout). En fait il faut encore montrer qu'il n'y a pas de groupement de position pour entre être sûr. 

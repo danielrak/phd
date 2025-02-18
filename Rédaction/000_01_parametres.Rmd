@@ -1,0 +1,334 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE, echo = FALSE, label = "packages"}
+knitr::opts_chunk$set(echo = FALSE, cache = TRUE, fig.pos = "H",
+                      message = FALSE, warning = FALSE,
+                      fig.asp = .6, fig.width = 10,
+                      out.width = "100%", fig.align = "center",
+                      fig.env = "figure", results = "asis")
+
+library(knitr)
+library(tidyverse)
+library(lubridate)
+library(kableExtra)
+library(magrittr)
+library(stringr)
+library(here)
+library(rdd)
+library(stringi)
+library(ggtext)
+library(Rcpp)
+library(ggtext)
+library(egg) 
+library(ggpubr)
+library(ggh4x)
+library(magick)
+library(grid)
+options(expressions = 5e5)
+
+library(needs)
+prioritize(ggpubr)
+```
+
+```{r, "dirs"}
+dir_age <- "C:/00_phd/02_rectorat/04_resultats/41_age"
+dir_pe <- "C:/00_phd/02_rectorat/04_resultats/42_pe"
+dir_g20 <- "C:/00_phd/03_g20/02_resultats"
+```
+
+```{r, "charging_fonctions"}
+load("C:/00_phd/00_fonctions/fonctions2.rda")
+```
+
+```{r, "chargingage"}
+load(here(dir_age, "pre_wp", "def2", "tabfig_def2.rda"))
+load(here(dir_age, "pre_wp", "def2", "tabfig_def2_annexe.rda"))
+load(here(dir_age, "pre_wp", "def2", "tabfig_def2_part2.rda"))
+load(here(dir_age, "pre_wp", "def2", "tabfig_def2_part3.rda"))
+```
+
+```{r, "chargingpe"}
+load(here(dir_pe, "pre_wp", "def", "tabfig_def.rda"))
+load(here(dir_pe, "pre_wp", "def", "tabfig_def_part2.rda"))
+load(here(dir_pe, "pre_wp", "def", "tabfig_def_part3.rda"))
+load(here(dir_pe, "pre_wp", "def", "tabfig_def_part4.rda"))
+```
+
+```{r, "chargingdatg20"}
+act <- NA
+load(here(dir_g20, "01_datg20_neo_def.rda"))
+load(here(dir_g20, "01_donnees_autres_neo_def.rda"))
+load(here(dir_g20, "01_donnees_autres_def.rda"))
+```
+
+```{r, "g20chargingtabfigsdef3"}
+act2 <- NA
+list.files("C:/00_phd/03_g20/02_resultats/pre_wp/def3") %>% 
+  (function (l) l[str_detect(l, "\\.rda$") & str_detect(l, "tabfig")]) -> l
+for (i in l) load(here("C:/00_phd/03_g20/02_resultats/pre_wp/def3", i))
+```
+
+```{r, "makeup"}
+act <- NA
+footnote <- function (...)
+  kableExtra::footnote(..., general_title = "", threeparttable = TRUE, fixed_small_size = FALSE, escape = FALSE)
+
+kable_styling <- function (...)
+  kableExtra::kable_styling(..., 
+                latex_options = "repeat_header",
+                repeat_header_text = "(suite)")
+
+mois <- c("Janvier", "Février", "Mars", "Avril",
+          "Mai", "Juin", "Juillet", "Août", 
+          "Septembre", "Octobre", "Novembre", "Décembre")
+
+mytheme <- theme(axis.text = element_text(size = 14), 
+                 axis.title = element_text(size = 16), 
+                 strip.text = element_text(size = 16),
+                 strip.text.y = element_text(angle = 45),
+                 legend.title = element_text(size = 16),
+                 legend.text = element_text(size = 14),
+                 legend.position = "bottom",
+                 plot.caption = element_textbox_simple(hjust = 0,
+                                                        size = 12))
+
+peerlab <- c(expression(bar(Q1)),
+             expression(bar(Q2)),
+             expression(bar(Q4)),
+             expression(bar(Q5)))
+```
+
+```{r, "agetabfunctions"}
+act <- NA
+agereplace_evol <- function (x) x %>% 
+  str_replace("nbecole", "Établissements") %>% 
+  str_replace("tecole", "Élèves par établissement") %>% 
+  str_replace("ep.oui", "Écoles en éducation prioritaire") %>% 
+  str_replace("^note$", "Note totale") %>% 
+  str_replace("notefr", "Note en français") %>% 
+  str_replace("notemaths", "Note en mathématiques") %>% 
+  str_replace("ageabs", "Âge aux examens") %>% 
+  str_replace("nbiecrire", "Écriture") %>% 
+  str_replace("nbigrammaire", "Grammaire") %>% 
+  str_replace("nbilire", "Lecture") %>% 
+  str_replace("nbiortho", "Orthographe") %>% 
+  str_replace("nbivoca", "Vocabulaire") %>% 
+  str_replace("nbicalcul", "Calcul") %>% 
+  str_replace("nbigeometrie", "Géométrie") %>% 
+  str_replace("nbigrandmes", "Grandeurs et mesures") %>% 
+  str_replace("nbinombre", "Nombres") %>% 
+  str_replace("nbiorgdonnee", "Organisation et gestion de données") %>% 
+  str_replace("obs", "Observations")
+
+agereplace <- function (x) x %>% 
+  str_replace("Idist.2", "dist$^2$") %>% 
+  str_replace("oldmedl", "À droite de la médiane (1999)") %>% 
+  str_replace("oldmedr", "À droite de la médiane (2000)") %>%
+  str_replace("Iage\\.abs \\$-\\$ p\\.age\\.abs", "Âge relatif (classe)") %>% 
+  str_replace("^age.abs", "Âge aux examens") %>%
+  str_replace("^age.absdnb", "Âge aux examens") %>% 
+  str_replace("^z$", "Âge relatif théorique") %>% 
+  str_replace("^z.dnb$", "Âge relatif théorique") %>% 
+  str_replace("Iz \\$-\\$ p.z", "Instrument de l'âge relatif") %>% 
+  str_replace("Iz.dnb \\$-\\$ p.z.dnb", "Instrument de l'âge relatif") %>% 
+  str_replace("^z$", "Instrument de l'âge absolu") %>% 
+  str_replace("resid", "$\\\\hat{\\\\nu}$") %>% 
+  str_replace("sexeM", "Sexe - Homme") %>% 
+  str_replace("sexe.modM", "Sexe - Homme") %>% 
+  str_replace("pcsRMoy", "CSP - Moyenne") %>% 
+  str_replace("pcsRFav", "CSP - Favorisée") %>% 
+  str_replace("pcsRTresfav", "CSP - Très favorisée") %>% 
+  str_replace("pcsRAutres", "CSP - Autre") %>% 
+  str_replace("pcsRNA", "CSP - Manquante") %>% 
+  str_replace("cohorte2010", "Année - 2010") %>% 
+  str_replace("cohorte2011", "Année - 2011") %>% 
+  str_replace("cohorte2012", "Année - 2012") %>%
+  str_replace("pcs\\.reg\\.mod", "CSP - ") %>% 
+  str_replace("Moy$", "Moyenne") %>% 
+  str_replace("Fav$", "Favorisée") %>% 
+  str_replace("Tresfav$", "Très favorisée") %>% 
+  str_replace("lregime\\.constat\\.", "Régime scolaire - ") %>% 
+  str_replace("gint$", "Interne") %>% 
+  str_replace("gext$", "Externe") %>% 
+  str_replace("session.mod2015", "Cohorte - 2015") %>% 
+  str_replace("session.mod2016", "Cohorte - 2016") %>% 
+  str_replace("mois\\.", "Mois de naissance - ") %>% 
+  str_replace(" - 2$", " - Février") %>% 
+  str_replace(" - 3", " - Mars") %>% 
+  str_replace(" - 4", " - Avril") %>% 
+  str_replace(" - 5", " - Mai") %>% 
+  str_replace(" - 6", " - Juin") %>% 
+  str_replace(" - 7", " - Juillet") %>% 
+  str_replace(" - 8", " - Août") %>% 
+  str_replace(" - 9", " - Septembre") %>% 
+  str_replace(" - 10", " - Octobre") %>% 
+  str_replace(" - 11", " - Novembre") %>% 
+  str_replace(":", "\\ $\\\\times$ \\") %>% 
+  str_replace("^n$", "Observations") %>% 
+  str_replace("arsq", "R$^2$ ajusté") %>% 
+  str_replace("examensdnb", "examens")
+```
+
+
+```{r, "g20tabfunctions"}
+act <- NA
+g20replace0 <- function (x) x %>% 
+  str_replace("note_ue", "À l'UE") %>% 
+  str_replace("note_ctqcm", "Aux examens") %>% 
+  str_replace("note_td", "Aux TD") %>% 
+  str_replace("^z$", "Incité") %>% 
+  str_replace("^connect$", "Connecté") %>% 
+  str_replace("pratique_tot2", "Vidéos ou exercices") %>% 
+  str_replace("pratique_tot", "Vidéos (complètes) ou exercices") %>% 
+  str_replace("videos_comp_tot", "Vidéos (complètes)") %>% 
+  str_replace("videos_views_tot", "Vidéos") %>% 
+  str_replace("sheets_views_tot", "Exercices") %>% 
+  str_replace("moy_bac", "Totale") %>% 
+  str_replace("moy_fran_ec", "En français (écrits)") %>% 
+  str_replace("moy_maths", "En mathématiques") %>% 
+  str_replace("serie_diplome_psv4.pro", "Pro") %>% 
+  str_replace("serie_diplome_psv4.techno", "Techno") %>% 
+  str_replace("serie_diplome_psv4.es", "ES") %>% 
+  str_replace("serie_diplome_psv4.s", "S") %>% 
+  str_replace("serie_diplome_psv4.autre", "Autre") %>% 
+  str_replace("mention_diplome_ps.sans", "Aucune") %>% 
+  str_replace("mention_diplome_ps.ab", "Assez bien") %>% 
+  str_replace("mention_diplome_ps.b", "Bien") %>% 
+  str_replace("mention_diplome_ps.tb", "Très bien") %>% 
+  str_replace("age_26aout", "Âge à la rentrée") %>% 
+  str_replace("sexe_ps.F", "Fille") %>% 
+  str_replace("sexe_ps.M", "Homme") %>% 
+  str_replace("pays_nais_fr.non", "À l'étranger") %>% 
+  str_replace("pays_nais_fr.oui", "En France") %>% 
+  str_replace("nationalite.hors_ue", "Hors union européenne") %>% 
+  str_replace("nationalite.fr", "Française") %>% 
+  str_replace("boursier.non", "Non boursier") %>% 
+  str_replace("boursier.secondaire", "Boursier du secondaire") %>% 
+  str_replace("boursier.ens_sup", "Boursier du supérieur") %>% 
+  str_replace("statut_etab.public", "Public") %>% 
+  str_replace("statut_etab.prive", "Privé") %>% 
+  str_replace("type_etabv2.lycee_nopostbac", "Sans postbac") %>% 
+  str_replace("type_etabv2.lycee_postbac", "Avec postbac") %>% 
+  str_replace("type_etabv2.autres", "Autre type") %>% 
+  str_replace("dep_etabv2.run", "La Réunion") %>% 
+  str_replace("dep_etabv2.fr_hors_run", "France hors Réunion") %>% 
+  str_replace("dep_etabv2.etranger", "Étranger") %>% 
+  str_replace("campus.tampon", "Tampon") %>% 
+  str_replace("campus.stdenis", "Saint-Denis") %>% 
+  str_replace("filiere_ps.aes", "AES") %>% 
+  str_replace("filiere_ps.eco", "Eco-Ge") %>% 
+  str_replace("filiere_aes", "AES") %>% 
+  str_replace("filiere_eco", "Eco-Ge") %>% 
+  str_replace("venu_ctqcm", "Ayant une note aux examens") %>% 
+  str_replace("venu_td", "Ayant une note aux TD") %>% 
+  str_replace("_sup1", " $\\\\geq 1$") %>% 
+  str_replace("nobs", "Observations")
+
+g20replace <- function (x) x %>% 
+  str_replace("Intercept", "Constante") %>% 
+  str_replace("pratique.tot$", "Vidéos (complètes) et exercices") %>% 
+  str_replace("pratique.tot2$", "Vidéos et exercices") %>% 
+  str_replace("videos.comp.tot", "Vidéos (complètes)") %>% 
+  str_replace("videos.views.tot", "Vidéos") %>% 
+  str_replace("sheets.views.tot", "Exercices") %>% 
+  str_replace("z1", "Incitation - Oui") %>% 
+  str_replace(":", "\\ $\\\\times$ \\") %>%
+  str_replace("moy.bac", "Note au bac") %>% 
+  str_replace("mention.diplome.psab", "Mention au bac - Assez bien") %>% 
+  str_replace("mention.diplome.psb", "Mention au bac - Bien") %>% 
+  str_replace("mention.diplome.pstb", "Mention au bac - Très bien") %>% 
+  str_replace("serie.diplome.psv[:digit:]", "Série au bac - ") %>% 
+  str_replace(" techno$", " Techno") %>% 
+  str_replace(" es$", " ES") %>% 
+  str_replace(" s$", " S") %>% 
+  str_replace(" autre$", " Autre") %>% 
+  str_replace("campusstdenis", "Campus - Saint-Denis") %>% 
+  str_replace("filiereeco", "Filière - Eco-Ge") %>% 
+  str_replace("q5age.26aout", "Quintile de l'âge à la rentrée - ") %>% 
+  str_replace("q2$", "Q2") %>% 
+  str_replace("q3$", "Q3") %>% 
+  str_replace("q4$", "Q4") %>% 
+  str_replace("q5$", "Q5") %>% 
+  str_replace("age.26aout", "Âge à la rentrée") %>% 
+  str_replace("sexe.psM", "Sexe - Homme") %>% 
+  str_replace("pays.nais.froui", "Pays de naissance - En France") %>% 
+  str_replace("boursiersecondaire", 
+              "Statut de boursier - Secondaire") %>%
+  str_replace("boursierens.sup", 
+              "Statut de boursier - Supérieur") %>% 
+  str_replace("statut.etabRprive", 
+              "Établissement d'origine - Privé") %>% 
+  str_replace("statut.etabRNA",
+              "Établissement d'origine - Manquante") %>% 
+  str_replace("dep.etabv2Rfr.hors.run", 
+              "Étab.ori. - France hors Réunion") %>% 
+  str_replace("dep.etabv2Retr", 
+              "Étab.ori - Étranger") %>% 
+  str_replace("dep.etabv2RNA", 
+              "Étab.ori - Manquante") %>% 
+  str_replace("^n$", "Observations") %>% 
+  str_replace("^arsq$", "R$^2$ ajusté") %>% 
+  str_replace("^fstat$", "F")
+
+g20selectvars <- function (tab, vars) tab %>% (function (d) {
+    sapply(c(vars),
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>%
+      (function (v3) d[v3, ])
+  })
+
+g20selectvars2 <- function (tab, vars) tab %>% (function (d) {
+    sapply(c(vars),
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>%
+      (function (v3) d[v3, ])
+  })
+
+g20replace_compliers <- function (x) x %>% 
+  str_replace("^var$", "Variable") %>% 
+  str_replace("^mod$", "Modalité") %>% 
+  str_replace("^freq_td$|^freq_ctqcm$", "Effectif") %>% 
+  str_replace("^compl_td$|^compl_ctqcm", "\\\\makecell{Rapport de parts \\\\\\\\ de compliers}") %>% 
+  str_replace("serie_diplome_psv4", "Série au bac") %>% 
+  str_replace("filiere", "Filière") %>% 
+  str_replace("q5moy_bac_norm", "Quintile de la note au bac") %>% 
+  str_replace("q5age_26aout", "Quintile de l'âge à la rentrée") %>% 
+  str_replace("sexe_ps", "Sexe") %>% 
+  str_replace("campus", "Campus") %>% 
+  str_replace("boursier", "Statut de boursier") %>% 
+  str_replace("statut_etab", "Statut d'établissement d'origine") %>% 
+  str_replace("^pro$", "Pro") %>% 
+  str_replace("^techno", "Techno") %>% 
+  str_replace("^es$", "ES") %>% 
+  str_replace("^s$", "S") %>% 
+  str_replace("^autre$", "Autre") %>% 
+  str_replace("^aes$", "AES") %>% 
+  str_replace("^eco$", "Eco-Ge") %>% 
+  str_replace("^q[:digit:]", paste("Q", str_extract(x, "[:digit:]"), sep = "")) %>% 
+  str_replace("^F$", "Fille") %>% 
+  str_replace("^M$", "Homme") %>% 
+  str_replace("^tampon$", "Tampon") %>% 
+  str_replace("^stdenis$", "Saint-Denis") %>% 
+  str_replace("^non$", "Non boursier") %>% 
+  str_replace("^secondaire$", "Boursier du secondaire") %>% 
+  str_replace("^pays_nais_fr$", "Pays de naissance") %>% 
+  str_replace("^oui$", "En France") %>% 
+  str_replace("^public$", "Public") %>% 
+  str_replace("^prive$", "Privé")
+
+add_blankline <- function (x) paste("\\makecell{", x, " \\\\ \\ }", sep = "")
+add_blankline_v2 <- function (x) paste("\\\\makecell{", x, " \\\\\\\\ \\\\ }", sep = "")
+```
+

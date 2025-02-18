@@ -1,0 +1,2 @@
+abs : tentative de mesure de l'effet d'âge absolu. 
+	

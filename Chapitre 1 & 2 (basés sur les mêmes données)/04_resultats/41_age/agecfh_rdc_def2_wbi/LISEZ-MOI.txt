@@ -1,0 +1,7 @@
+2021_12_21. 
+
+wbi : wild bootstrap individuel. 
+
+ok pour : 
+	agecfh_rdc.  
+	agecfh_sexe_rdc. 

@@ -1,0 +1,6 @@
+rel : estimation de l'effet d'âge relatif 
+	Cascio et Schanzenbach (2016). 
+	Pena (2017). 
+	avec p_covars. 
+
+direct def2. 

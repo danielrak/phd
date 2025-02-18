@@ -1,0 +1,24 @@
+% \renewcommand{\tightlist}{\setlength{\itemsep}{5ex}\setlength{\parskip}{0pt}}
+
+\setbeamertemplate{footline}[frame number]
+
+\usepackage{lscape, pdfpages, makecell, booktabs, multirow, float, longtable, pifont, amsmath, amsfonts, amssymb, tikz, mathabx, threeparttable, tabu}
+
+\widowpenalties 1 150
+
+\usetikzlibrary{arrows,automata}
+\usetikzlibrary{positioning}
+
+\tikzset{
+    state/.style={
+           rectangle,
+           rounded corners,
+           draw=black, very thick,
+           minimum height=2em,
+           inner sep=2pt,
+           text centered,
+           },
+}
+
+\newcommand{\semitransp}[2][35]{\textcolor{fg!#1}{#2}}
+

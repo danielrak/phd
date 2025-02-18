@@ -1,0 +1,1164 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+\newpage
+
+## Introduction {#g20intro}
+
+
+Le faible niveau en mathématiques des élèves français par rapport à d'autres pays européens est un fait. La dernière enquête TIMSS de 2019 montre que la France se trouve en dessous du niveau moyen des participants de l'Union européenne^[Note d'information n°20.47 de la DEPP.]. De plus, pour la France comme pour d'autres pays, le niveau en mathématiques a clairement chuté avec le temps [@VIL:eal:18]. Cela a aussi été constaté dans plusieurs pays à l'entrée des études supérieures [@KAJ:LOV:05]. Les étudiants n'ont alors pas le niveau attendu à l'entrée de l'université. 
+  
+Ce dernier constat peut  être partiellement expliqués par la massification de l'accès aux études supérieures [@DEP:21, pp. 148, par exemple] qui élargit mécaniquement le spectre de niveau en mathématiques des étudiants. Cette massification est elle-même liée à une baisse des exigences de niveau d'entrée, notamment par souci de lutte contre les inégalités d'accès aux études supérieures [@BEC:eal:21].   
+L'image dégradée des mathématiques et de ses enseignants ainsi que la transmission du manque d'intérêt des mathématiques d'une génération à l'autre est une autre raison valable [@KAJ:LOV:05].  
+  
+\quad Les moyens investis sur les élèves du secondaire ne s'avèrent alors pas rentables par rapport à leurs performances effectives en mathématiques [@VIL:eal:18].  
+  
+\quad En plus d'être crucial dans la vie quotidienne et dans la réussite sur le marché du travail [@HAN:eal:15], avoir un certain niveau en mathématiques est fondamental pour certaines filières des études supérieures [@FAUL:eal:14]<!--, dont la filière d'Économie-Gestion-->.   
+Le déclin du niveau en mathématiques des étudiants et élèves est alors problématique puisqu'il implique pour la France un capital humain de moins bonne qualité.
+  
+\quad Dans ce contexte, l'enseignement des mathématiques a été déclarée comme une priorité nationale en France. La Réunion en est naturellement concernée. Toutefois, les différentes politiques se concentrent surtout dans l'enseignement primaire et secondaire. Ceci peut être due à une raison opérationnelle puisque les responsables de l'enseignement primaire et secondaire sont uniformément soumis aux programmes de l'éducation nationale tandis que ceux de l'enseignement supérieur ont plus de flexibilité^[De plus, les actions dans le primaire et le secondaire sont contraintes par les priorités données aux examens officiels (brevet et bac). Ces contraintes n'existent pas dans le supérieur.].
+  
+Ce relatif manque d'attention sur le supérieur est également présente à l'internationale. Nombre d'interventions ont été testées dans le monde mais majoritairement sur des élèves de l'enseignement primaire ou secondaire (voir Section \@ref(g20litt)). Avec le développement exponentiel de la technologie en général, l'utilisation de cette dernière dans lesdites interventions, y compris en France, se multiplient également [@XIE:eal:20 ; @GUE:VAN:22]. Il en va de même pour l'évaluation de leur efficacité. 
+  
+\quad Ce papier s'intéresse à l'efficacité d'une jeune plateforme de révision des mathématiques du lycée pour des néo-bacheliers de l'Université de La Réunion ayant choisi la licence d'Économie et Gestion. La plateforme propose des cours en ligne sous forme de vidéos d'explication et des exercices corrigées. Chaque utilisateur possède un compte individuel et peut accéder à la plateforme même en dehors des horaires d'études. Nous recueillons les résultats des individus concernés aux évaluations de travaux dirigés et aux examens du premier semestre de mathématiques. Puisque les étudiants choisissent l'utilisation et l'intensité d'utilisation de la plateforme, nous utilisons un protocole d'encouragement [@DUF:eal:07 ; @BEL:eal:17] pour fournir une mesure fiable de l'impact de l'utilisation de la plateforme sur les résultats en mathématiques. Il s'agit d'influer sur l'intensité d'utilisation de la plateforme par les participants grâce à des messages électroniques envoyés à un groupe de participants déterminés de manière explicitement aléatoire. L'effet d'intérêt s'estime alors en instrumentant les mesures d'utilisation de la plateforme par le fait d'être incité ou non.   
+Nous mobilisons des modèles adaptés au fait que les examens concernés n'ont vraisemblablement pas pu mesurer le niveau en mathématiques des étudiants lorsque ce dernier est en dessous d'un certain seuil.  
+  
+Nous contribuons à la littérature existante sur au moins trois éléments. La première concerne le manque d'attention et donc de connaissance sur les effets des diverses interventions en mathématiques sur le supérieur (Section \@ref(g20litt)). La deuxième repose sur le fait que nous nous intéressons aux mathématiques puisque pour la France, l'étude de @BEL:eal:17 (est la seule qui) s'intéresse à l'efficacité d'une plateforme d'entraînement des capacités écrites. Bien que les deux types de compétences soient importantes pour la réussite des études universitaires, il se peut que les compétences en mathématiques le soient relativement plus au vu des matières proposées dans les licences d'Économie-Gestion des universités françaises. La troisième contribution concerne la méthodologie que nous utilisons. Nous avons constaté que la plupart des études des interventions en mathématiques sur le supérieur ne possèdent pas de groupe de contrôle constitué de manière aléatoire ou n'utilisent pas les méthodes d'évaluation d'impact qui s'approchent d'une telle situation.  
+  
+\quad L'assignation aléatoire des incitations susmentionnées a été un succès car les individus incités sont bien comparables avec ceux non incités. Les individus que nous avons incités ont en moyenne plus utilisé la plateforme par rapport à ceux non incités, même si l'ensemble des participants a faiblement exploité la plateforme. Des raisons de cette faible utilisation de l'intervention sont proposées.  
+Nous trouvons principalement de manière robuste qu'utiliser plus la plateforme a permis aux étudiants d'améliorer grandement leurs performances aux évaluations de travaux dirigés mais ne leur a pas aidé pour les examens de mathématiques à la fin du premier semestre. Nous présentons des arguments justifiant que l'effet positif et important sur les notes aux travaux dirigés correspond à un comportement stratégique d'une petite partie d'étudiants motivés mais pas particulièrement forts (en mathématiques). De telles explications sont relativement nouvelles dans cette littérature et donnent des pistes d'amélioration pour la mise en place d'interventions similaires en vue d'aider effectivement une plus grande partie des étudiants à augmenter leur capital de connaissances et de compétences en mathématiques et d'améliorer le taux de réussite en première année de licence d'Économie et Gestion à La Réunion. 
+
+## Revue de littérature {#g20litt}
+
+Pour commencer, il est éclaircissant de caractériser les interventions en mathématiques selon plusieurs éléments : le niveau d'éducation de la population cible (maternelle, primaire, secondaire ou supérieur), le type d'intervention (cours de mise à niveau, tutorat, programme d'apprentissage, e-learning ou apprentissage assisté par ordinateur ludifié ou non, entre autres) et les modalités de mise en œuvre (avec ou sans participation des enseignants, uniquement au sein de l'école/université ou non, nécessite l'interaction des bénéficiaires entre eux ou non, etc.). 
+  
+\quad Par rapport au niveau d'éducation de la population cible, probablement sous l'influence des travaux de Heckman et ses co-auteurs sur l'efficacité des interventions éducatives le plus tôt possible [@HEC:12], de nombreuses interventions en mathématiques ont été testées sur des enfants de niveau maternelle ou primaire et ont fait l'objet d'évaluations rigoureuses, c'est-à-dire qu'un groupe de contrôle crédible a été constitué via l'assignation aléatoire ou une stratégie d'identification qui l'approxime [@ANG:PIS:08]. 
+  
+Par exemple, @TIE:WIL:07 s'intéressent à l'effet de l'utilisation, par les enseignants, de sites web et de logiciels de présentation, pour l'enseignement des mathématiques, sur des notes standardisées de deux centaines d'élèves en 7^ème^ année d'éducation d'une école du New Jersey. L'année suivante, sur pratiquement le même échantillon et avec la même intervention, @TIE:MAH:08 s'intéressent à l'effet de cette dernière sur les élèves en 8^ème^ année d'éducation. En Inde et donc dans un autre contexte socio-démographique et économique, @BAN:eal:07 évaluent l'effet de deux interventions différentes sur des notes d'élèves en troisième et en quatrième année d'éducation primaire. La première intervention prend la forme d'un tutorat à destination des plus faibles et la seconde prend la forme d'une instruction assistée par ordinateur uniquement disponible dans les écoles. Des études dans la même thématique, sur des élèves en bas âge existent dans d'autres pays, comme la Chine [@MO:eal:14] ou la Belgique [@PRA:DES:14], entre autres. Les auteurs de la première se demandent si des sessions de remédiation composées principalement de jeux mathématiques aident des élèves en 3^ème^ et 5^ème^ année d'éducation primaire d'écoles rurales d'une province relativement défavorisée de la Chine, en termes de performances en mathématiques. Les auteurs du second se concentrent sur des activités de comptage ou de comparaison sur ordinateur, à destination des enfants de maternelle inscrits dans 5 écoles d'un même district scolaire. 
+    
+Cette littérature, pour les étudiants en début d'études supérieures, est relativement moins fournie, en termes d'études empiriques^[Cette plus faible attention des chercheurs sur les individus du supérieur a d'ailleurs été constatée en ce qui concerne des interventions liées à la littératie [@BEL:eal:17].]. Seulement 20\% des études empiriques que nous connaissons concernent des étudiants de l'université. Par ailleurs, la quasi-totalité des papiers sur les étudiants à l'université se limitent à ceux en première année puisque cette dernière est la plus cruciale dans le sens où elle détermine quasi-définitivement l'avenir professionnel et, pour le cas de la France, elle est la plus compétitive [@BEL:eal:17]. En guise d'exemple, @MSO:BAN:18 étudient de manière qualitative la corrélation qui pourrait y avoir entre l'utilisation d'une plateforme d'apprentissage en ligne et la réussite des étudiants en première année dans une université technologique d'Afrique du Sud. De leur côté, @HOW:eal:19 étudient la corrélation entre des activités de quiz hebdomadaires avec feedback^[Le fait de faire des retours au participant sur son travail dans la plateforme, par rapport à ces exploits et ces faiblesses.], pendant 10 semaines, et les notes aux examens d'étudiants en première au sein d'une université en Irlande.
+  
+\quad Le présent papier contribue à cette littérature relativement récente sur l'efficacité des interventions en mathématiques dans les études supérieures. Si le travail de @BEL:eal:17 porte sur une intervention en écriture du français, notre étude est à notre connaissance le premier de ce type dans le contexte français, en ce qui concerne spécifiquement les mathématiques. Notre travail présente un intérêt potentiellement plus intéressant par rapport à la plupart des autres départements français au vu du niveau particulièrement faible en mathématiques des étudiants de La Réunion. 
+  
+\quad Une autre manière de catégoriser les interventions est de distinguer si l'utilisation de la technologie constitue le cœur de l'intervention ou non. Ces deux catégories ne sont pas mutuellement exclusives. 
+  
+Parmi les mesures dont la technologie est au plus une modalité de mise en œuvre, les cours de remise à niveau constituent une pratique assez pratiquée bien que sujet à débat [@BAH:08]. Le débat existe à cause du coût de telles interventions et du manque de preuve scientifique de leur efficacité. Ce type d'intervention est le plus souvent destiné aux élèves qui souhaitent s'inscrire à l'université mais qui n'ont pas le niveau nécessaire en mathématiques pour espérer suivre les cours dans les filières où les mathématiques sont indispensables [@LOG:eal:16].   
+Pour des coûts potentiellement réduits et des élèves plus jeunes, il est également possible de proposer des tutorats. C'est un des objets du papier de @BAN:eal:07 en Inde. Plus précisément, de jeunes tuteurs étaient engagés à courte durée pour aider les plus faibles du primaire hors des heures de cours habituels. La spécificité de cette intervention est que les tuteurs devaient si nécessaires aider les bénéficiaires sur des compétences très basiques. Par exemple, si un élève est en fin de primaire mais qu'il ne sait pas lire, le tuteur devra apprendre cet élève à lire malgré le fait que le programme de fin de primaire va bien au-delà de la lecture.   
+Dans l'étude susmentionnée de @MO:eal:14, des enseignants devaient superviser étroitement, régulièrement et pendant toute l'année scolaire des élèves bénéficiaires du programme de jeux mathématiques. Il peut aussi s'agir d'une forme de tutorat.  
+Dans le même esprit, @TOP:eal:11 s'intéressent à l'efficacité d'un tutorat précisément structuré dans différentes configurations^[Selon l'hétérogénéité de l'âge des élèves, selon l'intensité du tutorat et selon que des activités de lecture soient rajoutées ou non.] pour des élèves du primaire en Écosse. 
+    
+Dans la littérature, il est aisément remarquable que les interventions qui se reposent principalement sur la technologie (des ordinateurs ou des tablettes et des logiciels, le plus souvent) attirent relativement plus l'attention des chercheurs et des établissements d'éducation. Au moins deux éléments pourraient expliquer cet intérêt. Le premier est l'intuition selon laquelle l'utilisation de la technologie rend les interventions elles-mêmes plus attractives pour les élèves [@BAR:eal:09], plus particulièrement lorsqu'elles sont ludifiées^[Dit simplement, cela veut dire que l'intervention est présentée sous forme de jeux.] [@PUT:eal:20]. Le second est le fait que les technologies d'apprentissages pourraient servir de substitut lorsqu'il y a un manque d'enseignants qualifiés<!--Ban:eal:07-->. 
+Lister toutes les interventions à base de technologie ne nous paraît pas intéressant mais les distinguer selon leur modalité de mise en œuvre peut s'avérer éclaircissant. Plus précisément, le déploiement des interventions peut d'un côté être limité dans l'établissement scolaire. C'est le cas du second programme évalué par @BAN:eal:07 à part le tutorat. Il consistait à mettre à disposition des écoles indiennes de l'expérimentation des ordinateurs contenant des jeux mathématiques. Les bénéficiaires disposaient de deux heures par semaine pour les utiliser. Des instructeurs étaient présents lors de ces deux heures, ce qui est normal vu que les concernés sont de jeunes élèves (équivalents du CE2 et du CM1 du système français).  
+C'est également le cas de l'intervention qui fait l'objet de l'étude de @BOZ:eal:20, qui consistait à procurer des tablettes aux bénéficiaires^[Tous les élèves d'écoles primaires désignées comme bénéficiaires.] pour que ces derniers utilisent une application visant à développer des compétences fondamentales en mathématiques pendant 20 minutes par jour, au rythme de 4 fois par semaine et pendant 10 semaines. Similairement, l'utilisation d'un logiciel d'apprentissage des mathématiques pendant 8 à 15 semaines, au rythme de trois fois par semaine, par des élèves de primaire a été supervisée par des enseignants dans l'étude de @BUR:eal:12.  
+Les enseignants peuvent jouer un rôle plus important dans le déploiement de ce type d'intervention. Les articles de @TIE:WIL:07 et @TIE:MAH:08 correspondent notamment à deux cas où le programme (utilisation de sites web et de logiciels de présentation, comme susmentionné) est destiné aux enseignants pour que ces derniers améliorent leur pédagogie. 
+  
+En outre, la technologie peut être plus individualisée dans le sens où le bénéficiaire peut en profiter même hors de l'établissement scolaire ou universitaire et/ou dans le sens où elle s'adapte au niveau initial et à la progression de son utilisateur. Notamment, le programme auquel s'intéresse @BAR:eal:09 se limite aux établissements mais s'adapte au niveau de l'individu. L'article de @ROS:eal:16 susmentionné constitue un autre exemple dans lequel le programme est individualisé et il est cette fois accessible même hors de l'établissement vu qu'il s'agissait d'offrir aux bénéficiaires des ordinateurs que ces derniers peuvent ramener chez eux. Dans le même style, aux Pays-Bas, l'efficacité d'un logiciel qui peut également prendre la forme d'une application mobile, est étudiée par @HAE:GHY:17. 
+     
+L'intervention de notre étude est une plateforme de révision en ligne à caractère individuel. L'utilisateur peut l'utiliser hors de l'université, ce qui peut contribuer à plus d'efficacité par rapport aux interventions dont l'utilisation est limitée au sein des établissements [@HAE:GHY:17]. Aussi, il n'y a pratiquement pas de nécessité de participation des enseignants dans la plateforme. Une telle nécessité aurait peut-être été une limite puisqu'elle correspond à plus de considérations logistiques.    
+Toutefois, la plateforme que nous étudions possède certaines limites qui sont probablement à améliorer pour espérer plus d'efficacité. La première est qu'elle n'est disponible que par ordinateur^[Il n'y a pas de version en application mobile telle que l'intervention testée par @BEL:eal:17.]. Cela réduit l'accès de la plateforme aux étudiants ne possédant pas d'ordinateur personnel par rapport à ceux qui en possèdent. De manière similaire, la plateforme nécessite d'avoir une connexion internet.  
+La deuxième limite éventuelle est que notre intervention, étant une jeune plateforme, ne comporte pas de système d'adaptation du niveau du contenu en fonction du niveau initial de l'individu ni de feedback^[Une fonctionnalité de points de travail (voir Section \@ref(g20instproto)) qui est une sorte de quantification de l'ensemble des activités effectuées est ce qui s'approche le plus d'un système de feedback dans notre intervention.]. <!-- Contre-limite à expliquer -->Or, les systèmes de feedback semblent être un élément déterminant de l'efficacité de ces interventions [@ROS:eal:16].  
+Nous faisons également remarquer que l'accès à la plateforme que nous étudions a duré 4 semaines, ce qui est assez court comparé aux interventions trouvées dans la littérature. 
+   
+\quad La fiabilité des résultats d'analyses de l'efficacité de ces différentes interventions dépend naturellement de la qualité de la mesure de la variable dépendante, de la "prise effective du traitement"^[Autrement dit, si l'intervention est effectivement parvenu aux supposés bénéficiaires [@BUR:eal:12, pp.187].], de la sélection et la taille de l'échantillon et de la stratégie d'identification mobilisée. Les notes constituent le type de mesure usuel des acquis en mathématiques dans la présente littérature. Les acteurs (chercheurs, établissements) semblent généralement être bien armés en termes d'instrument de mesure avec les tests standardisés faisant explicitement l'objet d'une recherche scientifique a priori^[TEMA-3, utilisé pour les enfants, par exemple. TEMA signifie *Tests for Early Mathematics Ability*. Le suffixe *-3* correspond à la dernière édition. Cet instrument de mesure a été notamment mobilisé par @JAC:eal:16 et @KAR:AKM:19.]. Dans le cas des interventions "technologiques" discutées plus haut, il est aussi d'usage que la mesure soit effectuée "par la technologie" elle-même [@HAE:GHY:17]. Les examens préparés habituellement par les établissements constituent également une bonne mesure, tant qu'ils sont uniformes pour tous les participants et qu'ils ne sont ni trop difficiles ni trop faciles [@ROS:eal:16 ; @HOW:eal:19].  
+Les différentes interventions sont globalement correctement reçues par la population cible, notamment au vu de la durée de ces dernières d'au moins une dizaine de semaines.
+En termes d'échantillon, les interventions du supérieur sont le plus souvent limitées à un établissement^[Voir @HOW:eal:19, @LOG:eal:16 ou @DUP:eal:08 en guise d'exemples.] tandis que le primaire ou le secondaire ne semble pas vérifier de ce constat.  
+Aussi, parmi les études qui concernent le supérieur, rares sont celles qui disposent d'un groupe de contrôle crédible. Dans cette littérature, cela s'obtient en utilisant l'assignation aléatoire de l'accès du traitement ou d'une incitation à son utilisation, au niveau individuel [@KAR:AKM:19], au niveau des classes [@BAR:eal:09] ou au niveau des écoles [@CLE:eal:11]. Il est alors nécessaire de rester prudent quant à l'interprétation des résultats correspondants que nous évoquons plus bas. 
+  
+L'intervention de notre étude est évaluée avec un protocole d'encouragement (voir Section \@ref(g20inst)), ce qui constitue une contribution relativement significative par rapport aux méthodes des autres études sur le supérieur. 
+  
+\quad Dans l'éducation secondaire et surtout primaire, les interventions de différentes natures sont globalement efficaces^[En se focalisant sur les études exploitant au moins un groupe de contrôle crédible.]. Par exemple, @BAN:eal:07 trouvent un effet fort à court terme des deux interventions allant d'environ 0.2 UET à environ 0.4 UET selon la période, la ville ou la variable dépendante analysée. De manière cohérente à certains résultats de la littérature et des analyses empiriques dans les chapitres \@ref(age) et \@ref(pe), ces auteurs trouvent des effets plus forts en mathématiques et chez les élèves initialement plus faibles. Dans un autre contexte, en Argentine, @BOZ:eal:20 trouvent que donner des tablettes contenant une application de jeux mathématiques améliore la mémoire active des enfants inscrits à tous les niveaux du primaire. Sur des lycéens, @BAR:eal:09 trouvent également un effet positif et fort d'une application plus individualisée sur les notes aux examens nationaux aux États-Unis. Les articles de @ROS:eal:16, de @TIE:WIL:07 et de @TIE:MAH:08 constituent des démonstrations de l'efficacité des interventions en mathématiques pour des collégiens. 
+  
+Pour les étudiants en première année d'université, l'efficacité des interventions sur les compétences ne semble pas être prouvée, dans le sens où de travaux supplémentaires sont nécessaires. En guise d'illustration, @LEO:AL:14 ne s'intéressent qu'à l'attitude des étudiants envers une plateforme de devoirs en ligne. Les auteurs trouvent à l'aide de méthodes qualitatives et quantitatives^[Hors des méthodes d'évaluation d'impact [@ANG:PIS:08].] que les étudiants les plus faibles ont une attitude positive envers la plateforme. De manière similaire, @MOR:eal:20 concluent des effets positifs de l'utilisation d'outils digitaux (moodle, mails, emploi du temps en ligne) sur la motivation, sur autonomie, sur la participation, sur la maîtrise de concepts mathématiques et sur les notes en mathématiques mais ce sont probablement des résultats surestimés vu que leur groupe de contrôle n'est pas comparable avec les groupes de bénéficiaires. La plupart des autres papiers peuvent être soumis à ce type de biais [@MSO:BAN:18 ; @HOW:eal:19 ; @JAC:PRE:16]. 
+
+
+## Contexte institutionnel et présentation du protocole quasi-expérimental {#g20inst}
+
+### Du lycée aux portes de l'université {#g20instuniv}
+
+La terminale correspond à la troisième année du lycée, soit à la sixième et dernière année de l'enseignement secondaire français. Contrairement au collège (voir chapitres précédents), les élèves du lycée doivent choisir un parcours dès la première année de lycée. Ils ont le choix entre le parcours général et technologique (GT) et le parcours professionnel (Pro) qui est plus spécialisé<!-- et de plus courte durée-->. En terminale, le parcours GT est séparé en deux filières distinctes (filière générale et filière technologique), ce qui n'est pas le cas en seconde. Dans notre période d'étude (avant la rentrée de la terminale de 2020-2021), la filière générale se divise en séries économique et social (ES), scientifique (S) et littéraire (L). De la même manière, la filière technologique est constituée de huit séries^[https://www.education.gouv.fr/reussir-au-lycee/le-lycee-41642], à savoir les sciences et technologies de laboratoire (STL), les sciences et technologies de l'industrie et du développement durable (ST2D), les sciences et technologies du design et des arts appliqués (STD2A), les sciences et technologies du management et de la gestion (STMG), les sciences et technologies de la santé et du social (ST2S), les sciences et techniques du théâtre, de la musique et de la danse (S2TMD), les sciences et technologies de l'hôtellerie et de la restauration (STHR) et les sciences et technologies de l'agronomie et du vivant (STAV)^[Cette dernière série concerne uniquement les lycées agricoles]. La filière professionnelle quant à elle ne se divise pas en quelques séries mais comporte environ 200 spécialités directement liées aux métiers visés^[Un référentiel de spécialités peut être trouvé sur le site https://eduscol.education.fr/1916/le-baccalaureat-professionnel]. 
+  
+\quad À l'exception du bac professionnel, les épreuves du bac sont composées d'épreuves anticipées de français à passer en première, d'épreuves de contrôles continus tout au long de l'année de terminale et des épreuves finales qui ont lieu vers la fin de l'année scolaire de terminale, soit dans la troisième semaine du mois de juin. Les épreuves du bac professionnel constituent une exception puisqu'elles ne contiennent pas d'épreuves anticipées. La forme des épreuves et les matières concernées sont spécifiques aux filières et aux séries. En raison de la crise sanitaire, toutes les épreuves finales de la session de 2020 sont exceptionnellement remplacées par des épreuves de contrôle continu^[https://www.education.gouv.fr/baccalaureat-tout-savoir-sur-la-session-2020-308372]. Cela constitue très probablement une cause de l'augmentation considérable du taux de réussite en 2020 (95\%) par rapport aux années précédentes qui présentaient une croissance modérée avec le temps du taux de réussite^[Il est de 85.6\% en 2010, 87.9\% en 2015, 88.2\% en 2018 et 88\% en 2019 [@DEP:21, pp. 223].]. 
+```{r, eval = FALSE}
+## Source taux de réussite : https://www.insee.fr/fr/statistiques/2012792. 
+```
+
+  
+\quad En temps normal, les notes aux épreuves de contrôles continus et aux épreuves terminales comptent respectivement pour 40\% et 60\% de la note au bac. Un élève obtient le diplôme du bac s'il obtient au moins 50\% de la note maximale. Les résultats du bac sont disponibles sur le site du ministère de l'éducation nationale vers le début du mois de juillet. 
+  
+\quad L'obtention du bac est nécessaire pour s'inscrire à l'université^[Selon les textes officiels (https://www.univ-reunion.fr/scolarite/admissions), d'autres types diplômes sont acceptés par l'université mais leurs effectifs sont largement négligeables en pratique.] mais les procédures de pré-inscription commencent vers le milieu de l'année scolaire de terminale. Plus précisément, dès la troisième semaine de janvier, les lycéens qui souhaitent effectuer des études supérieures doivent passer par la plateforme appelée *Parcoursup* afin d'indiquer leurs vœux de formation. Ces lycéens reçoivent les réponses des établissements d'enseignement supérieur entre la troisième semaine de mai et la troisième semaine de juillet. Les calendriers d'inscription en première année d'études supérieures varient en fonction des formations.  
+  
+Dans l'offre de formation de l'Université de La Réunion^[https://www.univ-reunion.fr/formation/offre-de-formations-2020-2024], nos données sont limitées à celles de la Licence d'Économie et Gestion. Elle est composée des filières Économie-Gestion (Eco-Ge) et Administration Économique et Sociale (AES). Les formations liées à ces deux filières sont proposées à travers deux campus : au Nord de l'île dans la commune de Saint-Denis et au sud dans la commune du Tampon. Les procédures d'inscription en première année correspondantes se passent entre début mai et début juin, pour une rentrée à la dernière semaine d'août. Le profil des candidats peut différer considérablement d'une filière à l'autre. 
+  
+Les mathématiques constituent une unité d'enseignement majeure dans les deux filières. Le contenu de l'enseignement des mathématiques est différent en fonction de la filière mais le volume horaire est le même en cours magistral (30 heures) et en travaux dirigés (12 heures). Les cours magistraux sont également assurés par le même enseignant à travers les deux campus et les deux filières, ce qui n'est pas le cas pour les travaux dirigés (TD) pour des raisons pratiques^[Considérant les effectifs des inscrits dans la licence d'Économie et Gestion (Section \@ref(g20data)), il y a en tout une vingtaine de groupes de TD. Il n'est pratiquement pas possible qu'un même enseignant assure toutes les séances de TD.]. À l'Université de La Réunion, les mathématiques sont enseignées au premier semestre. En mathématiques comme dans d'autres matières, les étudiants ont une note d'évaluation aux TD et une note d'évaluation à un examen final (que nous dénommons désormais par examens). La note en mathématiques du semestre est la moyenne de la note aux TD et la note aux examens. Notre période d'étude est limitée au premier semestre de l'année universitaire 2020-2021. L'emploi du temps des séances de cours magistraux et de TD peut être ajusté pour des raisons d'organisation (disponibilité des chargés de TD, par exemple) mais les examens ont lieu vers la fin du semestre, en décembre. 
+
+### Le protocole d'encouragement {#g20instproto}
+
+Nous nous demandons dans quelles mesures réviser individuellement les mathématiques du lycée sous forme de vidéos et d'exercices sur une jeune plateforme en ligne influe sur les résultats en mathématiques des étudiants en première année de licence d'Économie et Gestion. <!--Un effet positif veut dire que cette pratique aide les étudiants à -->
+Pour mesurer cet effet, l'idéal aurait été d'attribuer aléatoirement des intensités d'utilisation de cette plateforme aux participants de l'expérimentation, ce qui n'est pas possible puisque les participants choisissent eux-mêmes cette intensité. Ce choix est vraisemblablement aussi lié aux résultats potentiel en mathématiques des individus. Pratiquement, nous aurions théoriquement pu attribuer aléatoirement l'accès à la plateforme aux participants. Cela pose naturellement des problèmes d'éthique [@SHA:82]^[Le problème standard est que, si en réalité la plateforme avait grandement amélioré les résultats en mathématiques pour des bénéficiaires choisis aléatoirement, il est injuste de ne pas avoir donné l'accès à la plateforme au groupe de contrôle.].     
+  
+Pour justifier le fait que l'accès à la plateforme soit attribué de manière aléatoire aux étudiants, compte tenu du temps imparti pour l'évaluation, il aurait fallu que tous les étudiants bénéficient d'une autre intervention qui vise spécifiquement à l'amélioration des résultats en mathématiques. Dans ce cas, nous aurions défini un groupe de traitement qui bénéficie à la fois de l'autre intervention et de l'accès à la plateforme et un groupe contrôle qui bénéficie uniquement de l'autre intervention. Une telle autre intervention n'existe pas dans notre période d'étude.  
+De plus, mis à part ces problèmes d'éthique, il aurait été difficile de mesurer l'effet de l'intensité de l'utilisation de la plateforme en attribuant aléatoirement uniquement l'accès à cette plateforme, puisque dans le groupe de traitement, les plus motivés utiliseront plus la plateforme et auront tendance à avoir de meilleurs résultats en mathématiques (biais classique de variable omise). 
+  
+\quad Nous utilisons alors un protocole d'encouragement [@DUF:eal:07 ; @HOL:88] afin d'atteindre notre objectif de recherche. L'idée principale est de donner l'accès de la plateforme à tous les étudiants du champ d'étude mais d'agir sur l'intensité de leurs utilisations de la plateforme avec des incitations attribuées de manière aléatoire. Si les hypothèses d'identification (voir Section \@ref(g20methods)) sont crédibles, nous pouvons mesurer l'effet causal de la pratique des mathématiques via la plateforme sur les résultats en mathématiques pour les étudiants dont les incitations influent sur leurs intensités d'utilisation de la plateforme [@IMB:ANG:94 ; @ANG:IMB:95]. 
+  
+\quad Concrètement, en utilisant un mail renseigné dans Parcoursup par chaque participant, nous avons commencé par contacter tous les étudiants potentiels inscrits sur Parcoursup pour la rentrée universitaire 2020-2021 pour leur demander s'ils sont intéressés par une plateforme de révision des mathématiques du lycée, dénommée "J'ai 20 en maths" et s'ils sont d'accord pour que nous transmettions leur mail à la plateforme en question pour création des comptes personnels d'utilisation<!--trop long-->. Il s'agit d'un mail renseigné dans Parcoursup. Nous précisons qu'il a été nécessaire de demander a priori l'accord des individus car ces derniers peuvent aussi craindre que leurs mails soient utilisés à d'autres fins (publicitaires, par exemple). <!--La version de la base de données de Parcoursup retenue est celle du 17 Août 2020.<!--Peut rendre confus, à expliquer--> Parcoursup comporte `r nrow(ps)` étudiants potentiels. Nous limitons dans un premier temps notre analyse aux néo-bacheliers puisque la plateforme leur est *a priori* destinée. <!-- Pourquoi, et les autres ? -->Ces derniers sont au nombre de `r nrow(ps_neo)` dans Parcoursup. Nous avons obtenu `r nrow(pg20_neo)` réponses positives de la part des néo-bacheliers. *A priori*, ces `r nrow(pg20_neo)` individus ne sont pas représentatifs de l'ensemble des néo-bacheliers inscrits sur Parcoursup puisque nous pouvons supposer que les plus motivés (et donc ceux qui ont des résultats potentiels en mathématiques plus élevés) seront surreprésentés parmi les répondants. Cela se justifie empiriquement une première fois au vu du Tableau \@ref(tab:g20compint0int1) qui compare les caractéristiques prédéterminées des individus non intéressés avec celles des individus intéressés. Les séries ES et S, les filles, ceux nés à l'étranger et ceux venant d'un établissement d'un territoire français autre que La Réunion sont surreprésentés chez les individus intéressés^[Les différences de note au bac, de nationalité et de statut de boursier sont statistiquement mais pas économiquement significatives.]. La Section \@ref(g20methods) propose une seconde justification plus convaincante. 
+Avec leur accord et comme prévu, nous avons ensuite transféré les mails des individus intéressés à la plateforme pour création de comptes individuels afin de bénéficier des services de la plateforme. En se connectant à son compte, un participant de l'expérimentation a essentiellement accès à deux activités \: regarder des vidéos et visionner des exercices corrigés (que le participant peut effectuer ou non). Ce compte est spécifique à l'expérimentation puisque le contenu accessible est restreint aux notions mathématiques abordées en première année d'Eco-Ge et d'AES (voir Annexe \@ref(g20notions)). <!--Annexe illustrant des exemples sur le traitement-->Les participants ont gardé leur accès à la plateforme jusqu'au 10 Septembre 2020.  
+Nous connaissons le nombre de connexion, le nombre de vidéos visionnées entièrement ("Vidéos (complètes)" dans les tableaux et figures) et le nombre de vidéos visionnées, potentiellement entièrement (Section \@ref(g20data)). La Figure \@ref(fig:g20treats) montre que les participants ont faiblement utilisé la plateforme (panels B, C et D). La distribution du nombre de connexions (panel A) suggère que les étudiants qui se sont connectés l'ont principalement fait pour regarder les exercices, puisque la forme de la distribution du nombre de connexions (panel A) et celle du nombre d'exercices (panel D) sont similaires. 
+
+\newpage
+```{r, "g20compint0int1"}
+act <- NA
+g20comp_int0_int1 %>% 
+  (function (d) {
+    d[nchar(str_trim(rownames(d))) != 0, ]
+  }) %>% 
+  (function (d) {
+    rownames(d) <-  g20replace0(rownames(d))
+    d
+  }) %>% 
+  set_colnames(c(c("\\makecell{Moyenne \\\\ (Écart-type)}",
+                 "\\makecell{Proportion \\\\ manquantes}") %>% 
+                   rep(2),
+                 "\\makecell{(1) = (3) \\\\ probabilité critique}") %>% 
+                 col_numbers()) %>% 
+  kable(booktabs = TRUE, escape = FALSE, longtable = TRUE,
+        linesep = "",
+        caption = "Comparaison entre les néo-bacheliers non intéressés et intéressés par la plateforme de Parcoursup") %>% 
+  kable_styling(font_size = 7) %>% 
+  group_rows("Note au bac", 1, 3) %>% 
+  group_rows("Série au bac", 4, 8) %>% 
+  group_rows("Mention au bac", 9, 12) %>% 
+  group_rows(" ", 13, 13) %>% 
+  group_rows("Sexe", 14, 15) %>% 
+  group_rows("Pays de naissance", 16, 17) %>% 
+  group_rows("Nationalité", 18, 19) %>% 
+  group_rows("Statut de boursier", 20, 21) %>% 
+  group_rows("Statut de l'établissement d'origine", 22, 23) %>% 
+  group_rows("Type de l'établissement d'origine", 24, 25) %>% 
+  group_rows("Département de l'établissement d'origine", 26, 28) %>% 
+  group_rows("Campus", 29, 30) %>% 
+  group_rows("Filière", 31, 32) %>% 
+  group_rows(" ", 33, 33) %>% 
+  add_header_above(c(" ", 
+                     "Non intéressés" = 2, 
+                     "Intéressés" = 2, " ")) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge (version 17 Août 2020), plateforme '\\\\textit{J'ai 20 en maths}' - APOGÉE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Moyennes et proportions. Écart-types entre parenthèses. Les probabilités critiques correspondent à des tests de comparaison de moyennes pour les variables quantitatives et à des tests de comparaison de proportions pour les variables qualitatives. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    ))
+```
+\newpage
+  
+```{r, "g20treats", fig.cap = "Utilisation de la plateforme par les participants"}
+par(mfrow = c(2, 2))
+barplot(table(pg20_neo$sessions_tot), 
+     main = "Panel A : Connexions",
+     xlab = "Connexions",
+     ylab = "Nombre")
+
+barplot(table(pg20_neo$videos_comp_tot), 
+     main = "Panel B : Vidéos vues complètement",
+     xlab = "Vidéos vues complètement",
+     ylab = "Nombre")
+
+barplot(table(pg20_neo$videos_views_tot),
+        main = "Panel C : Vidéos",
+        xlab = "Vidéos",
+        ylab = "Nombre")
+
+barplot(table(pg20_neo$sheets_views_tot), 
+     main = "Panel D : Exercices",
+     xlab = "Exercices",
+     ylab = "Nombre")
+
+mtext("Sources : Plateforme 'J'ai 20 en maths' - participants néo-bacheliers intéressés (N = 260), calculs de l'auteur.", 
+      side = 1, line = 4.25, cex = .8, adj = 2)
+```
+  
+  
+\quad Parmi les `r nrow(pg20_neo)` néo-bacheliers participants, `r nrow(pg20_neo %>% filter(z == "1"))` ont été assignés aléatoirement à un groupe incité et `r nrow(pg20_neo %>% filter(z == "0"))` à un groupe non incité. Notons bien que ceux qui ont répondu positivement à notre premier message sont naturellement informés de l'existence de la plateforme. 
+    
+Nous avons envoyé par mail^[Il s'agit toujours du mail renseigné dans Parcoursup, à distinguer du mail étudiant.] aux participants du groupe incité 4 messages d'incitation espacés d'une dizaine de jours<!-- Annexe : les 4 mails -->. Les individus non incités n'ont rien reçu de tout cela. Même s'il ne s'agit pas de l'échantillon d'estimation (voir Section \@ref(g20data)), il est intéressant de constater dans le Tableau \@ref(tab:g20compintz0z1) de l'Annexe \@ref(g20compintz0z1) que les participants incités et non incités sont bien comparables. 
+  
+```{r}
+non_rendu_maths <- table(datg20_neo$rendu_maths, datg20_neo$z) %>% prop.table(2) %>% (function (p) p * 100) %>% round(2) %>% 
+  (function (x) x[2, ] %>% paste("\\%", sep = ""))
+```
+  
+<!-- \quad Toujours par mail, tous les participants ont été appelés à passer un test de niveau en mathématiques organisé par l'Université de La Réunion qui a eu lieu le 24 Août 2020 <!--Annexe pour montrer le message. Ils ont été informés de ce test en début d'expérimentation et ont en plus reçu un mail de rappel 10 jours avant. Étonnamment, la part de participants venus à ce test est supérieure dans le groupe non incité (`r non_rendu_maths[1]` contre `r non_rendu_maths[2]` dans le groupe incité).  -->
+  
+\quad Tous les participants ne se sont pas effectivement inscrits à l'université <!--manque : deadlines d'inscription --> et tous ceux qui se sont inscrits ne sont pas forcément restés dans la formation pour passer les examens de mathématiques en fin de semestre. Ce sont des étudiants qui se sont réorientés ou qui ont abandonné, par exemple.<!-- Manque de clarté factuelle ici --> Plus de détails sont fournis dans la Section \@ref(g20data). 
+
+## Données {#g20data}
+
+Pour aboutir aux différents échantillons d'estimation, nous mobilisons trois sources distinctes de données : Parcoursup, la plateforme "J'ai 20 en maths" et APOGÉE. Deux à deux, les colonnes (1) à (6) du Tableau \@ref(tab:g20stats) décrivent ces données dans cet ordre. Dans les colonnes (1) à (4), une cellule vide signifie que la variable (en ligne) n'est pas originalement disponible dans la base correspondante. Les données décrites par les colonnes (3) et (4) correspondent à une jointure faite entre les données de la plateforme et les variables de Parcoursup pour visualiser la différence entre les inscrits de Parcoursup et ceux qui sont intéressés par la plateforme.<!--Intérêt--><!--La clef de jointure est le numéro Parcoursup. Nous avons vérifié que le mail de Parcoursup également aurait pu servir de clef de jointure. --> La clef de jointure est le mail renseigné dans Parcoursup.
+  
+\quad Pour rappel, la base Parcoursup <!--est la version extraite le 17 Août 2020 et-->concerne uniquement les néo-bacheliers ayant *a priori* choisi la Licence d'Économie et de Gestion de l'Université de La Réunion. Ces individus correspondent à la population d'individus qui souhaitent suivre cette licence à La Réunion et qui ont effectué un minimum de démarche d'admission à l'université.   
+Dans cette base, nous distinguons des identifiants individuels, des informations sur les caractéristiques individuelles des inscrits, sur leurs établissements d'origine, sur leurs profils et résultats au bac et sur leurs vœux de formation. 
+  
+Les identifiants individuels de la base Parcoursup sont l'adresse mail (Section \@ref(g20instproto)), un numéro unique Parcoursup, le nom et les prénoms. 
+  
+Quant aux caractéristiques individuelles des inscrits dans Parcoursup, nous connaissons le sexe, la date de naissance, le pays de naissance, la nationalité et le statut de boursier.  
+Il est intéressant de constater la prévalence des filles (63\%) parmi les inscrits à la licence (colonne 1 du Tableau \@ref(tab:g20stats)). Ceci correspond à une réalité française dans toutes les disciplines des études supérieures sauf en sciences fondamentales et applications et en sciences et technologies des activités physiques et sportives [@INS:20, pp. 99, par exemple].<!--Comparer avec la métropole si possible -->  
+Comme dans les chapitres précédents, nous utilisons la date de naissance pour calculer l'âge à la rentrée universitaire. Normalement, un étudiant a 18 ans à sa première année d'université. Vu que nous nous intéressons aux néo-bacheliers, il est normal d'observer des moyennes d'âge d'environ 18.5 ans ou un peu plus. Les individus qui font augmenter la moyenne d'âge sont ceux qui sont entré tardivement à l'école, ont redoublé ou ont arrêté temporairement leurs études. <!--Chiffres sur ceux qui redoublent au moins une fois -->Le premier panel de la Figure \@ref(fig:g20age26aoutcompl) de l'Annexe \@ref(g20age26aoutcompl) montre la distribution de l'âge à la rentrée des néo-bacheliers inscrits dans Parcoursup. Il est remarquable de constater des valeurs extrêmes d'âge de 30 ans ou plus. Leur effectif est toutefois largement négligeable.<!--La distribution est légèrement oblique à gauche, reflétant le fait qu'il y a relativement moins d'étudiants âgés plus de 18.5 ans.-->
+  
+```{r}
+pays_nais_fr_ps_neo <- paste((mean(ps_neo$pays_nais_fr_oui) * 100) %>% round, "\\%", sep = "")
+nationalite_fr_ps_neo <- paste((mean(ps_neo$nationalite_fr) * 100) %>% round, "\\%", sep = "")
+boursier_secondaire_ps_neo <- paste((mean(ps_neo$boursier_secondaire) * 100) %>% round, "\\%", sep = "")
+dep_etabv2_run_ps_neo <- paste((mean(ps_neo$dep_etabv2_run, na.rm = TRUE) * 100) %>% round, "\\%", sep = "")
+dep_etabv2_fr_hors_run_ps_neo <- paste((mean(ps_neo$dep_etabv2_fr_hors_run, na.rm = TRUE) * 100) %>% round, "\\%", sep = "")
+na_moy_bac_ps_neo <- paste(mean(is.na(ps_neo$moy_bac)) %>% (function (p) p * 100) %>% round, "\\%", sep = "")
+mention_diplome_ps_neo <- table(ps_neo$mention_diplome_ps) %>% prop.table %>% (function (p) p * 100) %>% round %>% paste("\\%", sep = "")
+filiere_ps_neo <- table(ps_neo$filiere_ps) %>% prop.table %>% (function (p) p * 100) %>% round %>% paste("\\%", sep = "")
+campus_ps_neo <- table(ps_neo$campus) %>% prop.table %>% (function (p) p * 100) %>% round %>% paste("\\%", sep = "")
+```
+
+Sans étonnement, la grande majorité des néo-bacheliers de Parcoursup sont nés en France (`r pays_nais_fr_ps_neo`) et de nationalité française (`r nationalite_fr_ps_neo`)^[Les modalités présentes de la variable de nationalité dans notre base se limitent à "Française" et "Hors union européenne". Il n'y a pas de valeurs manquantes. Cela suggère qu'il n'y a pas d'individus de nationalité d'un pays de l'Union Européenne autre que la France.].  
+Ils sont `r boursier_secondaire_ps_neo` à être boursiers de l'enseignement secondaire. 
+  
+\quad Les variables sur l'établissement d'origine sont le statut (public ou privé), le type (propose des formations postbac^[Nous n'avons pas plus de précision mais ce sont principalement les formations de Brevet de Technicien Supérieur (BTS) et de préparation aux grandes écoles.] ou non) et le département. Les individus viennent en grande majorité (96\%) d'un établissement public. Cela est en cohérence avec les proportions des statuts des établissements secondaires du système français.  
+Même si la grande majorité des inscrits viennent d'un établissement de La Réunion (`r dep_etabv2_run_ps_neo`), il y a une proportion non négligeable (`r dep_etabv2_fr_hors_run_ps_neo`) d'individus qui viennent d'un établissement français hors de La Réunion. 
+  
+En ce qui concerne le profil et les résultats au bac, les séries professionnelles représentent 25\% des néo-bacheliers. Ce chiffre est d'environ 30\% pour chacune des séries technologique et ES. Ceux en série S ne représentent que 8\% et les autres séries^[Séries L ou brevet professionnel, par exemple.] comptent pour 4\%. <!--Pour les néo, autre = L, mais pas pour ps_neo.-->
+Nous disposons également de la note globale, de la note aux épreuves écrites de français et de la note en mathématiques des individus. Pour les séries littéraires, les notes en français et en mathématiques sont toutes non renseignées. Pour les séries professionnelles, les notes en français ne sont pas renseignées.  <!--Pourquoi ?--> 
+Pour ces différentes raisons, nous retenons principalement la note globale dans nos modèles. Cette variable contient `r na_moy_bac_ps_neo` de valeurs manquantes. En 2020, ils ont une moyenne d'un peu moins de 12 sur 20.  
+La mention au bac est également disponible sans que nous n'ayons eu à la construire. Elle est globalement cohérente avec la note au bac. <!--Cette information est intéressante dans la mesure où elle est plus institutionalisée que la valeur de la note au bac.--> Elle contient moins de valeurs manquantes que la note au bac mais au vu de leur effectif, surtout dans nos échantillons d'estimation, cela n'affecte pas nos résultats. La part des inscrits n'ayant obtenu aucune mention est de `r mention_diplome_ps_neo[1]`. Ceux ayant obtenu les mentions assez bien, bien et très représentent respectivement `r mention_diplome_ps_neo[2]`, `r mention_diplome_ps_neo[3]` et `r mention_diplome_ps_neo[4]`. <!--Seulement 1\% ont été reçus au bac après rattrapage.--> 
+  
+La base Parcoursup nous permet enfin de connaître la filière et le campus choisis par les inscrits de Parcoursup. Parmi les néo-bacheliers, ils sont `r filiere_ps_neo[1]` en AES et `r filiere_ps_neo[2]` en Eco-Ge ; `r campus_ps_neo[1]` au Sud et `r campus_ps_neo[2]` au Nord.   
+  
+\quad Les statistiques descriptives pour les inscrits de Parcoursup intéressés par la plateforme (voir Section \@ref(g20instproto)) sont données par les colonnes (3) et (4) du Tableau \@ref(tab:g20stats). Nous rappelons que les inscrits intéressés comptent significativement plus de séries ES et S, de filles, d'individus nés à l'étranger et venant d'un territoire français autre que La Réunion. 
+  
+\quad Dans la base issue de la plateforme "J'ai 20 en maths", pour chaque jour de l'expérimentation, nous connaissons le nombre de connexions, d'exercices corrigés vus^[Nous ne savons pas si le participant a effectué l'exercice ou non.], le nombre de vidéos visionnées et le nombre de vidéos visionnées entièrement. Pour mesurer l'utilisation de la plateforme, nous retenons la somme par individu, du 01^er^ juillet au 10 septembre 2020, des vidéos visionnées entièrement, la somme des vidéos visionnées et la somme des exercices vus. Pour tenter d'avoir une mesure synthétique, même imparfaite de l'utilisation de la plateforme, nous considérons également la somme jusqu'au 10 septembre 2020 des vidéos visionnées entièrement *ou* d'exercices vus ainsi que la somme des vidéos visionnées *ou* d'exercices vus. Nous ne retenons pas le nombre de connexion dans nos régressions puisqu'il contient la même information que les autres mesures ci-dessus.  
+Parmi les néo-bacheliers intéressés, 20\% ne se sont pas connectés à la plateforme. Pour ces individus, nous ramenons les différentes mesures de l'utilisation de la plateforme ci-dessous à zéro. Cela permet de garder les observations correspondantes dans les estimations et nous avons vérifié que les ampleurs des coefficients estimés sont robustes à l'exclusion ou non de ces observations. Cette robustesse est attendue puisque la part d'inscrits qui se sont connectés au moins une fois est significativement plus grande parmi les incités (88\%) que parmi les non incités (74\%).  
+Empiriquement, les participants ont très peu visionné les vidéos jusqu'à la fin au vu de la moyenne de `r mean(pg20_neo$videos_comp_tot) %>% round(2)` et de la part de participants ayant visionné au moins une vidéo jusqu'à la fin qui est de 12\%. Le nombre moyen d'exercices vus de 10.8 qui apparaît important est dû à des valeurs extrêmes de l'ordre de 200 exercices vus. La médiane des exercices vus est de 2 et 37\% des participants n'ont vu aucun exercice. 
+Au final, les participants *a priori* intéressés par la plateforme l'ont très peu utilisée.
+  
+\quad Les fichiers extraits d'APOGÉE contiennent principalement les notes des étudiants. Les identifiants individuels sont le numéro étudiant (qui n'est pas le numéro Parcoursup), le nom, un prénom, la date de naissance. La filière est également disponible. Nous nous sommes limités aux notes de mathématiques du premier semestre de l'année 2020-2021. Étant donné la courte durée de l'expérimentation de 4 semaines, il nous paraît plutôt improbable que d'éventuels effets puissent subsister jusqu'aux examens du second semestre. Nous laissons l'analyse de l'impact de l'utilisation de la plateforme pendant une plus longue durée à d'éventuelles futures recherches.   
+Les statistiques descriptives correspondantes sont montrées par les colonnes (5) et (6) du Tableau \@ref(tab:g20stats).  
+Plus précisément, ces fichiers contiennent les notes aux TD et aux examens de mathématiques et la moyenne de ces deux dernières (notes à l'UE de mathématiques) pour tous les étudiants inscrits à ces évaluations. Les notes aux TD et aux examens compte chacune pour 50\% de la note à l'UE. Ce sont des notes sur 20 points. Nous avons pu récupérer les notes aux UE de gestion et d'économie. La Section \@ref(g20methods) en détaille l'utilité.  
+Nous comptons 1763 étudiants inscrits aux examens. 
+Dans les fichiers APOGÉE, les notes à l'UE sont mises à 0 pour les étudiants qui ne se sont pas présentés aux examens. Pour les notes aux TD et au contrôle terminal, ce sont des valeurs manquantes. Cela explique le faible pourcentage de valeurs manquantes de 1\% dans la note à l'UE et les pourcentages plus forts de 21\% et de 30\% dans les notes aux TD et aux examens, respectivement. Ces pourcentages élevés correspondent en partie au fait que des étudiants *a priori* inscrits dans la formation ne la prennent finalement pas. 
+Au vu des moyennes de 6 points sur 20 aux TD et de 3 points sur 20 aux examens, le niveau en mathématiques de la promotion est faible.  
+
+<!-- Les pourcentages des filières sont légèrement différents (74\% en AES et 26\% en Eco-Ge) par rapport aux inscrits sur Parcoursup (73\% en AES et 27\% en Eco-Ge). Cette différence peut refléter la réorientation des étudiants entre ces deux filières.   -->
+Même si les examens ne sont pas comparables entre les deux filières et même si les évaluations aux TD le sont encore moins puisqu'elles diffèrent en fonction du groupe de TD (voir Section \@ref(g20inst)), il peut être intéressant de comparer les différentes notes à travers les filières. <!--Annexe montrant les sujets et discutant dessus -->
+Les néo-bacheliers en Eco-Ge ont clairement de meilleures notes mais demeurent de faible niveau^[Ils ont une moyenne de 3 points, une médiane de 2.5 points et comptent 24\% d'étudiants ayant obtenu au moins 10 points au contrôle terminal. Ces chiffres sont respectivement de 2.5 points, de 0.5 points et de 7\% chez les étudiants d'AES.]. Il n'y a pas de raison de croire que l'examen des étudiants en Eco-Ge est significativement plus facile que celui des étudiants en AES. Les sujets des étudiants en Économie et en AES aux examens en décembre 2020 que nous avons pu observer vont d'ailleurs dans ce sens. La différence de note reflète alors très probablement la différence de niveau des étudiants entre les deux filières. 
+
+\quad Parmi les `r nrow(pg20_neo)` individus intéressés, `r nrow(datg20_neo)` (colonne 7) se sont effectivement inscrits. Nous repérons ces derniers grâce aux fichiers d'APOGÉE décrits ci-dessus.  
+  
+\quad Pour construire nos échantillons d'estimation, il a été nécessaire de passer par deux jointures successives. La première est une jointure entre la base issue de la plateforme et la base Parcoursup. Cette jointure est très directe puisque la clef de jointure est le mail provenant de Parcoursup qui a ensuite été transmis aux responsables de la plateforme pour création de compte (voir Section \@ref(g20inst))^[Il convient de mentionner que cela a été fait par un collègue de recherche.]. La seconde jointure se fait entre le résultat de la première jointure et la base APOGÉE. Dans celle-ci, nous récupérons l'ensemble des étudiants à la fois participants à l'expérimentation et inscrits aux examens de mathématiques du premier semestre 2020. Cette seconde jointure est moins directe puisque nous utilisons le nom, le(s) prénom(s) et la date de naissance comme clefs de jointure^[Dans la base APOGÉE, seul un prénom est renseigné. La base Parcoursup renseigne quant à elle jusqu'à trois prénoms. Nous nous sommes assurés de ne pas perdre d'individus dans les jointures à cause de ces faits.]. Le résultat est une base de `r nrow(datg20_neo)` individus contenant les informations sur les individus, sur leur établissement d'origine (variables de contrôle), sur leur utilisation de la plateforme (variables explicatives d'intérêt) et sur leurs résultats de mathématiques (variables dépendantes). Les statistiques correspondantes sont montrées par les colonnes (7) et (8) du Tableau \@ref(tab:g20stats).  
+  
+\quad Les parts des valeurs manquantes dans les notes aux TD (16\%) et aux examens (13\%) sont non négligeables.  
+D'après le Tableau \@ref(tab:g20compinscvenutd0venutd1) de l'Annexe \@ref(g20compinscvenutd0venutd1), ceux qui ont une note aux TD sont significativement meilleurs au bac, et sont plus constitués de série S et ES. Les chiffres sur l'utilisation de la plateforme sont également clairement différents mêmes si ces différences ne sont pas détectées par nos tests statistiques. Par exemple, la proportion de ceux qui ont vu au moins une vidéo entière ou un exercice est de 68\% chez ceux qui ont une note aux TD contre 57\% chez ceux qui n'ont n'en pas.  
+En observant le Tableau \@ref(tab:g20compinscvenuctqcm0venuctqcm1) de l'Annexe \@ref(g20compinscvenuctqcm0venuctqcm1), la sélection de ceux qui ont une note aux examens est moins sévère mais existe toujours. Les conditions d'attribution de la bourse^[Nous supposons que les boursiers du secondaire restent majoritairement boursiers en première année d'université.] qui incitent fortement les étudiants à se présenter aux examens (et non pas aux TD) constituent une explication naturelle de la différence de l'intensité de la sélection entre ceux qui ont une note aux TD et ceux qui ont une note aux examens.  
+  
+Les colonnes (9) et (10) ; et (11) et (12)  du Tableau \@ref(tab:g20stats) donnent les statistiques descriptives de l'échantillon d'estimation pour ceux qui ont une note aux TD et pour ceux qui ont une note aux examens, respectivement. 
+
+```{r, "g20stats"}
+act <- NA
+kable(g20stats_compl %>% 
+        ## # J'inverse inscrits et nm : 
+        ## (function (d) {
+        ##   d2 <- d
+        ##   d2[, 8:9] <- d[, 6:7]
+        ##   d2[, 6:7] <- d[, 8:9]
+        ##   d2
+        ## }) %>% 
+        apply(2, function (x) ifelse(is.na(x), "-", x)) %>% 
+        (function (d) {
+          d[, 1] <- d[, 1] %>% g20replace0() %>% 
+            str_replace("Totale$", "Note au bac")
+          d
+        }) %>% 
+        
+        set_colnames(c(" ", 
+                       c("\\makecell{Moyenne \\\\ (Écart-type)}",
+                       "\\makecell{Proportion \\\\ manquantes}") %>% 
+                         rep(6) %>% col_numbers())),
+      booktabs = TRUE, longtable = TRUE, escape = FALSE,
+      linesep = "",
+      caption = "Statistiques descriptives") %>% 
+  kable_styling(font_size = 5) %>% 
+  group_rows("Notes", 1, 3) %>% 
+  group_rows("Plateforme", 4, 14) %>% 
+  group_rows("Notes au bac", 15, 17) %>% 
+  group_rows("Série au bac", 18, 22) %>% 
+  group_rows("Mention au bac", 23, 26) %>% 
+  group_rows(" ", 27, 27) %>% 
+  group_rows("Sexe", 28, 29) %>% 
+  group_rows("Pays de naissance", 30, 31) %>% 
+  group_rows("Nationalité", 32, 33) %>% 
+  group_rows("Statut de boursier", 34, 35) %>% 
+  group_rows("Statut de l'établissement d'origine", 36, 37) %>% 
+  group_rows("Type de l'établissement d'origine", 38, 39) %>% 
+  group_rows("Département de l'établissement d'origine", 40, 42) %>% 
+  group_rows("Campus", 43, 44) %>% 
+  group_rows("Filière (Parcoursup)", 45, 46) %>%
+  group_rows("Filière", 47, 48) %>% 
+  group_rows(" ", 49, 49) %>% 
+  add_header_above(c(" ", "Parcoursup (tous)" = 2,
+                     "Parcoursup (intéressés)" = 2,
+                     "Notes de mathématiques" = 2,
+                     "Inscrits" = 2, 
+                     "\\\\makecell{Inscrits - Ayant une note \\\\\\\\ aux TD}" = 2,
+                     "\\\\makecell{Inscrits - Ayant une note \\\\\\\\ aux examens}" = 2), escape = FALSE) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge (version 17 Août 2020), plateforme '\\\\textit{J'ai 20 en maths}' - APOGÉE (version extraite en mai 2021)",
+    "\\\\textit{Notes :} Moyennes et proportions. Écart-types entre parenthèses. UE : Unité d'enseignement, ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale, Eco-Ge : Économie-Gestion. Les valeurs des variables liées à la plateforme (vidéos visionnées entièrement ou non et/ou exercices) sont mises à 0 pour ceux qui ne se sont pas connecter."
+    )) %>% 
+  landscape()
+```
+
+## Modélisation économétrique {#g20methods}
+
+Afin de savoir si réviser les mathématiques dy lycée sur la plateforme *"J'ai 20 en maths"* impacte effectivement les performances en mathématiques des étudiants en première année de Licence d'Économie et Gestion, nous nous proposons d'estimer l'équation d'intérêt suivante : 
+
+```{=tex}
+\begin{equation}
+(\#eq:g20ols)
+y_i^{l1} = \sigma_0 + \sigma_1 g_i + x'_i \sigma_2 + \phi_i. 
+\end{equation}
+```
+
+Dans l'Équation \@ref(eq:g20ols), $y_i^{l1}$ peut désigner une note (aux TD ou à l'examen final) de mathématiques au premier semestre de l'année universitaire 2020-2021 de l'étudiant $i$. Elle peut également désigner la note aux UE de gestion ou d'économie (des matières). Nous revenons sur l'intérêt de cette considération plus bas dans la présente section. La variable $g_i$ est notre variable explicative d'intérêt. Elle désigne une des mesures de l'utilisation de la plateforme décrites dans la section précédente. Un intérêt naturel de considérer ces différentes mesures est l'analyse de la robustesse des résultats. 
+  
+\quad Sauf mention contraire, le vecteur $x'_i$ est constitué des variables de contrôle suivantes : la note au bac, la série au bac, le sexe, le pays de naissance, le statut de boursier, le statut de l'établissement d'origine et le département de l'établissement d'origine (voir Section \@ref(g20data), Tableau \@ref(tab:g20stats), par exemple). Nous omettons la nationalité puisque dans nos données, elle est très corrélée avec le pays de naissance en plus du fait que le pays de naissance est "plus exogène" que la nationalité. Un individu ne peut en effet pas choisir son pays de naissance mais peut "choisir" sa nationalité s'il est plus ambitieux, par exemple. Et l'ambition est elle-même corrélée avec la réussite scolaire [@JUD:KAM:12, par exemple].    
+Dans la même logique, nous omettons le type de l'établissement d'origine vu que cette variable est très corrélée avec le statut de l'établissement d'origine dans nos données. À notre sens, le statut de l'établissement d'origine est plus pertinent par rapport à son type puisqu'il ne semble pas y avoir de faits stylisés indiquant une différence de niveau systématique entre les lycées issus d'établissements avec ou sans formation postbac (type d'établissement) alors qu'il est connu que les lycées privés attirent des élèves *a priori* plus forts en France [@PEL:12, par exemple]^[Cela est également vrai dans un contexte plus large que le contexte français [@BAR:ROU:09]].
+  
+\quad Le terme d'erreur $\phi_i$ désigne par définition l'ensemble des facteurs inobservés par le chercheur qui déterminent $y_i^{l1}$. Nous rappelons que le talent et la motivation constituent deux exemples typiques dans la littérature.
+
+\quad Le paramètre d'intérêt est $\sigma_1$. Son interprétation exacte dépend de la spécification considérée $g_i$. 
+  
+\quad Les étudiants ne choisissent pas au hasard à quel point ils utilisent la plateforme. Les plus capables et/ou les plus motivés vont vraisemblablement plus l'utiliser. Or, ces derniers ont tendance à avoir des caractéristiques inobservées favorables aux notes de mathématiques.
+Cela se traduit par une corrélation positive entre $g_i$ et $\phi_i$. Dans ce chapitre, nous profitons de l'existence du protocole pour justifier ce postulat en régressant les variables d'utilisation de la plateforme sur les variables de contrôle pour les participants non incités^[Nous utilisons l'échantillon des néo-bacheliers inscrits (colonnes 7 et 8 du Tableau \@ref(tab:g20stats)) pour maximiser la puissance statistique. Les conclusions sont les mêmes sur les échantillons de ceux qui ont une note aux TD ou aux examens.]. Comme l'incitation a été attribuée de manière aléatoire, les non incités représentent une bonne approximation de la population des inscrits dans un monde sans protocole. S'il y a une corrélation positive entre l'utilisation de la plateforme et les observables favorables aux performances en mathématiques, il est raisonnable de penser que cette corrélation existe également entre l'utilisation de la plateforme et les inobservables. Les résultats desdites régressions montrées dans le Tableau \@ref(tab:g20ovbmodels) de l'Annexe \@ref(g20ovbmodels) vont dans ce sens puisqu'indépendamment de la mesure d'utilisation de la plateforme considérée (colonnes 1 à 5), à série égale, ceux qui ont eu une meilleure note au bac ont plus utilisé la plateforme. De la même manière, à note au bac égale, les séries ES et S ont plus utilisé la plateforme, excepté lorsque l'utilisation est mesurée par le nombre de vidéos visionnées entièrement. Les coefficients devant les autres observables sont relativement de plus faible ampleur et sont non significatifs. 
+  
+Estimer l'équation \@ref(eq:g20ols) par moindres carrés ordinaires ferait alors ressortir *a priori* une estimation biaisée vers le haut de $\sigma_1$.  
+  
+\quad Le protocole d'encouragement (Section \@ref(g20instproto)) a été mis en place pour surmonter ce problème. Du point de vue de la modélisation, l'incitation, qui a été assignée aléatoirement aux participants, est censée générer une variation exogène dans l'intensité d'utilisation de la plateforme. Elle est alors par construction une variable instrumentale de la variable explicative d'intérêt. Nous écrivons l'équation de première étape comme suit :
+  
+```{=tex}
+\begin{equation}
+(\#eq:g20pe)
+g_i = \tau_0 + \tau_1 z_i + x'_i \tau_2 + \psi_i.
+\end{equation}
+```
+
+Au sein de l'équation \@ref(eq:g20pe), $z_i$ est une indicatrice qui vaut 1 si l'étudiant $i$ est incité et 0 si non. Nous n'avons pas d'autre spécification de l'incitation. Des incitations à intensité variable nous aurait permis de tester indirectement l'hypothèse de la restriction d'exclusion développée plus bas. La variable $\psi_i$ est le terme d'erreur usuel. Le paramètre $\tau_1$ est le coefficient de première étape d'intérêt. Il désigne l'effet d'être incité sur l'intensité d'utilisation de la plateforme et nous permet de savoir dans quelle mesure envoyer 4 mails espacés d'environ 10 jours pendant 4 semaines modifie le comportement moyen des étudiants vis à vis de la plateforme. 
+  
+\quad Nous rappelons qu'il y a deux conditions de validité de $z_i$ qui sont l'exogénéité et l'existence de corrélation avec $g_i$.  
+La condition d'exogénéité est elle-même constituée de deux hypothèses. La première est que l'incitation doit être considérée comme au moins proche de l'aléatoire. Dans l'Équation \@ref(eq:g20pe), elle se traduit par l'absence de corrélation entre $z_i$ et $\psi_i$. Cette condition est aisément vérifiée dans notre cas puisque l'incitation a été explicitement assignée de manière aléatoire aux inscrits de Parcoursup. Toutefois, au vu des différents phénomènes de sélection décrits dans les Sections \@ref(g20instuniv) et \@ref(g20data) entre les inscrits de Parcoursup et ceux ayant une note aux TD ou aux examens , il nous faut vérifier si cette assignation aléatoire est reflétée jusqu'à nos deux échantillons d'estimation (colonnes 9 et 10 ; et 11 et 12 du Tableau \@ref(tab:g20stats)). Pour ce faire, nous comparerons les caractéristiques prédéterminées des participants en fonction de l'incitation dans chaque échantillon pertinent, c'est-à-dire à partir des inscrits de Parcoursup (non néo-bacheliers y compris) jusqu'aux néo-bacheliers qui se sont présentés aux examens de mathématiques. Le Tableau \@ref(tab:g20compintz0z1all) de l'Annexe \@ref(g20compintz0z1all) effectue une telle comparaison sur tous les intéressés de Parcoursup (non néo-bacheliers y compris) et montre clairement que les caractéristiques prédéterminées sont comparables entre les individus non incités et incités. Cela reste vérifié lorsque nous ne considérons que les néo-bacheliers (Tableau \@ref(tab:g20compintz0z1) de l'Annexe \@ref(g20compintz0z1)).  
+  
+Chez les néo-bacheliers, les tests détectent qu'une légère sélection se produit entre les intéressés et les inscrits (Tableau \@ref(tab:g20compintinsc) de l'Annexe \@ref(tab:g20compintinsc)) puisque ceux qui se sont effectivement inscrits sont significativement plus jeunes et ont une composition différente en série au bac. Nous pensons toutefois que les étudiants inscrits restent représentatifs des ceux intéressés par la plateforme au vu de la grande proportion d'inscrits (85\%) et du fait que les autres caractéristiques (notes au bac, mention au bac, sexe, etc.) sont comparables.  
+  
+Chez les néo-bacheliers inscrits, l'assignation aléatoire de l'instrument reste clairement reflétée par le fait que les caractéristiques des non incités sont comparables à celles des incités (Tableau \@ref(tab:g20compinscz0z1) de l'Annexe \@ref(tab:g20compinscz0z1)). 
+  
+\quad Nous en venons aux deux échantillons d'estimation qui sont ceux, parmi les néo-bacheliers intéressés et inscrits, qui disposent d'une note aux TD et qui disposent d'une note aux examens. Les comparaisons correspondantes en fonction de l'incitation sont montrées dans les Tableaux \@ref(tab:g20compvenustdz0z1) et \@ref(tab:g20compvenusctqcmz0z1), respectivement^[À ce niveau, nous n'analysons pas encore les variables dans la plateforme dans ces tableaux.]. A première vue, aucune différence statistiquement significative n'est détectée. Les différences marquantes dans le Tableau \@ref(tab:g20compvenustdz0z1) concernent les proportions de séries professionnelles (13\% chez les non incités contre 6\% chez les incités) et technologiques (22\% chez les non incités contre 32\% chez les incités). Au vu de nos effectifs de plus en plus réduits, de telles différences peuvent survenir par (mal-)chance. Deux éléments nous rassurent. Le premier est que les différences sur les autres variables ne semblent pas économiquement significatives excepté sur le département de l'établissement d'origine. Le second élément est que de telles différences, lorsqu'elles ne sont pas trop importantes, sont neutralisées par l'inclusion des variables de contrôle dans nos régressions. Dans le Tableau \@ref(tab:g20compvenusctqcmz0z1), nous n'observons pas de différence économiquement ou statistiquement significative.
+
+\newpage
+```{r, "g20compvenustdz0z1"}
+act <- NA
+g20comp_venus_td_z0_z1 %>% 
+  (function (d) {
+    d[nchar(str_trim(rownames(d))) != 0, ]
+  }) %>% 
+  (function (d) {
+    rownames(d) <- 
+    rownames(d) %>% str_replace("note_td", "Note aux TD") %>% 
+      str_replace("note_ctqcm", "Note aux examens") %>% 
+      g20replace0()
+    d}) %>% 
+  set_colnames(c(c("\\makecell{Non incités \\\\ \\ }",
+                   "\\makecell{Incités \\\\ \\ }"
+                 ## "\\makecell{Proportion \\\\ manquantes}"
+                 ) 
+                 ## %>% 
+                 ## rep(2)
+                 ,
+               "\\makecell{(1) = (2) \\\\ probabilité critique}") %>% 
+                 col_numbers()) %>% 
+  (function (d) d %>% 
+  kable(booktabs = TRUE, escape = FALSE, longtable = TRUE,
+        linesep = "", 
+        caption = "Comparaison entre les étudiants non incités et incités (Ayant une note aux TD)") %>% 
+  kable_styling(font_size = 6) %>% 
+  group_rows("Note au bac", 1, 3) %>%
+  group_rows("Série au bac", 4, 8) %>%
+  group_rows("Mention au bac", 9, 12) %>%
+  group_rows(" ", 13, 13) %>%
+  group_rows("Sexe", 14, 15) %>%
+  group_rows("Pays de naissance", 16, 17) %>%
+  group_rows("Nationalité", 18, 19) %>%
+  group_rows("Statut de boursier", 20, 21) %>%
+  group_rows("Statut de l'établissement d'origine", 22, 23) %>%
+  group_rows("Type de l'établissement d'origine", 24, 25) %>%
+  group_rows("Département de l'établissement d'origine", 26, 28) %>%
+  group_rows("Campus", 29, 30) %>%
+  group_rows("Filière", 31, 32) %>%
+    group_rows("Plateforme", 33, 43) %>% 
+    group_rows("Résultats", 44, 46) %>% 
+  group_rows(" ", nrow(d), nrow(d)) %>%
+  ## add_header_above(c(" ", 
+  ##                    "Non incités" = 2, 
+  ##                    "Incités" = 2, " ")) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge (version 17 Août 2020), plateforme '\\\\textit{J'ai 20 en maths}' - APOGÉE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Moyennes et proportions. Écart-types entre parenthèses. Les probabilités critiques correspondent à des tests de comparaison de moyennes pour les variables quantitatives et à des tests de comparaison de proportions pour les variables qualitatives. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    ))
+  )
+```
+
+\newpage
+```{r, "g20compvenusctqcmz0z1"}
+g20comp_venus_ctqcm_z0_z1 %>% 
+  (function (d) {
+    d[nchar(str_trim(rownames(d))) != 0, ]
+  }) %>% 
+  (function (d) {
+    rownames(d) <- 
+    rownames(d) %>% str_replace("note_td", "Note aux TD") %>% 
+      str_replace("note_ctqcm", "Note aux examens") %>% 
+      g20replace0()
+    d}) %>% 
+  set_colnames(c(c("\\makecell{Non incités \\\\ \\ }",
+                   "\\makecell{Incités \\\\ \\ }"
+                 ## "\\makecell{Proportion \\\\ manquantes}"
+                 ) 
+                 ## %>% 
+                 ## rep(2)
+                 ,
+               "\\makecell{(1) = (2) \\\\ probabilité critique}") %>% 
+                 col_numbers()) %>% 
+  (function (d) d %>% 
+  kable(booktabs = TRUE, escape = FALSE, longtable = TRUE,
+        linesep = "", 
+        caption = "Comparaison entre les étudiants non incités et incités (Ayant une note aux examens)") %>% 
+  kable_styling(font_size = 5.75) %>% 
+  group_rows("Note au bac", 1, 3) %>%
+  group_rows("Série au bac", 4, 8) %>%
+  group_rows("Mention au bac", 9, 12) %>%
+  group_rows(" ", 13, 13) %>%
+  group_rows("Sexe", 14, 15) %>%
+  group_rows("Pays de naissance", 16, 17) %>%
+  group_rows("Nationalité", 18, 19) %>%
+  group_rows("Statut de boursier", 20, 21) %>%
+  group_rows("Statut de l'établissement d'origine", 22, 23) %>%
+  group_rows("Type de l'établissement d'origine", 24, 25) %>%
+  group_rows("Département de l'établissement d'origine", 26, 28) %>%
+  group_rows("Campus", 29, 30) %>%
+  group_rows("Filière", 31, 32) %>%
+    group_rows("Plateforme", 33, 43) %>% 
+    group_rows("Résultats", 44, 46) %>% 
+  group_rows(" ", nrow(d), nrow(d)) %>%
+  ## add_header_above(c(" ", 
+  ##                    "Non incités" = 2, 
+  ##                    "Incités" = 2, " ")) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge (version 17 Août 2020), plateforme '\\\\textit{J'ai 20 en maths}' - APOGÉE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Moyennes et proportions. Écart-types entre parenthèses. Les probabilités critiques correspondent à des tests de comparaison de moyennes pour les variables quantitatives et à des tests de comparaison de proportions pour les variables qualitatives. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    ))
+  )
+```  
+  
+\quad Tous ces éléments nous donnent suffisamment de raison de penser que sur nos deux échantillons d'estimation, nous pouvons considérer que les variables $z_i$ et $\psi_i$ ne sont pas corrélées dans l'équation de première étape (Équation \ref{eq:g20pe}).
+  
+\quad La seconde hypothèse d'exogénéité est la restriction d'exclusion. Selon cette dernière, l'incitation ne doit affecter  les résultats en mathématiques que via l'utilisation de la plateforme. La restriction d'exclusion ne serait pas vérifiée si l'incitation motive les étudiants à aller réviser les mathématiques elles-mêmes via un effet de prise de conscience personnelle, par exemple. Cette hypothèse n'est pas directement testable mais nous avons des éléments pour en discuter. Pour ce faire, nous montrons d'abord les mails envoyés aux incités dans la Figure \@ref(fig:g20mails) de l'Annexe \@ref(g20mails). En plus du fait que ces mails ont été espacés de 10 jours chacun, leurs formulations nous laissent difficilement penser qu'ils auraient pu motiver les étudiants à travailler les mathématiques hors de la plateforme. Ensuite, nous pensons que les valeurs manquantes dans les notes de mathématiques peuvent donner une information sur le comportement des étudiants vis à vis des mathématiques. Plus précisément, s'il se trouve que l'incitation affecte la probabilité d'avoir une note aux TD (surtout) ou aux examens, nous pouvons "craindre" que cela soit le reflet d'un meilleur comportement des étudiants vis à vis des mathématiques (plus de motivation, typiquement). Après vérification avec des modèles de probabilité linéaire et probit (non reportés), l'incitation n'a clairement pas d'effet sur la probabilité d'avoir une note aux TD ou aux examens. Il est aussi possible que la probabilité d'avoir une note ait été influencée par l'incitation en passant par l'utilisation de la plateforme. Nous pouvons imaginer des étudiants en moyenne qui, après avoir utilisé la plateforme, ont une meilleure attitude vis à vis des mathématiques, notamment en se présentant aux évaluations. Dans ce cas, il ne s'agit pas d'un problème de restriction d'exclusion. Nous avons vérifié que l'estimation par variable instrumentale de l'utilisation de la plateforme sur la probabilité d'avoir une note aux TD ou aux examens et avons trouvé des coefficients non significatifs et largement négligeables.  
+  
+Le Tableau \@ref(tab:g20exclrestrmodels) montre les résultats d'estimation de la forme réduite sur les notes aux UE de gestion et d'économie. Nous voyons que nous pouvons craindre un effet direct de l'incitation sur la note en gestion (0.2 UET, colonne 1)^[Le coefficient de 8 points de pourcentage sur la probabilité d'avoir la moyenne en gestion est également à considérer même s'il est estimé de manière imprécise.] uniquement parmi ceux ayant une note aux TD. Cela est possible si les étudiants incités ont voulu se rattraper dans la matière de gestion uniquement grâce à l'incitation. Toutefois, nous avons déjà justifié que la forme des mails envoyés ne donnait pas de crédit à cette possibilité. En plus, nous montrerons dans les résultats que cet effet de 0.2 UET détecté dans le Tableau \@ref(tab:g20exclrestrmodels) est le reflet de l'effet de l'utilisation de la plateforme elle-même, ce qui ne constitue pas une violation de la restriction d'exclusion. 
+
+<!-- NB : en parler avec M. Croissant ou revoir soi-même. -->
+```{r, "g20exclrestrmodels"}
+g20exclrestrmodels %>% set_colnames(NULL) %>% 
+  (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}) %>% 
+  set_colnames(c(" ", 
+                 c("\\makecell{Note en gestion \\\\ \\ }", 
+                   "\\makecell{Note en gestion \\\\ $\\geq 10$}",
+                   "\\makecell{Note en économie \\\\ \\ }",
+                   "\\makecell{Note en économie \\\\ $\\geq 10$}") %>% 
+                   rep(2) %>% col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE, 
+        caption = "Effets potentiels de l'incitation dans d'autres matières") %>% 
+  kable_styling(font_size = 7) %>% 
+  add_header_above(c(" ",
+                     "Variable dépendante : " = 8)) %>% 
+  add_header_above(c(" ", 
+                     "Ayant une note aux TD" = 4, "Aux une note aux examens" = 4)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge (version 17 Août 2020), plateforme '\\\\textit{J'ai 20 en maths}' - APOGÉE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Moindres carrés ordinaires. Écart-types robustes entre parenthèses. 
+    Les variables dépendantes sont des notes normalisées sauf pour les modèles de probabilité linéaire. Une colonne correspond à une régression. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    )) %>% 
+  landscape()
+```
+
+
+\quad La seconde condition de validité de $z_i$ est qu'elle doit être corrélée avec $g_i$. Plus précisément, les incités devraient plus utiliser la plateforme que les non incités. Dans le cas présent, il est nécessaire de différencier les différentes mesures d'utilisation de la plateforme puisqu'il est raisonnable de penser qu'être incité ne ferait pas réagir tous les individus de la même manière, selon des facteurs tels que les préférences ou le niveau initial en mathématiques : certains iraient voir plus de vidéos alors que d'autres feraient plus d'exercices. Aussi, le temps passé à regarder des vidéos correspond à du temps en moins disponible pour regarder des exercices.  
+  
+Cette condition est quant à elle directement testable en estimant l'Équation \@ref(eq:g20pe) pour chaque mesure de l'utilisation de la plateforme. Les tableaux \@ref(tab:g20pemodelsvenustd) et \@ref(tab:g20pemodelsvenusctqcm) montrent le résultat de cet exercice sur ceux qui ont une note aux TD et aux examens, respectivement. Particulièrement, nous pouvons assurément affirmer qu'inciter les étudiants par mail n'a pas d'effet sur le nombre de vidéos regardés au vu du coefficient de 1 devant l'incitation (colonnes 4 des deux tableaux) comparé au coefficient de 6 (colonnes 5 des deux tableaux). Par ailleurs, ce coefficient de 6 n'est que marginalement significatif au seuil de 10\% sur l'échantillon de ceux qui ont une note aux examens. Le seul coefficient significatif^[De manière robuste selon les variables de contrôles utilisées.] est l'effet estimé de l'incitation sur les vidéos visionnées jusqu'à la fin (colonnes 3 des deux tableaux). L'ampleur de ce coefficient est d'un peu moins de 1. Nous n'avons pas d'élément de comparaison dans la littérature pour affirmer objectivement que regarder entièrement une vidéo de plus dans une période de 4 semaines est importante ou non^[Même exprimer cet effet en unité d'écart-type est difficilement crédible.]. Cependant, comparé à la très faible moyenne de 0.8 environ (Tableau \@ref(tab:g20stats)), cet effet est relativement important. L'effet des vidéos visionnées entièrement est donc celui que nous analyserons en priorité. 
+  
+Les signes et ampleurs des coefficients devant les variables de contrôle sont comparables à ceux des régressions effectuées sur les inscrits non incités discutées plus haut (Tableau \@ref(tab:g20ovbmodels) de l'Annexe \@ref(g20ovbmodels)). 
+  
+\quad Ceci étant dit, l'instrument apparaît faible au vu des statistiques de Fisher associés largement inférieurs à 10 [@STA:STO:97]. La spécification linéaire de l'équation de première étape peut en être la cause puisque les variables de mesure de l'utilisation de la plateforme sont des données de comptage. Nous avons essayé des spécifications potentiellement plus adaptées (régressions de Poisson ou binomiale négative^[La régression binomiale négative est plus appropriée dans le sens où la variance et la moyenne des variables d'utilisation de la plateforme sont largement différents, ce qui constitue un argument fort en défaveur des régressions de Poisson.]) et trouvons des coefficients de plus forte ampleur tout en étant plus significatifs.  
+Il est à noter que, sous réserve de la validité de l'instrument, la distribution de la variable dépendante de la première étape n'est pas une considération de premier ordre dans l'estimation de l'équation de structurelle par variable instrumentale [@WOO:02, par exemple]. 
+  
+  
+```{r, "g20pemodelsvenustd"}
+act2 <- NA
+g20pemodels_venus_td %>% set_colnames(NULL) %>% 
+  ## Sélection des lignes. On prend tout. 
+  
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- d[, 1] %>% g20replace
+    d
+      
+  }) %>% 
+  set_colnames(c(" ",
+                 c("Vidéos complètes et exercices",
+                   "Vidéos et exercices",
+                   "Vidéos complètes",
+                   "Vidéos",
+                   "Exercices") %>% 
+                   col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE, 
+        caption = "Résultats de première étape (Ayant une note aux TD)") %>% 
+  kable_styling(font_size = 8) %>% 
+  add_header_above(c(" ",
+                     "Variable dépendante : " = 5)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge (version 17 Août 2020), plateforme '\\\\textit{J'ai 20 en maths}' - APOGÉE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Moindres carrés ordinaires. Écart-types robustes entre parenthèses. 
+    Les variables dépendantes sont exprimées en comptages. Une colonne correspond à une régression. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    )) %>% 
+  landscape()
+```
+
+```{r, "g20pemodelsvenusctqcm"}
+act2 <- NA
+g20pemodels_venus_ctqcm %>% set_colnames(NULL) %>% 
+  ## Sélection des lignes. On prend tout. 
+  
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- d[, 1] %>% g20replace
+    d
+      
+  }) %>% 
+  set_colnames(c(" ",
+                 c("Vidéos complètes et exercices",
+                   "Vidéos et exercices",
+                   "Vidéos complètes",
+                   "Vidéos",
+                   "Exercices") %>% 
+                   col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE, 
+        caption = "Résultats de première étape (Ayant une note aux examens)") %>% 
+  kable_styling(font_size = 8) %>% 
+  add_header_above(c(" ",
+                     "Variable dépendante : " = 5)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge (version 17 Août 2020), plateforme '\\\\textit{J'ai 20 en maths}' - APOGÉE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Moindres carrés ordinaires. Écart-types robustes entre parenthèses. 
+    Les variables dépendantes sont exprimées en comptages. Une colonne correspond à une régression. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    )) %>% 
+  landscape()
+```
+
+Concernant l'interprétation précise du paramètre $\sigma_1$, nous renvoyons à la Section \@ref(agemethodscfh) du Chapitre \@ref(age). Dans le présent chapitre, il est plutôt *a priori* improbable que l'hypothèse de monotonie soit violée. Nous imaginons mal pourquoi des étudiants utiliseraient moins la plateforme lorsqu'ils sont incités et l'utiliseraient plus lorsqu'ils ne sont pas incités. De plus, la forme et le rythme d'envoi des mails d'incitation (Figure \@ref(g20mails) de l'Annexe \@ref(g20mails)) ne sont pas de nature à "harceler" les étudiants, ce qui serait de nature à favoriser un comportement contraire à l'hypothèse de monotonie.  
+  
+La nature binaire de notre instrument nous permet de vérifier une implication empirique de l'hypothèse de monotonie : si elle est vérifiée, les fonctions de distribution empiriques des variables d'utilisation de la plateforme pour les deux valeurs de l'instrument ne devraient pas se couper [@ANG:eal:96, pp. 435]. La Figure \@ref(fig:g20ecdfz) montre ces fonctions de distribution empiriques. La seule variable de la plateforme pour laquelle nous pouvons craindre une violation de l'hypothèse de monotonie est le nombre de vidéos visionnées. Cela est très probablement dû au sous-échantillon que des économistes du Tampon dans lequel les étudiants non incités ont très significativement regardé plus de vidéos et d'exercices que les étudiants incités (Tableau \@ref(tab:g20cfztreat) de l'Annexe \@ref(tab:g20cfztreat)). Nous n'avons pas pu connaître la raison précise de ce phénomène. Une hypothèse plutôt crédible serait que les étudiants incités ont regardé moins de vidéos puisqu'ils ont pris le temps de regarder les vidéos jusqu'à la fin tandis que les non incités n'ont fait que survoler les vidéos. Le même phénomène s'est probablement produit pour les exercices.   
+Les indicatrices de campus et de filière incluses dans les prochaines régressions devraient contribuer à limiter d'éventuels biais dus à ce sous-échantillon suggérant la présence d'individus se comportant à contre-sens du comportement attendu.    
+  
+Au Tampon comme à Saint-Denis, ce problème n'est pas constaté lorsque nous nous concentrons sur les vidéos visionnées entièrement, ce qui constitue une raison de plus concentrer notre analyse sur cette variable.  
+  
+```{r, "g20ecdfz", fig.cap = "Fonctions de distribution empirique des variables d'utilisation de la plateforme en fonction de l'incitation"}
+act <- NA
+g20ecdfz + 
+  labs(x = "Comptages", 
+       y = "Fréquences cumulées croissantes") + 
+  scale_color_manual(name = "Incitation", 
+                     values = c("blue", "red"),
+                     labels = c("Non", "Oui")) + 
+  scale_linetype_manual(name = "Incitation",
+                        values = c("solid", "dashed"),
+                        labels = c("Non", "Oui")) + 
+  theme_bw() + 
+  mytheme %>% 
+  (function (m) {
+    m$strip.text$size <- m$strip.text$size - 2
+    m
+  })
+```
+
+  
+\quad Pour rappel, sous l'hypothèse de monotonie^[En cohérence avec l'homologue de la section présente dans le Chapitre \@ref(age), nous supposons implicitement que l'effet de l'utilisation de la plateforme n'est pas le même pour tous les individus. Vu que le service proposé ne s'adapte pas au niveau de l'individu, nous avons de bonnes raisons de penser que son effet varie d'un individu à l'autre, notamment en fonction du niveau de ce dernier.], $\sigma_1$ correspond à une moyenne pondérée de l'effet de l'utilisation de la plateforme pour les individus ayant réagi à l'incitation. 
+  
+\quad Pour finir, il nous faut considérer les formes des distributions des différentes notes des néo-bacheliers participants présentées dans la Figure \@ref(fig:g20notes) de l'Annexe \@ref(g20notes). Les plus remarquables sont les pics de zéros aux examens de mathématiques^[Et par extension, de l'UE de mathématiques.] et d'économie. Ces constats sont cohérents avec le faible niveau des étudiants (Tableau \@ref(tab:g20stats)) et des individus du système éducatif réunionnais en général constaté tout le long de cette thèse. Plus précisément, ces pics de zéros reflètent le fait que les examens, présentant naturellement un minimum de difficulté, n'ont pas pu entièrement capter la distribution du niveau en mathématiques et en économie des néo-bacheliers. Autrement dit, beaucoup parmi ces derniers ont un niveau en mathématiques en dessous de zéro. 
+Ce phénomène ne semble pas apparaître en ce qui concerne les notes aux TD de mathématiques et les notes en gestion. Il y a en plus un pic de notes maximale (20 sur 20) aux TD de mathématiques. Ces deux constats ne sont pas étonnants puisque les évaluations de TD de mathématiques sont censées être plus faibles que les examens et de brefs entretiens avec l'enseignant de gestion nous confirment qu'il est relativement plus facile d'avoir de bonnes notes en gestion (révision des examens des années passées, mini-évaluations régulières, etc.). 
+  
+Les notes aux TD de mathématiques, aux examens de mathématiques et en économie sont alors censurées et nous mobilisons des modèles Tobit, [@WOO:02, pp.667] pour prendre cette situation en compte. Les premières sont censurées à droite et les deux dernières à gauche.  
+  
+La prise en compte des censures ne constitue pas l'essence de notre stratégie d'identification et nos conclusions sont qualitativement proches de celles issues des modèles linéaires. La présentation des modèles Tobit, hors censure à droite^[Ce qui ne représente pas un grand manque à notre sens puisque ce cas ne vaut que pour les notes aux TD de mathématiques.] est alors fournie en Annexe \@ref(g20tobit).   
+  
+## Résultats et discussions {#g20res}
+
+### Résultats principaux {#g20resprinc}
+
+Avant la présentation des résultats d'estimation de l'équation structurelle (Équation \ref{eq:g20ols}), nous proposons les résultats d'estimation de l'intention de traiter. Ils correspondent à l'estimation de l'équation : 
+
+```{=tex}
+\begin{equation}
+(\#eq:g20rf)
+y_i^{l1} = \gamma_0 + \gamma_1 z_i + x'_i \gamma_2 + \zeta_i, 
+\end{equation}
+```
+
+le coefficient $\gamma_1$ étant le paramètre d'intérêt. Il désigne l'effet d'être incité sur les notes, indépendamment des mécanismes sous-jacents. 
+
+\quad Il y a plusieurs intérêts à d'abord estimer cette forme réduite [@ANG:PIS:08]. Le premier est un intérêt en termes de politiques publiques puisqu'envoyer des mails d'incitation à des étudiants est en pratique très peu coûteux. S'il s'avère que le simple fait d'inciter les étudiants à aller sur la plateforme suffit à avoir une augmentation significative de performance, ce résultat, s'il est suffisamment robuste à divers contextes, suffit à justifier des politiques basées uniquement sur des incitations^[Si l'incitation possédait un effet direct sur la motivation ou sur l'attrait des étudiants pour les mathématiques, cela ferait écrouler l'hypothèse de la restriction d'exclusion et nous ne pourrons pas étudier l'effet de l'utilisation de la plateforme. Mais cela aurait été intéressant pour ceux qui veulent aider les étudiants de constater que de simples incitations fonctionnent, d'une manière ou d'une autre.].  
+Le deuxième intérêt est le faible coût en hypothèses de ces résultats puisque l'incitation est par construction exogène et une simple estimation par moindres carrés ordinaires de cette forme réduite suffit à produire des connaissances relativement fiables aussi bien sur l'effet de l'incitation que sur ceux des variables de contrôle.   
+Le troisième intérêt est que cette équation peut nous aider à anticiper l'existence ou non de l'effet d'intérêt (celui de l'utilisation de la plateforme) ou non puisque si aucun effet significatif n'est capté par cette forme réduite, alors il n'y en a probablement pas ou au mieux, son ampleur n'est pas économiquement intéressant.
+  
+\quad Les résultats d'estimation de l'Équation \@ref(eq:g20rf) sont montrés dans le Tableau \@ref(tab:g20rfmodels). Ceux des modèles Tobit correspondant en font également partie. Même si les coefficients ne sont pas directement comparables entre les modèles linéaires et les modèles Tobit, les variables dépendantes de ce tableau sont des notes en points sur 20, à part celle des modèles de probabilité linéaire (colonnes 3, 6 et 9). Nous constatons rétroactivement que ces coefficients racontent globalement la même histoire dans ce tableau ou dans les résultats montrés plus tard dans ce chapitre.  
+
+D'un côté, l'incitation apparaît comme ayant un effet très fort et significatif sur les notes aux TD, d'un peu moins de 2 points sur 20 (colonnes 1 et 2). D'un autre côté, bien que nous trouvions un effet économiquement significatif de 6 points de pourcentage sur la probabilité d'avoir la moyenne en TD (colonne 3), le coefficient n'est pas significatif. Cela suggère que l'effet de l'incitation s'est manifesté pour des individus avec des notes aux TD éloignées de la moyenne (soit très faibles soit très forts).  
+L'incitation n'a pas d'effet économiquement ou statistiquement significatif sur la note aux examens de mathématiques ou sur la probabilité d'avoir la moyenne (colonnes 4 à 6).  
+  
+Il est toujours intéressant de montrer les effets sur la note à l'UE puisque c'est cette dernière qui détermine si l'étudiant a validé la matière ou non. En tout, l'effet positif et de forte ampleur sur les notes aux TD n'aura pas pu être reflété sur les résultats à l'UE de mathématiques (colonnes 7 à 9). 
+    
+Par rapport aux intérêts de la forme réduite discutés plus haut, nous pouvons *a priori* nous attendre à trouver un effet fort de l'utilisation de la plateforme sur les notes aux TD et au plus un effet significatif de faible ampleur sur les notes aux examens. 
+  
+Les coefficients, significatifs ou non, sur les variables de contrôle sont assez cohérents. Par exemple, un point de plus au bac procure environ 1.5 points aux TD de mathématiques, à séries au bac égales. De la même manière, effectuer un bac ES ou S constitue un très fort prédicteur des résultats aux TD de mathématiques. Excepté le fait que choisir la filière Eco-Ge est fortement positivement corrélé avec les résultats aux examens, les autres variables de contrôle ne sont ni statistiquement ni économiquement significatives de manière robuste.  
+De manière annexe, même s'il ne s'agit que d'estimations par moindre carrés ordinaires, est intéressant de constater la très faible ampleur de la corrélation entre l'âge et les notes de mathématiques en première année d'université. Cela fait suite à nos propos du Chapitre \@ref(age) sur le fait que les effets de l'âge se dissipent avec le temps. 
+
+Le Tableau \@ref(tab:g20rfmodelsnormpop) de l'Annexe \@ref(tab:g20rfmodelsnormpop) qui montre les résultats de régression homologues à ceux du Tableau \@ref(tab:g20rfmodels) lorsque les notes sont normalisées par filière et par campus nous apprend les mêmes leçons^[La significativité à 10\% de l'effet de 0.165 UET sur l'UE n'est pas robuste.].   
+
+
+```{r, "g20rfmodels"}
+g20rfmodels %>% set_colnames(NULL) %>% 
+  (function (d) which(d[, 1] == "sigma") %>% 
+     (function (w) d[- c(w, w + 1), ])) %>% 
+  ## Sélection des lignes. On prend tout. 
+  
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- d[, 1] %>% g20replace
+    d
+      
+  }) %>% 
+  set_colnames(c(" ",
+                 c("MCO", "Tobit", "MCO") %>% rep(3) %>% col_numbers)) %>% 
+  ## set_colnames(c(" ",
+  ##                c("Aux TD", "Aux TD (Tobit)", 
+  ##                  "Aux TD $\\geq 10$",
+  ##                  "Aux examens", "Aux examens (Tobit)", 
+  ##                  "Aux examens $\\geq 10$",
+  ##                  "À l'UE", "À l'UE (Tobit)", 
+  ##                  "À l'UE $\\geq 10$") %>% 
+  ##                  col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE, 
+        caption = "Effets de l'incitation sur les notes de mathématiques (intention de traiter)") %>% 
+  kable_styling(font_size = 7) %>% 
+  add_header_above(c(" ", 
+                     "\\\\makecell{Aux TD \\\\\\\\ \\ }" = 2, 
+                     "\\\\makecell{Aux TD \\\\\\\\ $\\\\geq 10$}",
+                     "\\\\makecell{Aux examens \\\\\\\\ \\ }" = 2,
+                     "\\\\makecell{Aux examens \\\\\\\\ $\\\\geq 10$}",
+                     "\\\\makecell{À l'UE \\\\\\\\ \\ }" = 2, 
+                     "\\\\makecell{À l'UE \\\\\\\\ $\\\\geq 10$}"), escape = FALSE) %>% 
+  add_header_above(c(" ",
+                     "Variable dépendante : Note " = 9)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge (version 17 Août 2020), plateforme '\\\\textit{J'ai 20 en maths}' - APOGÉE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Écart-types robustes entre parenthèses. 
+    Les variables dépendantes sont des notes sur 20 (pour comparer les modèles linéaires et Tobit) sauf pour les modèles de probabilité linéaire. Dans les modèles Tobit, les notes aux TD sont censurées à gauche et à droite et les autres notes à gauche uniquement. Une colonne correspond à une régression. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    )) %>% 
+  landscape()
+```
+
+\quad Nous venons désormais aux résultats principaux de notre étude. Les résultats d'estimation de l'équation structurelle (Équation \ref{eq:g20ols}) par variable instrumentale en utilisant l'Équation \@ref(eq:g20pe) comme première étape sont présentés par le Tableau \@ref(tab:g20models). Chaque panel correspond à une mesure de l'utilisation de la plateforme. Nous montrons en plus les résultats d'estimation par moindres carrés ordinaires (colonnes 1, 5 et 9). Que la variable dépendante soit les notes aux TD ou aux examens, les coefficients correspondant à ces derniers sont globalement positifs, significatifs et de faible ampleur (allant d'environ 0.02 à 0.08 points sur 20) sauf lorsque nous utilisons le nombre de vidéos visionnées entièrement comme mesure d'utilisation de l'intensité de la plateforme (panel C). 
+Le coefficient des moindres carrés ordinaires lorsque nous considérons les vidéos visionnées entièrement est de 0.3 point, de 0.135 point (significatifs au seuil de 5\%) et de 0.11 point (non significatif) lorsque la variable dépendante est la note au TD, la note aux examens et la note à l'UE, respectivement.  
+  
+Comme nous l'avons justifié dans la Section \@ref(g20methods), ces coefficients sont vraisemblablement surestimés. Nous avons alors de bonnes raisons de penser que la plateforme, dans les conditions dans lesquelles elle a été mise à disposition des participants, n'a réellement d'effet perceptible que sur les notes aux TD^[D'une ampleur modeste de moins de 0.3 point. Un vrai effet de moins de 0.135 point (note aux examens) ne semble pas intéressant, dans l'absolu. Puisque l'intervention a été de courte durée, nous imaginons mal un effet négatif de la plateforme, via un effet de perte de temps des participants, par exemple.].
+  
+Les colonnes restantes du Tableau \@ref(tab:g20models) montrent les résultats d'estimation des modèles linéaires (colonnes 2,4, 6, 8, 10 et 12) et non linéaires (Tobit, colonnes 3, 7 et 11). Nous observons un phénomène inattendu : lorsque la variable dépendante est la note aux TD, l'ampleur des coefficients estimés par variable instrumentale dans les modèles linéaires est systématiquement supérieure à leurs homologues estimés par moindres carrés ordinaires. Plus particulièrement, une vidéo entièrement visionnée en plus procurerait un avantage d'un peu plus de 2 points sur 20^[Significatif à 10\% dans le modèle linéaire et à 5\% dans le modèle Tobit.] aux TD. Ce constat est robuste à plusieurs considérations (voir Section \@ref(g20ressupp)). Il est également maintenu dans les modèles Tobit lorsque nous comparons les coefficients estimés avec ou sans variable instrumentale (ces derniers ne sont pas reportés). Nous proposons par la suite des débuts d'explication derrière ce phénomène que les futures recherches pourront approfondir. Ces explications constituent une contribution supplémentaire de notre étude puisque nous n'avons pas trouvé de propositions similaires dans la littérature présentée en Section \@ref(g20litt). 
+  
+En ce qui concerne l'effet de l'utilisation de la plateforme sur la note aux examens, il y a moins d'étonnement. Dans les modèles linéaires comme dans les modèles Tobit, les coefficients estimés d'intérêt sont généralement inférieurs sans variable instrumentale par rapport à leurs homologues estimés par variable instrumentale^[La mesure par le nombre d'exercices vus (Panel E, colonnes 5 et 6) constitue une exception mais la différence (0.011 - 0.008) est négligeable.]. 
+  
+\quad L'équivalent du Tableau \@ref(tab:g20models) lorsque les notes sont exprimées en unité d'écart-type est le Tableau \@ref(tab:g20modelsnormpop) de l'Annexe \@ref(g20modelsnormpop).   
+  
+```{r, "g20models"}
+rbind(
+  g20models_pratique_tot %>% set_colnames(NULL) %>% 
+  g20selectvars("pratique.tot") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 13),
+  
+  g20models_pratique_tot2 %>% set_colnames(NULL) %>% 
+  g20selectvars("pratique.tot2") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 13),
+  
+  g20models_videos_comp_tot %>% set_colnames(NULL) %>% 
+  g20selectvars("videos.comp.tot") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 13),
+  
+  g20models_videos_views_tot %>% set_colnames(NULL) %>% 
+  g20selectvars("videos.views.tot") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 13),
+  
+  g20models_sheets_views_tot %>% set_colnames(NULL) %>% 
+  g20selectvars("sheets.views.tot") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d})
+  ) %>% 
+  set_colnames(c(" ", 
+                 c("MCO", "VI", "VI-Tobit", "VI") %>% rep(3) %>% col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE, 
+        caption = "Effets de l'utilisation de la plateforme sur les notes de mathématiques") %>% 
+  group_rows("Panel A : Vidéos (complètes) et exercices", 1, 6, hline_after = TRUE) %>% 
+  group_rows("Panel B : Vidéos et exercices", 7, 12, hline_after = TRUE) %>% 
+  group_rows("Panel C : Vidéos (complètes)", 13, 18, hline_after = TRUE) %>% 
+  group_rows("Panel D : Vidéos", 19, 24, hline_after = TRUE) %>% 
+  group_rows("Panel E : Exercices", 25, 29, hline_after = TRUE) %>% 
+  kable_styling(font_size = 6) %>% 
+  add_header_above(c(" ", 
+                     "\\\\makecell{Aux TD \\\\\\\\ \\\\ }" = 3, 
+                     "\\\\makecell{Aux TD \\\\\\\\ $\\\\geq 10$}",
+                     "\\\\makecell{Aux examens \\\\\\\\ \\\\ }" = 3, 
+                     "\\\\makecell{Aux examens \\\\\\\\ $\\\\geq 10$}",
+                     "\\\\makecell{À l'UE \\\\\\\\ \\\\ }" = 3, 
+                     "\\\\makecell{À l'UE \\\\\\\\ $\\\\geq 10$}"), escape = FALSE) %>% 
+  add_header_above(c(" ", 
+                     "Variable dépendante : Note " = 12)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge (version 17 Août 2020), plateforme '\\\\textit{J'ai 20 en maths}' - APOGÉE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Écart-types robustes entre parenthèses. 
+    Les variables dépendantes sont des notes sur 20 (pour comparer les modèles linéaires et Tobit) sauf pour les modèles de probabilité linéaire. Dans les modèles Tobit, les notes aux TD sont censurées à gauche et à droite et les autres notes à gauche uniquement. Une colonne et un panel donnés correspondent à une régression. Les variables liées à la plateforme sont exprimées en comptages. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    )) %>% 
+  landscape()
+```
+
+\quad À notre sens, les raisons possibles pour lesquelles les coefficients des estimations par variable instrumentale sont supérieurs à ceux estimés sans sont au nombre de trois. La première est que nous avons supposé à tort que ce sont les plus forts *a priori* qui utilisent plus la plateforme. Théoriquement, cela n'est pas irréaliste puisque les étudiants qui ont en besoin (ceux faibles *a priori* en mathématiques) peuvent utiliser plus la plateforme s'ils ressentent plus de sentiment d'efficacité de cette dernière par rapport aux étudiants qui ont en moins besoin (ceux forts *a priori*). Toutefois, notre discussion dans la Section \@ref(g20methods) (Tableau \@ref(tab:g20exclrestrmodels)) va à l'encontre de cette première raison. Pour rappel, nous avons montré que dans un monde sans le protocole, il est plus raisonnable de penser que les plus forts *a priori* utilisent plus la plateforme.   
+La deuxième raison est une violation de la restriction d'exclusion^[Il est connu qu'une telle violation entraîne la supériorité de l'ampleur du coefficient estimé par moindres carrés ordinaires.<!-- Chercher une auter source : https://stats.stackexchange.com/questions/187271/what-is-the-result-of-violated-exclusion-restrictions-->]. Nous avons débuté les discussions sur cette possibilité dans la Section \@ref(g20methods) et fourni des arguments contre. Pour rappel, nous avons montré que l'incitation n'affecte pas la probabilité d'avoir une note dans d'autres matières majeures que sont la gestion et l'économie. Avec le Tableau \@ref(tab:g20modelsnotesgestion) support, nous enlevons l'inquiétude sur l'existence d'un effet potentiellement direct et important de l'incitation sur les notes en gestion pour ceux ayant une note aux TD vu que ce sont en réalité des effets de l'utilisation de la plateforme. Cela peut s'expliquer par un comportement de compensation des faibles notes en mathématiques par les notes en gestion de la part des étudiants. Ce dernier propos est d'autant plus crédible lorsque nous avons regardé les sujets d'examen en gestion des concernés et constaté qu'ils ne contiennent pas de mathématiques. L'utilisation de la plateforme n'aurait alors pu faire augmenter la note en gestion que via ce comportement de compensation^[Nous n'avons pas pu retrouver l'emploi du temps des examens concernés mais si les examens de gestion s'étaient déroulés après ceux des mathématiques, cela donnerait encore plus de crédit à l'explication du comportement de compensation.]. Nous ne trouvons aucun potentiel effet de l'utilisation de la plateforme sur les notes en économie (Tableau \@ref(tab:g20modelsnoteseconomie)). 
+  
+```{r, "g20modelsnotesgestion"}
+rbind(
+  g20models_pratique_tot_note_gestion %>% set_colnames(NULL) %>% 
+  g20selectvars("pratique.tot") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 9),
+  
+  g20models_pratique_tot2_note_gestion %>% set_colnames(NULL) %>% 
+  g20selectvars("pratique.tot2") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 9),
+  
+  g20models_videos_comp_tot_note_gestion %>% set_colnames(NULL) %>% 
+  g20selectvars("videos.comp.tot") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 9),
+  
+  g20models_videos_views_tot_note_gestion %>% set_colnames(NULL) %>% 
+  g20selectvars("videos.views.tot") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 9),
+  
+  g20models_sheets_views_tot_note_gestion %>% set_colnames(NULL) %>% 
+  g20selectvars("sheets.views.tot") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d})
+  ) %>% 
+  set_colnames(c(" ", 
+                 c("MCO", "VI", "VI-Tobit", "VI") %>% rep(2) %>% col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE, 
+        caption = "Effets de l'utilisation de la plateforme sur les notes en gestion") %>% 
+  group_rows("Panel A : Vidéos (complètes) et exercices", 1, 6, hline_after = TRUE) %>% 
+  group_rows("Panel B : Vidéos et exercices", 7, 12, hline_after = TRUE) %>% 
+  group_rows("Panel C : Vidéos (complètes)", 13, 18, hline_after = TRUE) %>% 
+  group_rows("Panel D : Vidéos", 19, 24, hline_after = TRUE) %>% 
+  group_rows("Panel E : Exercices", 25, 29, hline_after = TRUE) %>% 
+  kable_styling(font_size = 6) %>% 
+  add_header_above(c(" ", 
+                     "\\\\makecell{En gestion \\\\\\\\ \\\\ }" = 3, 
+                     "\\\\makecell{En gestion \\\\\\\\ $\\\\geq 10$}",
+                     "\\\\makecell{En gestion \\\\\\\\ \\\\ }" = 3, 
+                     "\\\\makecell{En gestion \\\\\\\\ $\\\\geq 10$}"), escape = FALSE) %>% 
+  add_header_above(c(" ", 
+                     "Variable dépendante : Note à l'UE" = 8)) %>% 
+  add_header_above(c(" ",
+                     "Ayant une note aux TD" = 4,
+                     "Ayant une note aux examens" = 4)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge (version 17 Août 2020), plateforme '\\\\textit{J'ai 20 en maths}' - APOGÉE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Écart-types robustes entre parenthèses. 
+    Les variables dépendantes sont des notes sur 20 (pour comparer les modèles linéaires et Tobit) sauf pour les modèles de probabilité linéaire. Dans les modèles Tobit, les notes aux TD sont censurées à gauche et à droite et les autres notes à gauche uniquement. Une colonne et un panel donnés correspondent à une régression. Les variables liées à la plateforme sont exprimées en comptages. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    )) %>% 
+  landscape()
+```
+
+```{r, "g20modelsnoteseconomie"}
+rbind(
+  g20models_pratique_tot_note_economie %>% set_colnames(NULL) %>% 
+  g20selectvars("pratique.tot") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 9),
+  
+  g20models_pratique_tot2_note_economie %>% set_colnames(NULL) %>% 
+  g20selectvars("pratique.tot2") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 9),
+  
+  g20models_videos_comp_tot_note_economie %>% set_colnames(NULL) %>% 
+  g20selectvars("videos.comp.tot") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 9),
+  
+  g20models_videos_views_tot_note_economie %>% set_colnames(NULL) %>% 
+  g20selectvars("videos.views.tot") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 9),
+  
+  g20models_sheets_views_tot_note_economie %>% set_colnames(NULL) %>% 
+  g20selectvars("sheets.views.tot") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d})
+  ) %>% 
+  set_colnames(c(" ", 
+                 c("MCO", "VI", "VI-Tobit", "VI") %>% rep(2) %>% col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE, 
+        caption = "Effets de l'utilisation de la plateforme sur les notes en économie") %>% 
+  group_rows("Panel A : Vidéos (complètes) et exercices", 1, 6, hline_after = TRUE) %>% 
+  group_rows("Panel B : Vidéos et exercices", 7, 12, hline_after = TRUE) %>% 
+  group_rows("Panel C : Vidéos (complètes)", 13, 18, hline_after = TRUE) %>% 
+  group_rows("Panel D : Vidéos", 19, 24, hline_after = TRUE) %>% 
+  group_rows("Panel E : Exercices", 25, 29, hline_after = TRUE) %>% 
+  kable_styling(font_size = 6) %>% 
+  add_header_above(c(" ", 
+                     "\\\\makecell{En économie \\\\\\\\ \\\\ }" = 3, 
+                     "\\\\makecell{En économie \\\\\\\\ $\\\\geq 10$}",
+                     "\\\\makecell{En économie \\\\\\\\ \\\\ }" = 3, 
+                     "\\\\makecell{En économie \\\\\\\\ $\\\\geq 10$}"), escape = FALSE) %>% 
+  add_header_above(c(" ", 
+                     "Variable dépendante : Note à l'UE" = 8)) %>% 
+  add_header_above(c(" ",
+                     "Ayant une note aux TD" = 4,
+                     "Ayant une note aux examens" = 4)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge (version 17 Août 2020), plateforme '\\\\textit{J'ai 20 en maths}' - APOGÉE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Écart-types robustes entre parenthèses. 
+    Les variables dépendantes sont des notes sur 20 (pour comparer les modèles linéaires et Tobit) sauf pour les modèles de probabilité linéaire. Dans les modèles Tobit, les notes aux TD sont censurées à gauche et à droite et les autres notes à gauche uniquement. Une colonne et un panel donnés correspondent à une régression. Les variables liées à la plateforme sont exprimées en comptages. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    )) %>% 
+  landscape()
+```
+
+Notons que l'instrument potentiellement faible n'est pas une raison crédible de la supériorité d'un coefficient estimé par variable instrumentale par rapport à celui estimé par MCO. Un instrument faible a comme conséquence le fait que les coefficients estimés par variable instrumentale tendent vers ceux estimés par moindres carrés ordinaires [@PIS:18], ce qui ne correspond pas à notre cas. 
+  
+La raison restante à notre connaissance est alors le postulat selon lequel ceux qui réagissent à l'incitation $-$les *compliers*, selon le jargon de @IMB:ANG:94, par exemple$-$ sont extrêmement différents de la population et l'effet de l'utilisation de la plateforme (plus précisément, l'effet de regarder plus de vidéos entièrement) est très élevé pour cette sous-population. Quelques caractéristiques de la plateforme et de son contenu nous amènent à penser qu'elle ne pourrait être efficace que pour une sous-population d'étudiants forts et/ou motivés *a priori*<!--^[Nous présentons les faits sans avoir l'intention de nuire à l'image de la plateforme. Les propos suivants ne devraient pas être compris comme péjoratives.]-->. Notamment, les vidéos et les exercices proposés ne s'adaptent pas au niveau initial de l'utilisateur (voir Section \@ref(g20instproto)). Et après avoir effectivement visualisé le contenu de la plateforme longtemps après la fin du protocole, nous pensons que le niveau mathématique du contenu proposé apparaît relativement élevé, par rapport au niveau d'un étudiant moyen de notre étude. Un étudiant initialement faible aura alors plus de mal à profiter de la plateforme qu'un étudiant initialement fort. Aussi, la présentation des contenus n'est pas ludifiée, ce qui implique potentiellement une baisse d'intérêt pour les plus faibles par rapport à une présentation ludifiée [@PUT:eal:20]. Ce seraient alors les plus forts/motivés qui ont manifesté plus d'intérêt pour la plateforme et par conséquent en profité pour avoir de meilleures notes aux TD. La remise en contexte des résultats du Tableau \@ref(tab:g20models) et des évaluations de TD nous permettent de donner plus de crédit à cette possibilité. Les évaluations de TD ont pris la forme de QCM en ligne effectuées à distance (hors de l'université) annoncées à l'avance et les évaluations finales des QCM en présentiel. Les évaluations de TD sont de plus censées être plus faciles que les examens. L'effet positif de grande ampleur des vidéos visionnées entièrement est alors très probablement un effet d'une stratégie de révision à court terme dans le but d'avoir de très bonnes notes aux TD de la part des plus motivés/ambitieux et des plus forts vu le niveau mathématique relativement élevé susmentionné du contenu.  
+  
+Il existe un moyen pour caractériser les compliers par rapport aux observables [@ANG:PIS:08, pp. 171]. Il nécessite toutefois la simplification qu'est de considérer une version binarisée des variables d'utilisation de la plateforme : si elle vaut au moins un. Par exemple, au lieu de considérer le nombre de vidéos visionnées entièrement par un individu, nous nous limitons à une indicatrice de si cet individu a visionné au moins une vidéo entièrement. La caractérisation consiste concrètement à calculer le rapport entre la proportion d'un attribut particulier (la proportion de filles, par exemple) chez les compliers et celle dans tout l'échantillon. Les compliers ne peuvent pas être identifiés individuellement mais cette quantité est égale au rapport entre la proportion de compliers parmi ceux qui présentent l'attribut et celle dans tout l'échantillon. Ce second rapport est quant à lui calculable puisqu'il s'agit du rapport entre le coefficient de première étape (sans variables de contrôle) chez les individus qui présentent l'attribut considéré et celui dans tout l'échantillon<!--^[Nous n'illustrons pas formellement la caractérisation. Nous estimons que la plus-value d'une telle formalisation est négligeable. Nous renvoyons à la référence des deux auteurs ci-dessus (@ANG:PIS:08, pp. 171) pour une présentation formelle de cette caractérisation.]-->.   
+Très simplement, cette caractérisation devrait nous permettre de dire s'il y a relativement plus d'étudiants issus de telle ou telle série du bac, par exemple ; et cela pour chaque observable pertinente.   
+  
+Nous rappelons que les compliers peuvent être différents d'une mesure d'utilisation de la plateforme à une autre, en fonction du niveau ou des préférences, par exemple. Nous proposons alors le Tableau \@ref(tab:g20compliersvideoscomptot) ainsi que les  tableaux \@ref(tab:g20compliersvideosviewstot) et \@ref(tab:g20complierssheetsviewstot) de l'Annexe \@ref(g20compliers) montrent les résultats de la caractérisation décrite ci-dessus pour trois mesures d'utilisation de la plateforme (vidéos visionnées entièrement, vidéos et exercices). Les rapports de part de compliers sont les quantités d'intérêt. À titre d'exemple, le chiffre de 1.22 du Tableau \@ref(tab:g20compliersvideoscomptot) correspondant à la série technologique pour ceux ayant une note aux TD veut dire qu'il y a 1.22 fois plus d'étudiants issus d'un bac technologique chez les compliers par rapport au total de l'échantillon. Un rapport égal à 1 veut dire que l'attribut est représentatif de l'échantillon parmi les compliers. Un chiffre inférieur (respectivement supérieur) à 1 veut dire que l'attribut est moins (respectivement plus) retrouvé chez les compliers. Un chiffre négatif n'a pas spécialement de sens et nous nous abstenons de les interpréter. Les petits effectifs constituent une limite directe des informations contenues dans ce type de tableau. 
+  
+Les compliers des vidéos visionnées entièrement représentent environ 7\%. Ce chiffre est égal à la différence entre la part de ceux qui ont regardé au moins une vidéo entière parmi les incités et cette même part chez les non incités. Ce sont plutôt des étudiants en série technologique et ES, en filière AES, assez dispersés en termes de note au bac et d'âge à la rentrée, des filles, du campus de Saint-Denis, des étudiants nés à l'étranger, des non boursiers et des étudiants provenant des lycées privés (Tableau \@ref(tab:g20compliersvideoscomptot)).    
+  
+\newpage
+```{r, "g20compliersvideoscomptot"}
+g20compliers_videos_comp_tot %>% mutate(var = if_else(duplicated(var), " ", var)) %>% 
+  mutate(var = g20replace_compliers(var), mod = g20replace_compliers(mod)) %>% 
+  (function (d) set_colnames(d, g20replace_compliers(colnames(d)))) %>% 
+  (function (d) {
+    d[, 2][d[, 1] == "Pays de naissance" & 
+             d[, 2] == "Non boursier"] <- "À l'étranger"
+    d
+  }) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE, caption = "Caractérisation des compliers - Vidéos (complètes)") %>% 
+  group_rows(" ", 1, 5, indent = FALSE) %>% 
+  group_rows(" ", 6, 7,indent = FALSE) %>% 
+  group_rows(" ", 8, 12, indent = FALSE) %>% 
+  group_rows(" ", 13, 17, indent = FALSE) %>% 
+  group_rows(" ", 18, 19, indent = FALSE) %>% 
+  group_rows(" ", 20, 21, indent = FALSE) %>% 
+  group_rows(" ", 22, 23, indent = FALSE) %>% 
+  group_rows(" ", 24, 25, indent = FALSE) %>% 
+  group_rows(" ", 26, 27, indent = FALSE) %>% 
+  kable_styling(font_size = 8) %>% 
+  add_header_above(c(" " = 2, "Ayant une note aux TD" = 2, "Ayant une note aux examens" = 2), escape = FALSE) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge (version 17 Août 2020), plateforme '\\\\textit{J'ai 20 en maths}' - APOGÉE (version extraite en mai 2021)",
+    "\\\\textit{Notes :} Le traitement est binarisé (au moins un) par souci de simplification. Rapport de parts de compliers = différence de moyenne du traitement en fonction de l'incitation divisée par différence de moyenne du traitement en fonction de l'incitation sur l'échantillon considéré (ayant une note aux TD ou ayant une note aux examens) - Angrist et Pischke (2008, pp. 171). UE : Unité d'enseignement, ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale, Eco-Ge : Économie-Gestion."
+    ))
+```
+\newpage
+  
+En ce qui concerne les vidéos visionnées, les compliers représentent environ 11\% des inscrits. Sur leur caractérisation, la seule différence qualitative par rapport à celle pour les vidéos visionnées entièrement réside dans la filière et l'âge à la rentrée puisque les compliers correspondants sont plutôt des étudiants d'Eco-Ge et plutôt âgés (Tableau \@ref(tab:g20compliersvideosviewstot), Annexe \@ref(g20compliers)). Nous rappelons que l'instrument est faible lorsque l'utilisation de la plateforme est mesurée avec le nombre de vidéos visionnées.<!-- en annxe --> Ces informations ne sont pas de premier intérêt. 
+  
+Pour les exercices, il y a environ 12\% de compliers. Le Tableau \@ref(tab:g20complierssheetsviewstot) (Annexe \@ref(g20compliers)) qui les caractérise montre des informations plus chaotiques mais nous pouvons distinguer qu'ils sont plutôt ceux en série pro et techno, en Eco-Ge, plutôt âgés, du campus de Saint-Denis, des non boursiers et issus d'établissements privés. 
+
+En somme, d'après nos raisonnements *a priori*, nous nous attendions à ce que les compliers des vidéos visionnées entièrement soient des individus clairement plus forts en mathématiques. Cela ne semble pas être le cas lorsque nous observons les rapports pour la note au bac. Nous pouvons alors penser que ce sont juste les individus les plus motivés. Ce qui est d'ailleurs cohérent avec l'effet sur les notes aux TD.<!-- Toutefois, puisqu'il n'y a aucun effet substantiel détecté aux examens, l'utilisation de la plateforme avec les modalités de l'étude présente ne semble pas significativement améliorer les compétences en mathématiques des néo-bacheliers de l'Université de La Réunion.-->
+  
+  
+### Effets potentiellement hétérogènes {#g20reshetero}
+
+Les résultats de la Section \@ref(g20resprinc) valent pour les compliers, une sous-population que nous ne pouvons pas individuellement identifier même si nous avons pu les caractériser. Cette caractérisation repose toutefois sur la transformation en variable binaire des mesures d'utilisation de la plateforme. La présente sous-section vient en complément de la précédente en tentant de mettre explicitement en évidence des effets potentiellement hétérogènes en fonction des observables qui varient au niveau individuel que sont la note et la série au bac, l'âge à la rentrée, le sexe, le pays de naissance et le statut de boursier sans avoir à transformer les mesures de l'utilisation de la plateforme en variables binaires. Au vu de l'utilisation très faible de la plateforme, nous nous limitons aux effets de l'incitation sur les notes (intention de traiter).  
+
+Concrètement, nous restons cohérent avec les estimations similaires dans les chapitres \@ref(age) et \@ref(pe) et rajoutons des interactions entre l'observable en question et l'incitation (sections \@ref(agemodelsheterores) et \@ref(peresfrhnolinq5)). De plus, dans ce chapitre, la taille de nos échantillons d'estimation nous incite à éviter les estimations sur échantillons séparées.  
+Les résultats de telles régressions sont présentés par le Tableau \@ref(tab:g20rfheteromodels). En majorité, les coefficients devant les interactions sont estimés de manière très imprécise mais nous pouvons en tirer quelques leçons en portant plus d'attention sur leur robustesse et sur leur ampleur. Si un coefficient est de grande ampleur et que cette ampleur est robuste à travers les spécifications, la faible précision de l'estimation n'est très probablement due qu'à la faible taille de notre échantillon.   
+Après avoir regardé systématiquement la robustesse de ces coefficients en fonction des variables de contrôle utilisées, nous trouvons qu'ils sont robustes sauf dans le cas des interactions avec la mention au bac (Panel A) et avec le sexe (Panel D).  
+  
+En observant plus précisément ensuite le Tableau \@ref(tab:g20rfheteromodels), hors panels A et D, nous trouvons que l'effet de l'incitation sur la note aux TD est d'ampleur négligeable et non significatif pour ceux en série professionnelle (valeur de référence). L'ampleur de l'effet supplémentaire pour ceux en série technologique est considérable (2.5 points sur 20, panel B) même s'il est non significatif. Nous soupçonnons alors qu'il existe un réel effet pour cette sous-population que nous n'avons pas pu détecter statistiquement. De manière plus probante, l'effet supplémentaire pour ceux en série S est deux fois plus grand ampleur et significatif au seuil de 5\%. <!--Parler des autres colonnes -->Les colonnes (2) et (3) du panel B qui montrent les estimations Tobit et en modèle de probabilité linéaire racontent à peu près la même histoire. Nous avons assez d'éléments qui indiquent que l'effet de l'incitation est le plus fort pour ceux en série S au bac. Les mêmes coefficients lorsque la variable dépendante est la note aux examens (colonnes 4 à 6 du Panel B) sont clairement plus mitigés mais nous soupçonnons qu'il reste un effet considérable pour ceux en série S vu l'ampleur des coefficients (environ 2 points sur 20, 17 points de pourcentage dans le modèle de probabilité linéaire de la colonne 6). 
+  
+Les résultats d'estimation des effets potentiellement hétérogènes de l'incitation en fonction de la classe d'âge (panel C) ne nous apprennent pas grand-chose. Les coefficients devant les interactions entre l'incitation et les classes d'âge ne vont pas dans un sens précis (un effet qui augmente clairement avec l'âge, par exemple). Les effets trouvés sur la note aux examens dans le modèle de probabilité linéaire (colonne 6) ne sont pas cohérents avec leurs homologues dans les modèles linéaires ou Tobit. Et les coefficients pour la valeur de référence ne sont pas significatifs, malgré des ampleurs considérables (1.4 en colonne 1, par exemple). En résumé, nous préférons rester prudent et constater que nous n'en savons pas plus sur  d'éventuels effets différenciés de l'incitation en fonction de l'âge. 
+  
+D'après les panels E et F du Tableau \@ref(tab:g20rfheteromodels), l'incitation n'a d'effet que sur la note aux TD de ceux à l'étranger et les non boursiers. Aucun effet d'ampleur intéressante n'est détecté dans les régressions des notes aux examens (colonnes 3 à 6). 
+  
+\quad En résumé, par rapport aux observables, l'effet considérable sur la note aux TD ne semble valoir que pour une petite partie des néo-bacheliers (série S, pas nés en France, non boursiers). Même en autorisant les effets de l'incitation à être hétérogène par rapport aux observables, nous ne détectons aucun effet notable de l'incitation, ce qui implique qu'il n'y a très probablement pas d'effet de l'utilisation de la plateforme.  
+  
+```{r, "g20rfheteromodels"}
+act <- NA
+rbind(
+  g20rfmodels_mention_diplome_ps %>% set_colnames(NULL) %>% 
+        (function (g) g20selectvars(g, g[, 1][str_detect(g[, 1], "z1|mention")])) %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 10),
+  
+  g20rfmodels_serie_diplome_psv4 %>% set_colnames(NULL) %>% 
+        (function (g) g20selectvars(g, g[, 1][str_detect(g[, 1], "z1|serie")])) %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 10),
+  
+  g20rfmodels_q5age_26aout %>% set_colnames(NULL) %>% 
+        (function (g) g20selectvars(g, g[, 1][str_detect(g[, 1], "z1|q5age")])) %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 10),
+  
+  g20rfmodels_sexe_ps %>% set_colnames(NULL) %>% 
+        (function (g) g20selectvars(g, g[, 1][str_detect(g[, 1], "z1|sexe")])) %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 10),
+  
+  g20rfmodels_pays_nais_fr %>% set_colnames(NULL) %>% 
+        (function (g) g20selectvars(g, g[, 1][str_detect(g[, 1], "z1|pays")])) %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 10),
+  
+  g20rfmodels_boursier %>% set_colnames(NULL) %>% 
+        (function (g) g20selectvars(g, g[, 1][str_detect(g[, 1], "z1|boursier")])) %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d})
+  
+  ) %>% 
+  set_colnames(c(" ",
+                 c("MCO", "Tobit", "MCO") %>% rep(3) %>% col_numbers)) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE, 
+        caption = "Effets potentiellement hétérogènes de l'incitation sur les notes de mathématiques (intention de traiter)") %>% 
+  group_rows("Panel A : Hétérogénéité en fonction de la mention au bac", 1, 18, hline_after = TRUE) %>% 
+  group_rows("Panel B : Hétérogénéité en fonction de la série au bac", 19, 40, hline_after = TRUE) %>% 
+  group_rows("Panel C : Hétérogénéité en fonction du quintile de l'âge à la rentrée", 
+             41, 62, hline_after = TRUE) %>% 
+  group_rows("Panel D : Hétérogénéité en fonction du sexe", 63, 72, hline_after = TRUE) %>% 
+  group_rows("Panel E : Hétérogénéité en fonction du pays de naissance", 73, 82, hline_after = TRUE) %>% 
+  group_rows("Panel F : Hétérogénéité en fonction du statut de boursier", 83, 91, hline_after = TRUE) %>% 
+  kable_styling(font_size = 5.75) %>% 
+  add_header_above(c(" ", 
+                     "\\\\makecell{Aux TD \\\\\\\\ \\ }" = 2, 
+                     "\\\\makecell{Aux TD \\\\\\\\ $\\\\geq 10$}",
+                     "\\\\makecell{Aux examens \\\\\\\\ \\ }" = 2,
+                     "\\\\makecell{Aux examens \\\\\\\\ $\\\\geq 10$}",
+                     "\\\\makecell{À l'UE \\\\\\\\ \\ }" = 2, 
+                     "\\\\makecell{À l'UE \\\\\\\\ $\\\\geq 10$}"), escape = FALSE) %>% 
+  add_header_above(c(" ",
+                     "Variable dépendante : Note " = 9)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge (version 17 Août 2020), plateforme '\\\\textit{J'ai 20 en maths}' - APOGÉE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Écart-types robustes entre parenthèses. 
+    Les variables dépendantes sont des notes sur 20 (pour comparer les modèles linéaires et Tobit) sauf pour les modèles de probabilité linéaire. Dans les modèles Tobit, les notes aux TD sont censurées à gauche et à droite et les autres notes à gauche uniquement. Une colonne correspond à une régression. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    )) %>% landscape()
+```
+
+
+### Robustesse des résultats {#g20ressupp}
+
+Dans cette sous-section, nous nous limitons à l'analyse de la robustesse de l'effet considérable des vidéos visionnées entièrement sur la note aux TD et de l'absence de leur effet les notes aux examens. Ce cadre délimite nos résultats les plus importants puisque lorsque nous considérons les vidéos et les exercices comme mesure d'utilisation de la plateforme, il est possible que le participant survole rapidement ces vidéos ou ces exercices sans les avoir réellement exploités. Visionner une vidéo entièrement est un signal, bien qu'imparfait, que le participant concerné a effectivement exploité la plateforme. Il aurait été intéressant de pouvoir distinguer les exercices effectués des exercices visionnés. Mais même si nous avions pu les distinguer, nous n'aurions très probablement pas trouvé d'effet considérable vu que les effets estimés des exercices^[Surtout sur les notes de TD surtout mais aussi sur les notes aux examens.] (Panel E du Tableau \@ref(tab:g20models), colonnes 2 et 3) sont très inférieurs à ceux des vidéos (Panel D du Tableau \@ref(tab:g20models), colonnes 2 et 3). 
+  
+\quad Premièrement, pour se prémunir du biais de spécification, nous montrons dans la Figure \@ref(fig:g20modelsrobcovsgraph)^[L'équivalent pour les notes normalisées est la Figure \@ref(fig:g20modelsrobcovsgraphnormpop).] qu'en fonction des variables de contrôle utilisées, l'effet de regarder une vidéo entière de plus sur la note aux TD varie légèrement en dessous de 2.5 points sur 20 tandis que son homologue sur la note aux examens est systématiquement proche de 0. Les effets sur la note aux TD ne sont que marginalement significatifs dans les modèles Tobit^[Et marginalement non significatifs dans les modèles linéaires.] mais les ampleurs trouvées nous incitent à parier sur l'existence d'un réel effet positif. Il est d'ailleurs plus raisonnable de se fier aux résultats des modèles Tobit puisque nous prenons en compte les censures des variables dépendantes.  
+Que cela soit dans les modèles linéaires ou Tobit, l'absence d'effet sur la note aux examens est robuste aux variables de contrôles utilisées. 
+
+```{r, "g20modelsrobcovsgraph", fig.cap = "Robustesse des résultats principaux - Vidéos visionnées entièrement"}
+g20models_robcov_tab %>% 
+  filter(depvar %in% c("note_td", "note_ctqcm") & 
+           treat == "videos_comp_tot" & 
+           data %in% c("datg20_neo_venus_td", "datg20_neo_venus_ctqcm")) %>%
+  filter(! (depvar == "note_ctqcm" & mod == "ivtobit")) %>%
+  filter(! (depvar == "note_td" & mod == "ivtobitl")) %>% 
+  filter(! (depvar == "note_ctqcm" & data == "datg20_neo_venus_td")) %>% 
+  filter(! (depvar == "note_td" & data == "datg20_neo_venus_ctqcm")) %>% 
+  mutate(mod = str_replace(mod, "ivtobitl", "ivtobit")) %>% 
+  mutate(depvar = factor(depvar, levels = c("note_td", "note_ctqcm"),
+                         labels = c("Note aux TD", "Note à l'examen")),
+         mod = factor(mod, levels = c("iv", "ivtobit"), labels = c("VI", "VI-Tobit")),
+         cov2 = factor(cov, levels = levels(cov), 
+                       labels = c("Aucune", "Note au bac", "Préc. + série au bac",
+                                  "Préc. + campus", "Préc. + filière", "Préc. + âge à la rentrée",
+                                  "Préc. + sexe", "Préc. + pays de naissance", "Préc. + nationalité",
+                                  "Préc. + statut de boursier", "Préc. + statut d'étab.", 
+                                  "Préc. + type d'étab.", "Préc. + dép. d'étab.", 
+                                  "Retenue")),
+         cov = cov2) %>% 
+  ggplot(aes(cov, coef)) + geom_point() +
+  geom_errorbar(aes(ymin = low, ymax = up), width = .1) + 
+  geom_hline(aes(yintercept = 0), linetype = "dashed", color = "red") + 
+  facet_grid(mod ~ depvar) + 
+  labs(x = "Variables de contrôle",
+       y = "Coefficients estimés") + 
+  theme_bw() + 
+  mytheme %>% (function (m) {
+    m$axis.text.x <- element_text(size = m$axis.text$size - 4, angle = 45, vjust = 1, hjust = 1)
+    m
+  })
+```
+  
+\quad Deuxièmement, nous pouvons craindre que nos résultats sur les notes aux TD soient uniquement dus aux pics de 20 (Figure \@ref(fig:g20notes) de l'Annexe \@ref(fig:g20notes)). Nous prouvons que cela n'est pas le cas d'abord en constatant que les étudiants ayant obtenus ces notes maximales sont tous non incités (non reportés) et que les résultats sont qualitativement maintenus si nous excluons les étudiants qui ont 20 sur 20 (Panel A du Tableau \@ref(tab:g20modelsrob2) de l'Annexe \@ref(tab:g20modelsrob2)). 
+
+  
+\quad Troisièmement et sans prétendre à l'exhaustivité, nous avons mis à zéro les différentes mesures d'utilisation de la plateforme pour ceux qui n'ont pas activé leur compte (voir Section \@ref(g20instproto)) pour ne pas perdre les observations correspondantes. Cela peut biaiser nos résultats vers le bas si ces étudiants auraient beaucoup utilisé la plateforme s'ils avaient activé leur compte. <!-- Expliquer pourquoi ils n'activeraient pas leur compte -->Cette possibilité est assez improbable mais reste envisageable dans la mesure où l'étudiant n'a plus consulté ses mails après les étapes importantes de l'inscription via Parcoursup, par exemple. Excepté l'effet légèrement négatif sur la note aux examens (- 0.251 point sur 20), nous retrouvons qualitativement les mêmes résultats principaux pour les étudiants connectés uniquement (Panel B du Tableau \@ref(tab:g20modelsrob2) de l'Annexe \@ref(tab:g20modelsrob2)). 
+  
+<!-- \quad Dernièrement et sans prétendre être exhaustif, nous analysons la robustesse de nos résultats lorsque nous prenons en compte dans nos modèles le fait d'avoir une note aux TD et/ou (surtout) aux examens.  -->
+
+## Conclusion {#g20concl}
+
+Ce papier mesure l'effet de la révision des mathématiques du lycée via une plateforme de cours en ligne sur les performances en mathématiques des étudiants néo-bacheliers en première année de Licence d'Économie et Gestion de l'Université de La Réunion. Les performances sont mesurées par les notes aux évaluations de travaux dirigées (TD) et les notes aux examens de mathématiques. Dans notre étude, L'effet d'intérêt sur les notes aux TD peuvent refléter un effet plus immédiat et pour des épreuves relativement plus faciles que les examens. L'effet sur les notes aux examens reflète un effet relativement à plus long terme (par rapport aux TD) et pour des épreuves dont la difficulté satisfait les standards français de la filière. Parmi celles disponibles, nous pensons que le nombre de vidéos visionnées entièrement est la mesure pertinente de l'intensité d'utilisation de la plateforme. La plateforme a été mise à disposition des participants   
+En plus de faire partie des rares évaluations d'impact des interventions en mathématiques dans le supérieur, une de nos principales contributions est la mobilisation d'un protocole d'encouragement pour mesurer les effets susmentionnés. Nous avons en effet constaté dans la littérature un manque d'utilisation des méthodes d'évaluation d'impact se reposant sur la constitution d'un ou plusieurs groupes de contrôle. Le protocole d'encouragement en question consiste à constituer de manière explicitement aléatoire un groupe incité et un groupe non incité. Les incitations sont des mails envoyés à intervalle régulier censés encourager leurs récepteurs à utiliser la plateforme. 
+  
+\quad Nous constatons d'abord que les participants ont peu utilisé la plateforme proposée. Toutefois, ceux incités ont bien utilisé la plateforme plus que les non incités. Nous justifions également qu'il est peu probable que l'incitation ait eu un effet direct important sur les performances en mathématiques. Ces deux derniers propos nous permettent de s'assurer que l'effet mesuré est bien un effet causal de l'utilisation de la plateforme, même s'il ne concerne que ceux qui ont effectivement réagi à l'incitation. 
+De manière robuste, nous trouvons principalement que regarder plus de vidéos de la plateforme dans leur entièreté a fait grandement augmenter les résultats aux évaluations de TD des étudiants sans avoir aucun effet sur les résultats aux examens de mathématiques. Face à un sens inattendu de la différence entre les coefficients estimés par variable instrumentale et ceux estimés sans pour le cas des TD, nous éliminons rationnellement les raisons possibles derrière ce constat et concluons que c'est lié au fait les effets estimés par variable instrumentale ne valent que pour une petite proportion d'individus qui sont de plus vraisemblablement très motivés par rapport au reste des participants. Poussés par leur motivation, ces individus ont alors pu exploiter la plateforme pour obtenir de très bonnes notes aux TD. Vu que l'accès à la plateforme a été retirée des participants quelques mois avant la période des examens et l'absence totale d'effet de l'utilisation de la plateforme sur les notes aux examens, nous affirmons assez assurément que la plateforme, dans les conditions dans lesquelles elle a été mise à disposition des étudiants, n'a pas affecté le capital de connaissances et de compétences en mathématiques des néo-bacheliers de l'Université de La Réunion. Au vu des modèles que nous mobilisons qui prennent en compte le fait que les notes observées aux examens ne reflètent pas tout le spectre du niveau réel des participants, l'absence d'effet sur les résultats aux examens de mathématiques n'est pas dû au niveau de difficulté des examens vraisemblablement perçus difficiles pour les étudiants.  
+  
+\quad Dans l'objectif d'améliorer les acquis mêmes e mathématiques des étudiants en Licence Économie-Gestion de l'Université de La Réunion, ces résultats impliquent qu'il n'est pas intéressant de proposer la plateforme dans les conditions décrite dans la présente étude. Toutefois, indépendamment de l'évolution potentielle du contenu de la plateforme, il est potentiellement intéressant de réitérer l'expérimentation pour ceux inscrits en première année de Licence Économie-Gestion pendant au moins une dizaine de semaine, durée typique dans la littérature. Avec une telle durée, il est probable d'avoir une proportion plus importante d'individus qui réagissent aux incitations. Ces individus pourraient même plus similaire à la population étudiée. Même si les étudiants n'utilisent la plateforme que dans le but d'obtenir de bonnes notes, cela semble avoir eu un effet sur les notes aux TD. On peut alors espérer un effet de l'utilisation de la plateforme sur les notes aux examens si cette dernière est mise à disposition pendant tout le semestre. Un tel effet, même s'il n'est motivé que par l'ambition de bonnes notes, reste ultimement un apprentissage pour les étudiants et probablement une nouvelle source de motivation. 
+
+
+<!-- Notes
+En lisant Britton et Vignoles, je vois une citation intéressante pour dire que les élèves du privés font mieux que ceux du public (page 253) : Barrow et Rouse 2008 
+-->

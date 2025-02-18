@@ -1,0 +1,191 @@
+---
+lang : fr
+numbersections : yes
+output : 
+  bookdown::pdf_book :
+    keep_tex : true
+    highlight : espresso
+    toc : false
+    includes : 
+      in_header : "in_header.tex"
+      before_body : 
+        - "bb.tex"
+        - "title_page.tex"
+bibliography : 
+  - "C:/00_phd/02_rectorat/04_resultats/41_age/00_litterature_r/docear_age_def.bib"
+  - "C:/00_phd/02_rectorat/04_resultats/42_pe/00_litterature_r/docear_pe_def.bib"
+  - "C:/00_phd/03_g20/02_resultats/00_litterature_r/docear_pvg20_def.bib"
+  - "C:/00_phd/zz1_redaction_def/bib_intro_g_def.bib"
+biblio-style : authoryear
+csl : "apaseven.csl"
+link-citations : yes
+linkcolor : Blue
+citecolor : Blue
+lot : false
+lof : false
+editor_options : 
+  chunk_output_type : console
+documentclass : book
+geometry : "top = 2.5cm, right = 2.5cm, bottom = 2.5cm, left = 2.5cm"
+---
+
+```{r, child = "C:/00_phd/zz1_redaction_def/000_01_parametres.Rmd"}
+```
+
+```{r, "securitysave", cache = FALSE, echo = FALSE, results = "hide"}
+time <- paste(Sys.time() %>% str_replace_all(":", "_"))
+dir.create(here("securitysave", time))
+file.copy(list.files() %>% (function (x) x[str_detect(x, "Rmd$")]),
+          here("securitysave", time))
+for (i in list.files(here("securitysave", time))) {
+  name <- here("securitysave", time, i)
+  name2 <- paste(name %>% str_remove(".Rmd$"), time, ".Rmd", 
+                 sep = "_")
+  file.rename(name, name2)
+}
+```
+  
+\frontmatter
+
+\hfill  
+\begin{minipage}{0.45\textwidth}
+\vspace{3cm} 
+L'université n'entend donner aucune approbation ni improbation aux opinions émises dans les thèses : ces opinions doivent être considérées comme propres à leurs auteurs.
+\end{minipage}
+
+
+  
+```{r, child = "C:/00_phd/zz1_redaction_def/000_02_remerciements.Rmd"}
+```
+
+```{r, child = "C:/00_phd/zz1_redaction_def/000_03_01_abstract.Rmd"}
+```
+
+```{r, child = "C:/00_phd/zz1_redaction_def/000_03_02_resume.Rmd"}
+```
+
+```{r, child = "C:/00_phd/zz1_redaction_def/000_04_acron_abrev.Rmd"}
+```
+
+```{=tex}
+\tableofcontents
+\addcontentsline{toc}{chapter}{\listfigurename}
+\addcontentsline{toc}{chapter}{\listtablename}
+\listoftables
+\listoffigures
+```
+
+\mainmatter
+
+# Introduction générale {-}
+
+```{r, child = "C:/00_phd/zz1_redaction_def/000_05_intro_g_def.Rmd"}
+```
+
+# Les effets de l'âge sur les performances éducatives en fin de primaire et en fin de collège à La Réunion : estimations par fonction de contrôle et par régressions sur une discontinuité {#age}
+
+\chaptermark{Âge aux examens et performances éducatives}
+
+```{r, child = "C:/00_phd/zz1_redaction_def/001_age.Rmd"}
+```
+
+# Effets de pairs en éducation : applications sur données réunionnaises {#pe}
+
+\chaptermark{Effets de pairs en éducation à La Réunion}
+
+```{r, child = "C:/00_phd/zz1_redaction_def/002_pe.Rmd"}
+```
+
+# Effets de la révision des mathématiques via une plateforme en ligne sur les résultats en mathématiques : cas d'étudiants en première année à l'Université de La Réunion {#g20}
+
+\chaptermark{Efficacité d'une plateforme de révision des mathématiques}
+
+```{r, child = "C:/00_phd/zz1_redaction_def/003_g20.Rmd", cache = FALSE}
+```
+
+# Conclusion générale {-}
+
+```{r, child = "C:/00_phd/zz1_redaction_def/004_concl_g_corr.Rmd"}
+```
+
+# (APPENDIX) Annexes {-}
+
+\newpage
+
+\newcommand{\smark}{\sectionmark}
+\renewcommand\smark[1]{\markboth{#1}{}}
+\smark{}
+
+\centering \LARGE
+
+\pagebreak
+\hspace{0pt}
+\vfill
+\textbf{Annexes}
+\vfill
+\hspace{0pt}
+\pagebreak
+
+\raggedright \normalsize
+
+# Annexes au Chapitre \@ref(age) {-}
+
+```{=tex}
+\renewcommand*{\theHchapter}{\thechapter}
+\renewcommand*{\thesection}{\Alph{section}}
+\renewcommand*{\theHsection}{Appendix.\thechapter\thesection}
+
+\renewcommand*{\thetable}{\Alph{section}.\arabic{table}}
+\renewcommand*{\theHtable}{Appendix.\thetable}
+
+\renewcommand*{\thefigure}{\Alph{section}.\arabic{figure}}
+\renewcommand*{\theHfigure}{Appendix.\thefigure}
+```
+
+\setcounter{section}{0}
+
+```{r, child = "C:/00_phd/zz1_redaction_def/005_01_app_age.Rmd"}
+```
+
+# Annexes au Chapitre \@ref(pe) {-}
+
+\setcounter{section}{0}
+
+```{=tex}
+\renewcommand*{\theHchapter}{\thechapter}
+\renewcommand*{\thesection}{\Alph{section}}
+\renewcommand*{\theHsection}{Appendix.\thechapter\thesection}
+
+\renewcommand*{\thetable}{\Alph{section}.\arabic{table}}
+\renewcommand*{\theHtable}{Appendix.\thetable}
+
+\renewcommand*{\thefigure}{\Alph{section}.\arabic{figure}}
+\renewcommand*{\theHfigure}{Appendix.\thefigure}
+```
+
+```{r, child = "C:/00_phd/zz1_redaction_def/005_02_app_pe.Rmd"}
+```
+
+# Annexes au Chapitre \@ref(g20) {-}
+
+\setcounter{section}{0}
+
+```{=tex}
+\renewcommand*{\theHchapter}{\thechapter}
+\renewcommand*{\thesection}{\Alph{section}}
+\renewcommand*{\theHsection}{Appendix.\thechapter\thesection}
+
+\renewcommand*{\thetable}{\Alph{section}.\arabic{table}}
+\renewcommand*{\theHtable}{Appendix.\thetable}
+
+\renewcommand*{\thefigure}{\Alph{section}.\arabic{figure}}
+\renewcommand*{\theHfigure}{Appendix.\thefigure}
+```
+
+```{r, child = "C:/00_phd/zz1_redaction_def/005_03_app_g20.Rmd", cache = FALSE}
+```
+  
+\newpage
+  
+## Bibliographie {-}  
+  

@@ -1,0 +1,3 @@
+wbi : Wild bootstrap individuel. 
+
+maj 2021_12_21 : ok pour ce dossier.

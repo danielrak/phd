@@ -1,0 +1,1 @@
+Tests de la restriction d'exclusion pour le modèle ageivrel de zbar_-i.

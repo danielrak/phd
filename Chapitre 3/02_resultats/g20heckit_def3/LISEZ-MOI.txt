@@ -1,0 +1,3 @@
+heckit pour prendre en compte la sélection sur y.
+
+covmax direct.

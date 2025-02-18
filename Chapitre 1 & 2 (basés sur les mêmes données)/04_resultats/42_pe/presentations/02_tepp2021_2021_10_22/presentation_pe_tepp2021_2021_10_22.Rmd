@@ -1,0 +1,1541 @@
+---
+title : "Effets de Pairs en Éducation : Applications sur Données Réunionnaises"
+subtitle : "Présentation à la 17^ème^ Conférence TEPP, Université d'Évry"
+author : "Daniel Rakotomalala^[daniel.rakotomalala@univ-reunion.fr]"
+date : "22 Octobre 2021"
+institute : "CEMOI^[Centre d'Économie et de Management de l'Océan Indien - Université de La Réunion]"
+safe-columns : true
+bibliography : "D:/these/0_litterature/2_pe/peer_effects/references_peer_effects_OPT.bib"
+link-citations : yes
+linkcolor : blue
+citecolor : blue
+classoption: "aspectratio=169"
+output : 
+  beamer_presentation : 
+    toc : false
+    includes : 
+      in_header : "header_includes.tex"
+editor_options : 
+  chunk_output_type : console
+tables : yes
+---
+
+\fontsize{12}{16}\selectfont
+
+```{r setup, include=FALSE, echo = FALSE, label = "packages"}
+knitr::opts_chunk$set(echo = FALSE, cache = TRUE, fig.pos = "hbtp",
+                      message = FALSE, warning = FALSE,
+                      fig.asp = .6, fig.width = 10,
+                      out.width = "60%", fig.align = "center",
+                      fig.env = "figure", results = "asis")
+
+library(knitr)
+library(tidyverse)
+library(lubridate)
+library(kableExtra)
+library(magrittr)
+library(stringr)
+library(here)
+```
+
+```{r}
+load("D:/00_phd/00_fonctions/fonctions2.rda")
+```
+
+```{r}
+load(here("01_datcompl.rda"))
+load(here("01_donnees.rda"))
+```
+
+```{r}
+rda.files <- list.files(here("res_datrestr_2"), 
+                        recursive = TRUE) %>% 
+  (function (x) x[str_detect(x, "\\.rda$")])
+
+for (i in rda.files) load(here("res_datrestr_2", i))
+```
+
+```{r}
+alabel <- as_labeller(c("q1" = "Q1", "q2" = "Q2",
+                        "q3" = "Q3", "q4" = "Q4",
+                        "q5" = "Q5",
+                        "retenue" = "Spécification retenue",
+                        "wclnivsup" = "Avec classes atypiques sup.",
+                        "wclnivinf" = "Avec classes atypiques inf."))
+
+peerlab <- c(expression(bar(Q1)),
+             expression(bar(Q2)),
+             expression(bar(Q4)),
+             expression(bar(Q5)))
+
+labs <- ggplot2::labs(x = "Augmentation de 10% chez les pairs", y = "Coefficient estimé")
+
+mytheme <- theme(axis.text = element_text(size = 14), axis.title = element_text(size = 16), strip.text = element_text(size = 16),
+                 strip.text.y = element_text(angle = 0),
+                 plot.caption = element_text(hjust = 0, size = 12))
+```
+
+```{r}
+kable2 <- function (...)
+  kableExtra::kable(...,
+                    booktabs = TRUE, linesep = "", escape = FALSE, longtable = TRUE)
+
+kable_styling0 <- function (...) 
+  kableExtra::kable_styling(..., font_size = 6)
+
+kable_styling2 <- function (...) 
+  kableExtra::kable_styling(..., font_size = 5, full_width = TRUE)
+
+kable_styling3 <- function (...) 
+  kableExtra::kable_styling(..., font_size = 4.5, full_width = TRUE)
+
+footnote0 <- function (...)
+  kableExtra::footnote(..., general_title = "", threeparttable = TRUE, fixed_small_size = TRUE, escape = FALSE)
+
+footnote2 <- function (...)
+  kableExtra::footnote(..., general_title = "", fixed_small_size = TRUE, escape = FALSE)
+```
+
+# Introduction
+
+## Contexte
+
+-   Un élève de 3^ème^ du système français passe 26 heures par semaine avec ses camarades de classe (ses \textcolor{red}{pairs}) [^1]. \vfill
+-   À part les interactions qui passent par l'enseignant, les élèves d'une même classe \textcolor{red}{interagissent directement} : entraide ou compétition, entre autres [@DAV:04]. \vfill
+-   Ces interactions directes peuvent affecter les performances scolaires : ce sont les \textcolor{red}{effets de pairs}.
+
+[^1]: [\<https://www.education.gouv.fr/les-horaires-par-cycle-au-college-9884\>](https://www.education.gouv.fr/les-horaires-par-cycle-au-college-9884){.uri}.
+
+## Le papier
+
+-   Objectif : \textcolor{red}{Mesurer l'influence du niveau initial des pairs sur les résultats en fin de collège à La Réunion}. \vfill
+
+-   Intérêts :
+
+    -   Contribue au débat sur les politiques de \textcolor{red}{mixité scolaire} : faut-il former des classes de niveau hétérogènes ou homogènes ? \vfill
+    -   Complète la connaissance relativement limitée sur les effets de pairs en France [@MON:eal:19]. \vfill
+    -   Territoire étudié : La Réunion, relativement défavorisée sur les côtés social[^2] et scolaire par rapport à la métropole [@ARN:eal:13]. \vfill
+    -   Utilisation d'un modèle tenant compte de la présence non négligeable et non aléatoire des données manquantes sur le niveau des pairs : @SOJ:13. \vfill
+    
+
+[^2]: <https://www.insee.fr/fr/statistiques/4482473#en-six-questions>
+
+# Background théorique
+
+## Définitions [@MAN:93] : illustration via les déterminants de la note d'un élève
+
+\scriptsize
+
+```{=tex}
+\vfill
+\centering
+
+\begin{tikzpicture}[->, >= stealth']
+  \node (1) at (- 4.5, 0) {Note des pairs}; 
+  \node (2) at (- 2, 0) {Note de l'élève};
+  
+  \node (3) at (0, - 2) [align = center] {Inobservables \\ individuels \\ \scriptsize (Abilité,\\
+  \scriptsize Motivation,\\ \scriptsize Implication des parents)} ; 
+  \node (4) at (- 3, - 2) [align = center] {Inobservables \\ de la classe \\ \scriptsize (Enseignants,\\ \scriptsize Moyens matériels)} ; 
+  \node (5) at (- 6, - 2) [align = center] {Inobservables \\ de l'école\\ \scriptsize (Moyens matériels)} ; 
+  
+  \node (6) at (- 4.5, 2) [align = center]{Observables \\ des pairs\\ \scriptsize (Proportions Sexe/CSP)} ; 
+  \node (7) at (- 2, 2) [align = center] {Observables \\ de l'individu\\ \scriptsize (Sexe, CSP)} ; 
+   
+  \draw [->, red] (1) to (2) ; 
+  \draw [->, opacity = .1] (2) to [out = 150, in = 30] (1) ; 
+  
+  \draw[->, opacity = .1] (3) to (1) ;  
+  
+  \draw[->, opacity = .1] (3) to (2) ; 
+  \draw[->, green] (4) to (2) ; 
+  \draw[->, green] (5) to (2) ; 
+  \draw[->, blue] (6) to (2) ; 
+  \draw[->, opacity = .1] (7) to (2) ; 
+  
+  
+  \draw[->, opacity = .1] (4) to (1) ; 
+  \draw[->, opacity = .1] (5) to (1) ; 
+  \draw[->, opacity = .1] (6) to (1) ; 
+  
+\end{tikzpicture}
+```
+-   Deux types d'effets de pairs : *effets de pairs "endogènes"* (\textcolor{red}{$\longrightarrow$}) et *effets de pairs "exogènes"* (\textcolor{blue}{$\longrightarrow$}).
+-   Un troisième type d'effet à distinguer des effets de pairs : les *effets corrélés* (\textcolor{green}{$\longrightarrow$}).
+
+## Problèmes d'identification : le problème de la réflexion
+
+\scriptsize
+
+```{=tex}
+\vfill
+\centering
+
+\begin{tikzpicture}[->, >= stealth']
+  \node (1) at (- 4.5, 0) {Note des pairs}; 
+  \node (2) at (- 2, 0) {Note de l'élève};
+  
+  \node (3) [opacity = .1] at (0, - 2) [align = center] {Inobservables \\ individuels \\ \scriptsize (Abilité,\\
+  \scriptsize Motivation,\\ \scriptsize Implication des parents)} ; 
+  \node (4) [opacity = .1] at (- 3, - 2) [align = center] {Inobservables \\ de la classe \\ \scriptsize (Enseignants,\\ \scriptsize Moyens matériels)} ; 
+  \node (5) [opacity = .1] at (- 6, - 2) [align = center] {Inobservables \\ de l'école\\ \scriptsize (Moyens matériels)} ; 
+  
+  \node (6) [opacity = .1] at (- 4.5, 2) [align = center]{Observables \\ des pairs\\ \scriptsize (Proportions Sexe/CSP)} ; 
+  \node (7)  [opacity = .1] at (- 2, 2) [align = center] {Observables \\ de l'individu\\ \scriptsize (Sexe, CSP)} ; 
+   
+  \draw [->] (1) to (2) ; 
+  \draw [->] (2) to [out = 150, in = 30] (1) ; 
+  
+  \draw[->, opacity = .1] (3) to (1) ;  
+  
+  \draw[->, opacity = .1] (3) to (2) ; 
+  \draw[->, opacity = .1] (4) to (2) ; 
+  \draw[->, opacity = .1] (5) to (2) ; 
+  \draw[->, opacity = .1] (6) to (2) ; 
+  \draw[->, opacity = .1] (7) to (2) ; 
+  
+  
+  \draw[->, opacity = .1] (4) to (1) ; 
+  \draw[->, opacity = .1] (5) to (1) ; 
+  \draw[->, opacity = .1] (6) to (1) ; 
+  
+\end{tikzpicture}
+```
+
+- L'individu est influencé par les pairs mais l'inverse est aussi vrai (exemple : élève modèle ou perturbateur).
+- $\Rightarrow$ Si on observe une corrélation entre la note des pairs et la note de l'élève, il est d'isoler et mesurer l'influence de la première sur la seconde [@ANG:14].
+
+## Problèmes d'identification : la formation endogène des pairs (sélection)
+
+\scriptsize
+
+```{=tex}
+\vfill
+\centering
+
+\begin{tikzpicture}[->, >= stealth']
+  \node (1) at (- 4.5, 0) {Note des pairs}; 
+  \node (2) at (- 2, 0) {Note de l'élève};
+  
+  \node (3)  at (0, - 2) [align = center] {Inobservables \\ individuels \\ \scriptsize (Abilité,\\
+  \scriptsize Motivation,\\ \scriptsize Implication des parents)} ; 
+  \node (4) [opacity = .1] at (- 3, - 2) [align = center] {Inobservables \\ de la classe \\ \scriptsize (Enseignants,\\ \scriptsize Moyens matériels)} ; 
+  \node (5) [opacity = .1] at (- 6, - 2) [align = center] {Inobservables \\ de l'école\\ \scriptsize (Moyens matériels)} ; 
+  
+  \node (6) [opacity = .1] at (- 4.5, 2) [align = center]{Observables \\ des pairs\\ \scriptsize (Proportions Sexe/CSP)} ; 
+  \node (7)  [opacity = .1] at (- 2, 2) [align = center] {Observables \\ de l'individu\\ \scriptsize (Sexe, CSP)} ; 
+   
+  \draw [->] (1) to (2) ; 
+  \draw [->, opacity = .1] (2) to [out = 150, in = 30] (1) ; 
+  
+  \draw[->] (3) to (1) ;  
+  
+  \draw[->] (3) to (2) ; 
+  \draw[->, opacity = .1] (4) to (2) ; 
+  \draw[->, opacity = .1] (5) to (2) ; 
+  \draw[->, opacity = .1] (6) to (2) ; 
+  \draw[->, opacity = .1] (7) to (2) ; 
+  
+  
+  \draw[->, opacity = .1] (4) to (1) ; 
+  \draw[->, opacity = .1] (5) to (1) ; 
+  \draw[->, opacity = .1] (6) to (1) ; 
+  
+\end{tikzpicture}
+```
+
+- Exemple : ceux déjà bons *a priori* ont tendance à se regrouper entre eux.
+- $\Rightarrow$ Corrélation positive entre note des pairs et note de l'élève : difficile de séparer les effets de pairs de la simple sélection.
+
+## Problèmes d'identification : les effets corrélés
+
+\scriptsize
+
+```{=tex}
+\vfill
+\centering
+
+\begin{tikzpicture}[->, >= stealth']
+  \node (1) at (- 4.5, 0) {Note des pairs}; 
+  \node (2) at (- 2, 0) {Note de l'élève};
+  
+  \node (3) [opacity = .1] at (0, - 2) [align = center] {Inobservables \\ individuels \\ \scriptsize (Abilité,\\
+  \scriptsize Motivation,\\ \scriptsize Implication des parents)} ; 
+  \node (4) at (- 3, - 2) [align = center] {Inobservables \\ de la classe \\ \scriptsize (Enseignants,\\ \scriptsize Moyens matériels)} ; 
+  \node (5) at (- 6, - 2) [align = center] {Inobservables \\ de l'école\\ \scriptsize (Moyens matériels)} ; 
+  
+  \node (6) [opacity = .1] at (- 4.5, 2) [align = center]{Observables \\ des pairs\\ \scriptsize (Proportions Sexe/CSP)} ; 
+  \node (7)  [opacity = .1] at (- 2, 2) [align = center] {Observables \\ de l'individu\\ \scriptsize (Sexe, CSP)} ; 
+   
+  \draw [->] (1) to (2) ; 
+  \draw [->, opacity = .1] (2) to [out = 150, in = 30] (1) ; 
+  
+  \draw[->, opacity = .1] (3) to (1) ;  
+  
+  \draw[->, opacity = .1] (3) to (2) ; 
+  \draw[->] (4) to (2) ; 
+  \draw[->] (5) to (2) ; 
+  \draw[->, opacity = .1] (6) to (2) ; 
+  \draw[->, opacity = .1] (7) to (2) ; 
+  
+  
+  \draw[->] (4) to (1) ; 
+  \draw[->] (5) to (1) ; 
+  \draw[->, opacity = .1] (6) to (1) ; 
+  
+\end{tikzpicture}
+```
+
+- Exemple d'effet corrélé de classe : l'effet de la qualité de l'enseignant peut se confondre avec l'effet exclusif des pairs. 
+- Exemple d'effet corrélé d'établissement : l'effet des moyens matériels de l'établissement peut se confondre avec l'effet exclusif des pairs. 
+
+<!-- ## Problèmes d'identification : forte corrélation entre les effets de pairs endogènes et exogènes [@SAC:11] -->
+
+<!-- \scriptsize -->
+
+<!-- ```{=tex} -->
+<!-- \vfill -->
+<!-- \centering -->
+
+<!-- \begin{tikzpicture}[->, >= stealth'] -->
+<!--   \node (1) at (- 4.5, 0) {Note des pairs};  -->
+<!--   \node (2) at (- 2, 0) {Note de l'élève}; -->
+
+<!--   \node (3) [opacity = .1] at (0, - 2) [align = center] {Inobservables \\ individuels \\ \scriptsize (Abilité,\\ -->
+<!--   \scriptsize Motivation,\\ \scriptsize Implication des parents)} ;  -->
+<!--   \node (4) [opacity = .1] at (- 3, - 2) [align = center] {Inobservables \\ de la classe \\ \scriptsize (Enseignants,\\ \scriptsize Moyens matériels)} ;  -->
+<!--   \node (5) [opacity = .1] at (- 6, - 2) [align = center] {Inobservables \\ de l'école\\ \scriptsize (Moyens matériels)} ;  -->
+
+<!--   \node (6) at (- 4.5, 2) [align = center]{Observables \\ des pairs\\ \scriptsize (Proportions Sexe/CSP)} ;  -->
+<!--   \node (7) [opacity = .1] at (- 2, 2) [align = center] {Observables \\ de l'indiv\\ \scriptsize (Sexe, CSP)} ;  -->
+
+<!--   \draw [->] (1) to (2) ;  -->
+<!--   \draw [->, opacity = .1] (2) to [out = 150, in = 30] (1) ;  -->
+
+<!--   \draw[->, opacity = .1] (3) to (1) ;   -->
+
+<!--   \draw[->, opacity = .1] (3) to (2) ;  -->
+<!--   \draw[->, opacity = .1] (4) to (2) ;  -->
+<!--   \draw[->, opacity = .1] (5) to (2) ;  -->
+<!--   \draw[->] (6) to (2) ;  -->
+<!--   \draw[->, opacity = .1] (7) to (2) ;  -->
+
+
+<!--   \draw[->, opacity = .1] (4) to (1) ;  -->
+<!--   \draw[->, opacity = .1] (5) to (1) ;  -->
+<!--   \draw[->] (6) to (1) ;  -->
+
+<!-- \end{tikzpicture} -->
+<!-- ``` -->
+
+<!-- - Exemple : des pairs ayant de bonnes notes ont tendance à être de catégorie sociale aisée.  -->
+<!-- - $\Rightarrow$ Difficile de séparer l'effet de la note des pairs de l'effet de la catégorie sociale de ces dernières.  -->
+
+# Revue de littérature
+
+## Deux groupes de papiers, deux objectifs [@YEU:NGU:16]
+
+\scriptsize
+
+```{=tex}
+\begin{tikzpicture}
+
+\node (eped) at (0, 0) [align = left] {Effets de pairs \\ en éducation} ; 
+\node (inter1) at (2, 0) {.} ; 
+\node (sep) at (3, 1) [align = left] {Séparation effets \\ endogènes et exogènes} ;
+\node (nosep) at (3, - 1) [align = left] {Pas de séparation : \\ forme réduite} ;
+
+\draw [-, color = red] (eped) to (inter1) ; 
+\draw [-] (inter1) to (sep) ; 
+\draw[-, color = red] (inter1) to (nosep) ; 
+
+\node (inter2) at (5, - 1) {.} ; 
+\node [opacity = .1] (ab) at (6, 0) [align = left] {Effets du \\ niveau d'entrée} ; 
+\node [opacity = .1] (exo) at (6, - 2) [align = left] {Effets des autres \\ caractéristiques} ; 
+
+\draw[-, color = red, opacity = .1] (nosep) to (inter2) ; 
+\draw[-, opacity = .1] (inter2) to (exo) ; 
+\draw[-, color = red, opacity = .1] (inter2) to (ab) ; 
+
+\node (inter3) at (8, 0) {.} ; 
+\node [opacity = .1] (rand) at (11, 2) [align = left] {Randomisation} ; 
+\node [opacity = .1] (expnat) at (11, 1) [align = left] {Expérience naturelle}; 
+\node [opacity = .1] (iv) at (11, 0) [align = left] {Variables instrumentales} ; 
+\node [opacity = .1] (restr) at (11, - 1) [align = left] {Restriction \\ d'échantillon} ; 
+\node [opacity = .1] (fe) at (11, - 2) [align = left] {Effets fixes} ; 
+
+\draw[-, color = red, opacity = .1] (ab) to (inter3) ;
+\draw[-, opacity = .1] (inter3) to (rand) ;
+\draw[-, opacity = .1] (inter3) to (expnat) ; 
+\draw[-, opacity = .1] (inter3) to (iv) ; 
+\draw[-, color = red, opacity = .1] (inter3) to (restr) ; 
+\draw[-, color = red, opacity = .1] (inter3) to (fe) ; 
+\end{tikzpicture}
+```
+
+\textcolor{red}{$-$} : Là où se situe le papier présent. 
+
+- Séparation des effets "endogènes" et "exogènes" [@BOU:eal:14, par exemple].
+  - \scriptsize Méthodologie en plein essor [@LEE:07, entre autres]. 
+  - \scriptsize Intérêts en politiques publiques : politiques ciblées sur certains types d'individus pour que les effets endogènes se manifestent [@MON:eal:19]. 
+  
+## Deux groupes de papiers, deux objectifs [@YEU:NGU:16]
+
+\scriptsize
+
+```{=tex}
+\begin{tikzpicture}
+
+\node (eped) at (0, 0) [align = left] {Effets de pairs \\ en éducation} ; 
+\node (inter1) at (2, 0) {.} ; 
+\node (sep) at (3, 1) [align = left] {Séparation effets \\ endogènes et exogènes} ;
+\node (nosep) at (3, - 1) [align = left] {Pas de séparation : \\ forme réduite} ;
+
+\draw [-, color = red] (eped) to (inter1) ; 
+\draw [-] (inter1) to (sep) ; 
+\draw[-, color = red] (inter1) to (nosep) ; 
+
+\node (inter2) at (5, - 1) {.} ; 
+\node [opacity = .1] (ab) at (6, 0) [align = left] {Effets du \\ niveau d'entrée} ; 
+\node [opacity = .1] (exo) at (6, - 2) [align = left] {Effets des autres \\ caractéristiques} ; 
+
+\draw[-, color = red, opacity = .1] (nosep) to (inter2) ; 
+\draw[-, opacity = .1] (inter2) to (exo) ; 
+\draw[-, color = red, opacity = .1] (inter2) to (ab) ; 
+
+\node (inter3) at (8, 0) {.} ; 
+\node [opacity = .1] (rand) at (11, 2) [align = left] {Randomisation} ; 
+\node [opacity = .1] (expnat) at (11, 1) [align = left] {Expérience naturelle}; 
+\node [opacity = .1] (iv) at (11, 0) [align = left] {Variables instrumentales} ; 
+\node [opacity = .1] (restr) at (11, - 1) [align = left] {Restriction \\ d'échantillon} ; 
+\node [opacity = .1] (fe) at (11, - 2) [align = left] {Effets fixes} ; 
+
+\draw[-, color = red, opacity = .1] (ab) to (inter3) ;
+\draw[-, opacity = .1] (inter3) to (rand) ;
+\draw[-, opacity = .1] (inter3) to (expnat) ; 
+\draw[-, opacity = .1] (inter3) to (iv) ; 
+\draw[-, color = red, opacity = .1] (inter3) to (restr) ; 
+\draw[-, color = red, opacity = .1] (inter3) to (fe) ; 
+\end{tikzpicture}
+```
+
+\textcolor{red}{$-$} : Là où se situe le papier présent. 
+
+- Forme réduite [@BOU:MAI:18 pour la France, par exemple].
+  - \scriptsize Ne mettent pas la note contemporaine des pairs dans l'équation. 
+  - \scriptsize Intérêts en politiques publiques : politiques de mixité scolaire ou sociale. 
+
+## Deux types d'effets de pairs d'intérêt
+
+\scriptsize
+
+```{=tex}
+\begin{tikzpicture}
+
+\node (eped) at (0, 0) [align = left] {Effets de pairs \\ en éducation} ; 
+\node (inter1) at (2, 0) {.} ; 
+\node [opacity = .1] (sep) at (3, 1) [align = left] {Séparation effets \\ endogènes et exogènes} ;
+\node (nosep) at (3, - 1) [align = left] {Pas de séparation : \\ forme réduite} ;
+
+\draw [-, color = red] (eped) to (inter1) ; 
+\draw [-, opacity = .1] (inter1) to (sep) ; 
+\draw[-, color = red] (inter1) to (nosep) ; 
+
+\node (inter2) at (5, - 1) {.} ; 
+\node (ab) at (6, 0) [align = left] {Effets du \\ niveau d'entrée} ; 
+\node (exo) at (6, - 2) [align = left] {Effets des autres \\ caractéristiques} ; 
+
+\draw[-, color = red] (nosep) to (inter2) ; 
+\draw[-] (inter2) to (exo) ; 
+\draw[-, color = red] (inter2) to (ab) ; 
+
+\node (inter3) at (8, 0) {.} ; 
+\node [opacity = .1] (rand) at (11, 2) [align = left] {Randomisation} ; 
+\node [opacity = .1] (expnat) at (11, 1) [align = left] {Expérience naturelle}; 
+\node [opacity = .1] (iv) at (11, 0) [align = left] {Variables instrumentales} ; 
+\node [opacity = .1] (restr) at (11, - 1) [align = left] {Restriction \\ d'échantillon} ; 
+\node [opacity = .1] (fe) at (11, - 2) [align = left] {Effets fixes} ; 
+
+\draw[-, color = red, opacity = .1] (ab) to (inter3) ;
+\draw[-, opacity = .1] (inter3) to (rand) ;
+\draw[-, opacity = .1] (inter3) to (expnat) ; 
+\draw[-, opacity = .1] (inter3) to (iv) ; 
+\draw[-, color = red, opacity = .1] (inter3) to (restr) ; 
+\draw[-, color = red, opacity = .1] (inter3) to (fe) ; 
+\end{tikzpicture}
+```
+
+\textcolor{red}{$-$} : Là où se situe le papier présent. 
+
+- Effets du niveau d'entrée des pairs [@LAV:eal:12 ; @BOU:MAI:18 ; @SOJ:13, par exemple.]. Intérêt : politiques de mixité scolaire.
+- Effets des autres caractéristiques [@HOX:WEI:05, en partie]. Intérêt = politiques de mixité sociale. 
+
+## Plusieurs stratégies d'identification
+
+\scriptsize
+
+```{=tex}
+\begin{tikzpicture}
+
+\node (eped) at (0, 0) [align = left] {Effets de pairs \\ en éducation} ; 
+\node (inter1) at (2, 0) {.} ; 
+\node [opacity = .1] (sep) at (3, 1) [align = left] {Séparation effets \\ endogènes et exogènes} ;
+\node (nosep) at (3, - 1) [align = left] {Pas de séparation : \\ forme réduite} ;
+
+\draw [-, color = red] (eped) to (inter1) ; 
+\draw [-, opacity = .1] (inter1) to (sep) ; 
+\draw[-, color = red] (inter1) to (nosep) ; 
+
+\node (inter2) at (5, - 1) {.} ; 
+\node (ab) at (6, 0) [align = left] {Effets du \\ niveau d'entrée} ; 
+\node [opacity = .1] (exo) at (6, - 2) [align = left] {Effets des autres \\ caractéristiques} ; 
+
+\draw[-, color = red] (nosep) to (inter2) ; 
+\draw[-, opacity = .1] (inter2) to (exo) ; 
+\draw[-, color = red] (inter2) to (ab) ; 
+
+\node (inter3) at (8, 0) {.} ; 
+\node (rand) at (11, 2) [align = left] {Randomisation} ; 
+\node (expnat) at (11, 1) [align = left] {Expérience naturelle}; 
+\node (iv) at (11, 0) [align = left] {Variables instrumentales} ; 
+\node (restr) at (11, - 1) [align = left] {Restriction \\ d'échantillon} ; 
+\node (fe) at (11, - 2) [align = left] {Effets fixes} ; 
+
+\draw[-, color = red] (ab) to (inter3) ;
+\draw[-] (inter3) to (rand) ;
+\draw[-] (inter3) to (expnat) ; 
+\draw[-] (inter3) to (iv) ; 
+\draw[-, color = red] (inter3) to (restr) ; 
+\draw[-, color = red] (inter3) to (fe) ; 
+\end{tikzpicture}
+```
+
+\textcolor{red}{$-$} : Là où se situe le papier présent. 
+
+- Randomisation [@DUF:eal:11, par exemple] : on contrôle explicitement la formation des pairs.
+- Expérience naturelle [@HOX:WEI:05, par exemple] : on s'appuie sur un évènement exogène faisant varier la composition des pairs.
+- Variables instrumentales [@DAV:04, par exemple] : on trouve une variable exogène corrélée avec le niveau des pairs sans relation directe avec la note de l'élève.
+
+## Plusieurs stratégies d'identification
+
+\scriptsize
+
+```{=tex}
+\begin{tikzpicture}
+
+\node (eped) at (0, 0) [align = left] {Effets de pairs \\ en éducation} ; 
+\node (inter1) at (2, 0) {.} ; 
+\node [opacity = .1] (sep) at (3, 1) [align = left] {Séparation effets \\ endogènes et exogènes} ;
+\node (nosep) at (3, - 1) [align = left] {Pas de séparation : \\ forme réduite} ;
+
+\draw [-, color = red] (eped) to (inter1) ; 
+\draw [-, opacity = .1] (inter1) to (sep) ; 
+\draw[-, color = red] (inter1) to (nosep) ; 
+
+\node (inter2) at (5, - 1) {.} ; 
+\node (ab) at (6, 0) [align = left] {Effets du \\ niveau d'entrée} ; 
+\node [opacity = .1] (exo) at (6, - 2) [align = left] {Effets des autres \\ caractéristiques} ; 
+
+\draw[-, color = red] (nosep) to (inter2) ; 
+\draw[-, opacity = .1] (inter2) to (exo) ; 
+\draw[-, color = red] (inter2) to (ab) ; 
+
+\node (inter3) at (8, 0) {.} ; 
+\node (rand) at (11, 2) [align = left] {Randomisation} ; 
+\node (expnat) at (11, 1) [align = left] {Expérience naturelle}; 
+\node (iv) at (11, 0) [align = left] {Variables instrumentales} ; 
+\node (restr) at (11, - 1) [align = left] {Restriction \\ d'échantillon} ; 
+\node (fe) at (11, - 2) [align = left] {Effets fixes} ; 
+
+\draw[-, color = red] (ab) to (inter3) ;
+\draw[-] (inter3) to (rand) ;
+\draw[-] (inter3) to (expnat) ; 
+\draw[-] (inter3) to (iv) ; 
+\draw[-, color = red] (inter3) to (restr) ; 
+\draw[-, color = red] (inter3) to (fe) ; 
+\end{tikzpicture}
+```
+
+\textcolor{red}{$-$} : Là où se situe le papier présent. 
+
+- Restriction d'échantillon [@LAV:eal:12, par exemple] : on se limite à une partie de l'échantillon où on peut considérer la formation des pairs comme aléatoire.
+- Effets fixes [@SOJ:13, par exemple] : on compare les pairs au sein d'une même structure (ex : établissement) dans laquelle on peut considérer la formation des pairs comme aléatoire.
+
+
+## Tendances dans les résultats (forme réduite, effet du niveau initial des pairs)
+
+\scriptsize
+
+```{r}
+idpapiers <- c("ddk11", "hw05", "dav04", "lsw12", "bm18", "s13")
+
+papiers <- character(length = length(idpapiers))
+  papiers[idpapiers == "ddk11"] <- c("\\makecell[l]{Duflo et al. (2011) \\\\ \\\\ }")
+  papiers[idpapiers == "hw05"] <- c("\\makecell[l]{Hoxby et Weingarth \\\\ (2005) \\\\ }")
+  papiers[idpapiers == "dav04"] <- c("\\makecell[l]{Davezies (2004) \\\\ \\\\ }")
+  papiers[idpapiers == "lsw12"] <- c("\\makecell[l]{Lavy et al. (2012) \\\\ \\\\ }")
+  papiers[idpapiers == "bm18"] <- c("\\makecell[l]{Boutchenik et Maillard \\\\ (2018) \\\\ }")
+  papiers[idpapiers == "s13"] <- c("\\makecell[l]{Sojourner (2013) \\\\ \\\\ }")
+
+pays <- character(length = length(idpapiers))
+  pays[idpapiers == "ddk11"] <- "\\makecell[l]{Kenya \\\\ \\\\ }"
+  pays[idpapiers == "hw05"] <- "\\makecell[l]{États-Unis \\\\ \\\\ }"
+  pays[idpapiers == "dav04"] <- "\\makecell[l]{France \\\\ \\\\ }"
+  pays[idpapiers == "lsw12"] <- "\\makecell[l]{Angleterre \\\\ \\\\ }"
+  pays[idpapiers == "bm18"] <- "\\makecell[l]{France \\\\ \\\\ }"
+  pays[idpapiers == "s13"] <- "\\makecell[l]{États-Unis \\\\ \\\\ }"
+
+niveau <- character(length = length(idpapiers))
+  niveau[idpapiers == "ddk11"] <- "\\makecell[l]{Primaire \\\\ \\\\ }"
+  niveau[idpapiers == "hw05"] <- "\\makecell[l]{Primaire et collège \\\\ \\\\ }"
+  niveau[idpapiers == "dav04"] <- "\\makecell[l]{Primaire \\\\ \\\\ }"
+  niveau[idpapiers == "lsw12"] <- "\\makecell[l]{Collège \\\\ \\\\ }"
+  niveau[idpapiers == "bm18"] <- "\\makecell[l]{Lycée \\\\ \\\\ }"
+  niveau[idpapiers == "s13"] <- "\\makecell[l]{Primaire \\\\ \\\\ }"
+
+strategie <- character(length = length(idpapiers))
+  strategie[idpapiers == "ddk11"] <- "\\makecell[l]{Randomisation \\\\ \\\\ }"
+  strategie[idpapiers == "hw05"] <- "\\makecell[l]{Expérience naturelle \\\\ \\\\ }"
+  strategie[idpapiers == "dav04"] <- "\\makecell[l]{Variable instrumentale \\\\ \\\\ }"
+  strategie[idpapiers == "lsw12"] <- "\\makecell[l]{Effets fixes (établissement-niveau) \\\\ et restriction d'échantillon \\\\ }"
+  strategie[idpapiers == "bm18"] <- "\\makecell[l]{Effets fixes (établissement-filière) \\\\ et restriction d'échantillon \\\\ }"
+  strategie[idpapiers == "s13"] <- "\\makecell[l]{Effets fixes (établissement) \\\\ \\\\ }"
+
+resultat_lem <- character(length = length(idpapiers))
+  resultat_lem[idpapiers == "ddk11"] <- "\\makecell[l]{1 UET $\\rightarrow$ 0.5 UET \\\\ \\\\ }"
+  resultat_lem[idpapiers == "hw05"] <- "\\makecell[l]{1 point $\\rightarrow$ 0.25 point \\\\ \\\\ }"
+  resultat_lem[idpapiers == "dav04"] <- "\\makecell[l]{1 point $\\rightarrow$ 0.5 point \\\\ \\\\ }"
+  resultat_lem[idpapiers == "lsw12"] <- "\\makecell[l]{Non significatif \\\\ \\\\ }"
+  resultat_lem[idpapiers == "bm18"] <- "\\makecell[l]{1 RP $\\rightarrow$ 0.08 RP \\\\ \\\\ }"
+  resultat_lem[idpapiers == "s13"] <- "\\makecell[l]{1 RP $\\rightarrow$ 0.4 RP \\\\ \\\\ }"
+
+resultat_hhnolin <- character(length = length(idpapiers))
+  resultat_hhnolin[idpapiers == "ddk11"] <- "\\makecell[l]{Effet très fort pour les plus forts, \\\\ moins fort pour les plus faibles et \\\\ inexistant pour les moyens.}"
+  resultat_hhnolin[idpapiers == "hw05"] <- "\\makecell[l]{Les plus faibles bénéficient \\\\ des pairs légèrement plus forts. \\\\ }"
+  resultat_hhnolin[idpapiers == "dav04"] <- "\\makecell[l]{Effet moyen plus fort \\\\ pour les plus faibles. \\\\ }"
+  resultat_hhnolin[idpapiers == "lsw12"] <- "\\makecell[l]{Effet négatif des pairs\\\\ les plus faibles. \\\\ }"
+  resultat_hhnolin[idpapiers == "bm18"] <- "\\makecell[l]{Effet moyen plus fort \\\\ pour les plus faibles. \\\\ }"
+  resultat_hhnolin[idpapiers == "s13"] <- "\\makecell[l]{Effet moyen plus forts \\\\ pour les plus faibles. \\\\ }"
+  
+lit <- data.frame(papiers, pays, niveau, strategie, resultat_lem, resultat_hhnolin) %>% 
+  setNames(c("Papiers", "Pays", "Niveau", "Stratégie d'identification",
+             "Résultats : effets LEM", "Autres résultats")) %>% apply(2, function (x) sapply(x, function (y) c(y, "")))
+
+kable2(lit %>% (function (d) {d[, 5] <- paste("\\textbf{\\textcolor{red}{", d[, 5], "}}", sep = "") ; d})) %>% kable_styling(font_size = 4.5) %>% 
+  footnote2(general = c("\\\\textit{Sources :} Papiers cités, auteur.",
+                        "\\\\textit{Notes :} LEM : linéaire en moyennes. UET : unité d'écart-type. RP : rang de percentiles."))
+```
+
+- Tendance générale : existence d'un effet positif. 
+
+## Tendances dans les résultats (forme réduite, effet du niveau initial des pairs)
+
+\scriptsize
+
+```{r}
+idpapiers <- c("ddk11", "hw05", "dav04", "lsw12", "bm18", "s13")
+
+papiers <- character(length = length(idpapiers))
+  papiers[idpapiers == "ddk11"] <- c("\\makecell[l]{Duflo et al. (2011) \\\\ \\\\ }")
+  papiers[idpapiers == "hw05"] <- c("\\makecell[l]{Hoxby et Weingarth \\\\ (2005) \\\\ }")
+  papiers[idpapiers == "dav04"] <- c("\\makecell[l]{Davezies (2004) \\\\ \\\\ }")
+  papiers[idpapiers == "lsw12"] <- c("\\makecell[l]{Lavy et al. (2012) \\\\ \\\\ }")
+  papiers[idpapiers == "bm18"] <- c("\\makecell[l]{Boutchenik et Maillard \\\\ (2018) \\\\ }")
+  papiers[idpapiers == "s13"] <- c("\\makecell[l]{Sojourner (2013) \\\\ \\\\ }")
+
+pays <- character(length = length(idpapiers))
+  pays[idpapiers == "ddk11"] <- "\\makecell[l]{Kenya \\\\ \\\\ }"
+  pays[idpapiers == "hw05"] <- "\\makecell[l]{États-Unis \\\\ \\\\ }"
+  pays[idpapiers == "dav04"] <- "\\makecell[l]{France \\\\ \\\\ }"
+  pays[idpapiers == "lsw12"] <- "\\makecell[l]{Angleterre \\\\ \\\\ }"
+  pays[idpapiers == "bm18"] <- "\\makecell[l]{France \\\\ \\\\ }"
+  pays[idpapiers == "s13"] <- "\\makecell[l]{États-Unis \\\\ \\\\ }"
+
+niveau <- character(length = length(idpapiers))
+  niveau[idpapiers == "ddk11"] <- "\\makecell[l]{Primaire \\\\ \\\\ }"
+  niveau[idpapiers == "hw05"] <- "\\makecell[l]{Primaire et collège \\\\ \\\\ }"
+  niveau[idpapiers == "dav04"] <- "\\makecell[l]{Primaire \\\\ \\\\ }"
+  niveau[idpapiers == "lsw12"] <- "\\makecell[l]{Collège \\\\ \\\\ }"
+  niveau[idpapiers == "bm18"] <- "\\makecell[l]{Lycée \\\\ \\\\ }"
+  niveau[idpapiers == "s13"] <- "\\makecell[l]{Primaire \\\\ \\\\ }"
+
+strategie <- character(length = length(idpapiers))
+  strategie[idpapiers == "ddk11"] <- "\\makecell[l]{Randomisation \\\\ \\\\ }"
+  strategie[idpapiers == "hw05"] <- "\\makecell[l]{Expérience naturelle \\\\ \\\\ }"
+  strategie[idpapiers == "dav04"] <- "\\makecell[l]{Variable instrumentale \\\\ \\\\ }"
+  strategie[idpapiers == "lsw12"] <- "\\makecell[l]{Effets fixes (établissement-niveau) \\\\ et restriction d'échantillon \\\\ }"
+  strategie[idpapiers == "bm18"] <- "\\makecell[l]{Effets fixes (établissement-filière) \\\\ et restriction d'échantillon \\\\ }"
+  strategie[idpapiers == "s13"] <- "\\makecell[l]{Effets fixes (établissement) \\\\ \\\\ }"
+
+resultat_lem <- character(length = length(idpapiers))
+  resultat_lem[idpapiers == "ddk11"] <- "\\makecell[l]{1 UET $\\rightarrow$ 0.5 UET \\\\ \\\\ }"
+  resultat_lem[idpapiers == "hw05"] <- "\\makecell[l]{1 point $\\rightarrow$ 0.25 point \\\\ \\\\ }"
+  resultat_lem[idpapiers == "dav04"] <- "\\makecell[l]{1 point $\\rightarrow$ 0.5 point \\\\ \\\\ }"
+  resultat_lem[idpapiers == "lsw12"] <- "\\makecell[l]{Non significatif \\\\ \\\\ }"
+  resultat_lem[idpapiers == "bm18"] <- "\\makecell[l]{1 RP $\\rightarrow$ 0.08 RP \\\\ \\\\ }"
+  resultat_lem[idpapiers == "s13"] <- "\\makecell[l]{1 RP $\\rightarrow$ 0.4 RP \\\\ \\\\ }"
+
+resultat_hhnolin <- character(length = length(idpapiers))
+  resultat_hhnolin[idpapiers == "ddk11"] <- "\\makecell[l]{Effet très fort pour les plus forts, \\\\ moins fort pour les plus faibles et \\\\ inexistant pour les moyens.}"
+  resultat_hhnolin[idpapiers == "hw05"] <- "\\makecell[l]{Les plus faibles bénéficient \\\\ des pairs légèrement plus forts. \\\\ }"
+  resultat_hhnolin[idpapiers == "dav04"] <- "\\makecell[l]{Effet moyen plus fort \\\\ pour les plus faibles. \\\\ }"
+  resultat_hhnolin[idpapiers == "lsw12"] <- "\\makecell[l]{Effet négatif des pairs\\\\ les plus faibles. \\\\ }"
+  resultat_hhnolin[idpapiers == "bm18"] <- "\\makecell[l]{Effet moyen plus fort \\\\ pour les plus faibles. \\\\ }"
+  resultat_hhnolin[idpapiers == "s13"] <- "\\makecell[l]{Effet moyen plus forts \\\\ pour les plus faibles. \\\\ }"
+  
+lit <- data.frame(papiers, pays, niveau, strategie, resultat_lem, resultat_hhnolin) %>% 
+  setNames(c("Papiers", "Pays", "Niveau", "Stratégie d'identification",
+             "Résultats : effets LEM", "Autres résultats")) %>% apply(2, function (x) sapply(x, function (y) c(y, "")))
+
+kable2(lit %>% (function (d) {
+  d[c(1, 5, 11), 3] <- paste("\\textbf{\\textcolor{red}{",
+                            d[c(1, 5, 11), 3], "}}", sep = "")
+  d[c(1, 5, 11), 5] <- paste("\\textbf{\\textcolor{red}{", 
+                            d[c(1, 5, 11), 5], "}}", sep = "")
+  
+  d[c(3, 7, 9), 3] <- paste("\\textbf{\\textcolor{blue}{",
+                            d[c(3, 7, 9), 3], "}}", sep = "")
+  d[c(3, 7, 9), 5] <- paste("\\textbf{\\textcolor{blue}{", 
+                            d[c(3, 7, 9), 5], "}}", sep = "")
+  
+  d
+})) %>% kable_styling(font_size = 4.5) %>% 
+  footnote2(general = c("\\\\textit{Sources :} Papiers cités, auteur.",
+                        "\\\\textit{Notes :} LEM : linéaire en moyennes. UET : unité d'écart-type. RP : rang de percentiles."))
+```
+
+- Cet effet semble dépendre du niveau d'éducation : plus fort en bas niveau. 
+
+## Tendances dans les résultats (forme réduite, effet du niveau initial des pairs)
+
+\scriptsize
+
+```{r}
+idpapiers <- c("ddk11", "hw05", "dav04", "lsw12", "bm18", "s13")
+
+papiers <- character(length = length(idpapiers))
+  papiers[idpapiers == "ddk11"] <- c("\\makecell[l]{Duflo et al. (2011) \\\\ \\\\ }")
+  papiers[idpapiers == "hw05"] <- c("\\makecell[l]{Hoxby et Weingarth \\\\ (2005) \\\\ }")
+  papiers[idpapiers == "dav04"] <- c("\\makecell[l]{Davezies (2004) \\\\ \\\\ }")
+  papiers[idpapiers == "lsw12"] <- c("\\makecell[l]{Lavy et al. (2012) \\\\ \\\\ }")
+  papiers[idpapiers == "bm18"] <- c("\\makecell[l]{Boutchenik et Maillard \\\\ (2018) \\\\ }")
+  papiers[idpapiers == "s13"] <- c("\\makecell[l]{Sojourner (2013) \\\\ \\\\ }")
+
+pays <- character(length = length(idpapiers))
+  pays[idpapiers == "ddk11"] <- "\\makecell[l]{Kenya \\\\ \\\\ }"
+  pays[idpapiers == "hw05"] <- "\\makecell[l]{États-Unis \\\\ \\\\ }"
+  pays[idpapiers == "dav04"] <- "\\makecell[l]{France \\\\ \\\\ }"
+  pays[idpapiers == "lsw12"] <- "\\makecell[l]{Angleterre \\\\ \\\\ }"
+  pays[idpapiers == "bm18"] <- "\\makecell[l]{France \\\\ \\\\ }"
+  pays[idpapiers == "s13"] <- "\\makecell[l]{États-Unis \\\\ \\\\ }"
+
+niveau <- character(length = length(idpapiers))
+  niveau[idpapiers == "ddk11"] <- "\\makecell[l]{Primaire \\\\ \\\\ }"
+  niveau[idpapiers == "hw05"] <- "\\makecell[l]{Primaire et collège \\\\ \\\\ }"
+  niveau[idpapiers == "dav04"] <- "\\makecell[l]{Primaire \\\\ \\\\ }"
+  niveau[idpapiers == "lsw12"] <- "\\makecell[l]{Collège \\\\ \\\\ }"
+  niveau[idpapiers == "bm18"] <- "\\makecell[l]{Lycée \\\\ \\\\ }"
+  niveau[idpapiers == "s13"] <- "\\makecell[l]{Primaire \\\\ \\\\ }"
+
+strategie <- character(length = length(idpapiers))
+  strategie[idpapiers == "ddk11"] <- "\\makecell[l]{Randomisation \\\\ \\\\ }"
+  strategie[idpapiers == "hw05"] <- "\\makecell[l]{Expérience naturelle \\\\ \\\\ }"
+  strategie[idpapiers == "dav04"] <- "\\makecell[l]{Variable instrumentale \\\\ \\\\ }"
+  strategie[idpapiers == "lsw12"] <- "\\makecell[l]{Effets fixes (établissement-niveau) \\\\ et restriction d'échantillon \\\\ }"
+  strategie[idpapiers == "bm18"] <- "\\makecell[l]{Effets fixes (établissement-filière) \\\\ et restriction d'échantillon \\\\ }"
+  strategie[idpapiers == "s13"] <- "\\makecell[l]{Effets fixes (établissement) \\\\ \\\\ }"
+
+resultat_lem <- character(length = length(idpapiers))
+  resultat_lem[idpapiers == "ddk11"] <- "\\makecell[l]{1 UET $\\rightarrow$ 0.5 UET \\\\ \\\\ }"
+  resultat_lem[idpapiers == "hw05"] <- "\\makecell[l]{1 point $\\rightarrow$ 0.25 point \\\\ \\\\ }"
+  resultat_lem[idpapiers == "dav04"] <- "\\makecell[l]{1 point $\\rightarrow$ 0.5 point \\\\ \\\\ }"
+  resultat_lem[idpapiers == "lsw12"] <- "\\makecell[l]{Non significatif \\\\ \\\\ }"
+  resultat_lem[idpapiers == "bm18"] <- "\\makecell[l]{1 RP $\\rightarrow$ 0.08 RP \\\\ \\\\ }"
+  resultat_lem[idpapiers == "s13"] <- "\\makecell[l]{1 RP $\\rightarrow$ 0.4 RP \\\\ \\\\ }"
+
+resultat_hhnolin <- character(length = length(idpapiers))
+  resultat_hhnolin[idpapiers == "ddk11"] <- "\\makecell[l]{Effet très fort pour les plus forts, \\\\ moins fort pour les plus faibles et \\\\ inexistant pour les moyens.}"
+  resultat_hhnolin[idpapiers == "hw05"] <- "\\makecell[l]{Les plus faibles bénéficient \\\\ des pairs légèrement plus forts. \\\\ }"
+  resultat_hhnolin[idpapiers == "dav04"] <- "\\makecell[l]{Effet moyen plus fort \\\\ pour les plus faibles. \\\\ }"
+  resultat_hhnolin[idpapiers == "lsw12"] <- "\\makecell[l]{Effet négatif des pairs\\\\ les plus faibles. \\\\ }"
+  resultat_hhnolin[idpapiers == "bm18"] <- "\\makecell[l]{Effet moyen plus fort \\\\ pour les plus faibles. \\\\ }"
+  resultat_hhnolin[idpapiers == "s13"] <- "\\makecell[l]{Effet moyen plus forts \\\\ pour les plus faibles. \\\\ }"
+  
+lit <- data.frame(papiers, pays, niveau, strategie, resultat_lem, resultat_hhnolin) %>% 
+  setNames(c("Papiers", "Pays", "Niveau", "Stratégie d'identification",
+             "Résultats : effets LEM", "Autres résultats")) %>% apply(2, function (x) sapply(x, function (y) c(y, "")))
+
+kable2(lit %>% (function (d) {
+  d[1, c(1, 2, 3, 6)] <- 
+    apply(d[1, c(1, 2, 3, 6), drop = FALSE], 2, function (x) paste("\\textbf{\\textcolor{blue}{", x, "}}", sep = ""))
+  
+  d[11, c(1, 2, 3, 6)] <- 
+    apply(d[11, c(1, 2, 3, 6), drop = FALSE], 2, function (x) paste("\\textbf{\\textcolor{red}{", x, "}}", sep = ""))
+  
+  d
+})) %>% kable_styling(font_size = 4.5) %>% 
+  footnote2(general = c("\\\\textit{Sources :} Papiers cités, auteur.",
+                        "\\\\textit{Notes :} LEM : linéaire en moyennes. UET : unité d'écart-type. RP : rang de percentiles."))
+```
+
+- Les autres résultats semblent dépendre du système éducatif : voir @DUF:eal:11 vs. @SOJ:13. 
+
+# Éléments institutionnels et données
+
+## Le Cours Moyen 2^ème^ année (CM2)
+
+-   Fin (5^ème^ année) du primaire. \vfill
+-   Année scolaire : de mi-Août environ à début Juillet. \vfill
+-   En moyenne 2 classes par école. \vfill
+-   Classes multiniveaux (CM1 et CM2 dans la même salle de classe). \vfill
+-   Vers fin Janvier sauf exception : \textcolor{red}{évaluation nationale des acquis de CM2}.
+
+## La 3ème
+
+-   Fin (4^ème^ année) du collège. \vfill
+-   Année scolaire : de mi-Août environ à début Juillet. \vfill
+-   En moyenne 7 classes par établissement. \vfill
+-   Pas de classes multiniveaux. \vfill
+-   Sections spécifiques pour les élèves en grande difficulté (ex : *Section d'Enseignement Général et Professionnel Adapté - SEGPA*) ou exceptionnellement bons (ex : options internationales). Certaines classes accueillent exclusivement l'une ou l'autre (\textcolor{red}{classes atypiques}). \vfill
+-   Vers fin Juin : \textcolor{red}{épreuves pour obtenir le Diplôme National de Brevet (DNB)}.
+
+## Construction des données
+
+\centering
+
+\scriptsize
+
+```{=tex}
+\begin{tikzpicture}[->, >= stealth']
+  \node [shape = circle, draw = black] (1) at (10, 0) [align = left] {DNB \\ 2014 à 2016 (en coupe). \\ $\approx 43000$ observations. \\ \\ \textcolor{red}{Données de départ.}} ; 
+  \node [shape = circle, draw = black] (2) at (0, 0) [align = left] {CM2 \\ 2010 à 2012 (en coupe). \\ $\approx 42000$ observations. \\ } ; 
+  \node [shape = circle, draw = black] (3) at (5, - 3) {CONSTAT} ;
+  
+  \draw [->] (2) to node[midway, above, align = left] {\tiny Récupération des notes au CM2 (\textcolor{red}{78\% retrouvés}). \\ \tiny Pertes à cause de la limite des données \\ \tiny + redoublement/saut de classe entre CM2 et 3ème.} (1) ;  
+  \draw[->] (3) to node[midway, below right, align = left] {\\ \tiny Récupération des classes en 3ème en début d'année.} (1) ; 
+\end{tikzpicture}
+```
+
+\scriptsize
+
+- Fichiers CONSTAT : Fichiers établis en début d'année, recouvrant toutes les écoles, collèges et lycées ainsi que tous les élèves qui y sont inscrits. Contient les informations au niveau individuel, identifiants de classes et informations au niveau de l'établissement. Ne contient pas de données de résultats scolaires. 
+
+
+## 3 échantillons à considérer
+
+- Données complètes ($\approx 43000$ observations) : 
+
+    - 14\% des classes sont des classes atypiques inférieures. \vfill
+    - 3\% des classes sont des classes atypiques supérieures. \vfill
+  
+- Données sans classes atypiques ($\approx 36000$ observations, $\approx 84\%$ des données complètes). \vfill
+
+- Données sans classes atypiques après restrictions statistiques [@BRO:GUR:16 ; @BOU:MAI:18] : tests KS[^3] ($\approx 34000$ observations, $\approx 95\%$ des données sans classes atypiques). 
+  
+    - Les tests permettent *a priori* de détecter d'éventuels regroupements supplémentaires des élèves selon le niveau initial. \vfill
+    - \textcolor{red}{Échantillon pour les estimations}. \vfill
+
+[^3]: Kolmogorov-Smirnov.
+
+## Statistiques descriptives
+
+\scriptsize
+
+```{r}
+lapply(list(datcompl, 
+            dat, 
+            datrestr_2), 
+       function (x) {
+         
+         nclx <- group_by(x, rneconstatses) %>% 
+           summarise(n =length(unique(divconstatrneses)))  %>% 
+           (function (d) paste(mean(d$n) %>% 
+                                 round(3),
+                               " (", sd(d$n) %>%
+                                 round(3), ")", sep = ""))
+         
+         c("nb_ecole" = length(unique(x$rneconstat)),
+           
+           "nb_classe" = nclx,
+           
+           # "tcl" = paste(mean(x$tdivconstatrneses) %>% round(2),
+           #               " (", sd(x$tdivconstatrneses) %>% round(2), ")", sep = ""),
+           
+           "notednb" = paste(mean(x$moyG1, na.rm = TRUE) %>% round(2), 
+                             " (", sd(x$moyG1, na.rm = TRUE) %>% round(2), ")", 
+                             sep = ""),
+           " " = "",
+           
+           "retrcm2" = mean(! is.na(x$score_f)) %>% 
+                               round(2),
+           
+           "notecm2" = paste(mean(x$score, na.rm = TRUE) %>% round(2),
+                             " (", sd(x$score, na.rm = TRUE) %>% round(2), ")",
+                             sep = ""),
+           
+           " " = "",
+           
+           "sexef" = mean(x$sexe_mod_F, na.rm = TRUE) %>% 
+             round(2),
+           # "sexem" = mean(x$sexe_mod_M, na.rm = TRUE) %>% 
+           #   round(2),
+           
+           " " = "",
+           
+           "pcsdefav" = mean(x$pcs_reg_mod_Defav, na.rm = TRUE) %>% 
+             round(2),
+           "pcsothers" = "...",
+           "pcstresfav" = mean(x$pcs_reg_mod_Tresfav, 
+                               na.rm = TRUE) %>% round(2),
+           
+           " " = "",
+           
+           "regimedp" = mean(x$lregime_constat_g_dp, 
+                             na.rm = TRUE) %>% round(2),
+           "regimeothers" = "...",
+           
+           " " = "",
+           
+           "nobs" = nrow(x)) %>% as.matrix}) %>% do.call(what = cbind) %>% 
+  (function (d) {
+    rownames(d) <- rownames(d) %>% str_replace("nb_ecole", "Nombre d'établissements") %>% str_replace("nb_classe", "Nombre de classes par établissement") %>%
+      str_replace("tcl", "Taille de classe") %>% str_replace("notednb", "Note au DNB") %>% str_replace("retrcm2", "Proportion de retrouvés") %>% 
+      str_replace("^notecm2$", "Note au CM2") %>% str_replace("sexef", "Filles") %>% str_replace("sexem", "Garçons") %>% 
+      str_replace("pcsdefav", "CSP - Défavorisée") %>% str_replace("pcsothers", "...") %>% 
+      str_replace("pcstresfav", "CSP - Très favorisée") %>% str_replace("regimedp", "Demi-pensionnaires") %>% 
+      str_replace("regimeothers", "...") %>% 
+      str_replace("nobs", "Observations")
+    d 
+  }) %>% 
+  set_colnames(c("Données complètes", "(1) sans classes atypiques", "(2) après tests KS") %>% col_numbers) %>% 
+  (function (d) {d[, 1:2] <- d[, 1:2] %>% apply(2, function (x) paste("\\textcolor{red}{", x, "}", sep = "")) ; d}) %>% 
+  kable2 %>%
+  kable_styling0 %>% footnote2(general = c(
+    "\\\\tiny \\\\textit{Sources :} Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT, calculs de l'auteur.",
+    "\\\\tiny \\\\textit{Notes :} Toutes les notes sont exprimées en rang de percentiles. Moyennes au CM2 calculées sur les retrouvés uniquement." ,
+    "\\\\tiny Écart-types entre parenthèses. KS : Kolmogorov-Smirnov. CSP : Catégorie socio-professionnelle."))
+```
+
+- Entre (1) et (2) : on enlève des classes (17%). 
+- Augmentation de la note au CM2 entre (1) et (2) : prévalence des classes atypiques inférieures dans (1).
+
+## Statistiques descriptives
+
+\scriptsize
+
+```{r}
+lapply(list(datcompl, 
+            dat, 
+            datrestr_2), 
+       function (x) {
+         
+         nclx <- group_by(x, rneconstatses) %>% 
+           summarise(n =length(unique(divconstatrneses)))  %>% 
+           (function (d) paste(mean(d$n) %>% 
+                                 round(3),
+                               " (", sd(d$n) %>%
+                                 round(3), ")", sep = ""))
+         
+         c("nb_ecole" = length(unique(x$rneconstat)),
+           
+           "nb_classe" = nclx,
+           
+           # "tcl" = paste(mean(x$tdivconstatrneses) %>% round(2),
+           #               " (", sd(x$tdivconstatrneses) %>% round(2), ")", sep = ""),
+           
+           "notednb" = paste(mean(x$moyG1, na.rm = TRUE) %>% round(2), 
+                             " (", sd(x$moyG1, na.rm = TRUE) %>% round(2), ")", 
+                             sep = ""),
+           " " = "",
+           
+           "retrcm2" = mean(! is.na(x$score_f)) %>% 
+                               round(2),
+           
+           "notecm2" = paste(mean(x$score, na.rm = TRUE) %>% round(2),
+                             " (", sd(x$score, na.rm = TRUE) %>% round(2), ")",
+                             sep = ""),
+           
+           " " = "",
+           
+           "sexef" = mean(x$sexe_mod_F, na.rm = TRUE) %>% 
+             round(2),
+           # "sexem" = mean(x$sexe_mod_M, na.rm = TRUE) %>% 
+           #   round(2),
+           
+           " " = "",
+           
+           "pcsdefav" = mean(x$pcs_reg_mod_Defav, na.rm = TRUE) %>% 
+             round(2),
+           "pcsothers" = "...",
+           "pcstresfav" = mean(x$pcs_reg_mod_Tresfav, 
+                               na.rm = TRUE) %>% round(2),
+           
+           " " = "",
+           
+           "regimedp" = mean(x$lregime_constat_g_dp, 
+                             na.rm = TRUE) %>% round(2),
+           "regimeothers" = "...",
+           
+           " " = "",
+           
+           "nobs" = nrow(x)) %>% as.matrix}) %>% do.call(what = cbind) %>% 
+  (function (d) {
+    rownames(d) <- rownames(d) %>% str_replace("nb_ecole", "Nombre d'établissements") %>% str_replace("nb_classe", "Nombre de classes par établissement") %>%
+      str_replace("tcl", "Taille de classe") %>% str_replace("notednb", "Note au DNB") %>% str_replace("retrcm2", "Proportion de retrouvés") %>% 
+      str_replace("^notecm2$", "Note au CM2") %>% str_replace("sexef", "Filles") %>% str_replace("sexem", "Garçons") %>% 
+      str_replace("pcsdefav", "CSP - Défavorisée") %>% str_replace("pcsothers", "...") %>% 
+      str_replace("pcstresfav", "CSP - Très favorisée") %>% str_replace("regimedp", "Demi-pensionnaires") %>% 
+      str_replace("regimeothers", "...") %>% 
+      str_replace("nobs", "Observations")
+    d 
+  }) %>% 
+  set_colnames(c("Données complètes", "(1) sans classes atypiques", "(2) après tests KS") %>% col_numbers) %>% 
+  (function (d) {d[, 1:2] <- d[, 1:2] %>% apply(2, function (x) paste("\\textcolor{red}{", x, "}", sep = "")) ; d}) %>% 
+  kable2 %>%
+  kable_styling0 %>% footnote2(general = c(
+    "\\\\tiny \\\\textit{Sources :} Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT, calculs de l'auteur.",
+    "\\\\tiny \\\\textit{Notes :} Toutes les notes sont exprimées en rang de percentiles. Moyennes au CM2 calculées sur les retrouvés uniquement." ,
+    "\\\\tiny Écart-types entre parenthèses. KS : Kolmogorov-Smirnov. CSP : Catégorie socio-professionnelle."))
+```
+
+- Entre (2) et (3) : on enlève des établissements (trois). 
+- Pas de changement considérable des chiffres entre (2) et (3).
+
+
+# Modélisation
+
+## Modèle économétrique : notations
+
+\scriptsize
+
+-   \textcolor{red}{$i, c, e, a$} : indices des individu, classe, école et année. \vfill
+-   \textcolor{red}{$y^{dnb}_{icea}$} : note au DNB en rang de percentiles, variable dépendante. Les rangs de percentiles sont calculés par année de DNB.\vfill
+-   \textcolor{red}{$y^{cm2}_{icea}$} : note au CM2 en rang de percentiles. Les rangs de percentiles sont calculés par année de CM2. 
+-   \textcolor{red}{$\overline{y}^{cm2}_{-icea}$} : note au CM2 des pairs (de 3^ème^), calculée sur les retrouvés uniquement.
+-   \textcolor{red}{$Qn_{icea}$} : indicateur d'appartenance au quintile $n$ de la note au CM2, calculée sur les retrouvés uniquement. 
+-   \textcolor{red}{$\bar{Qm}_{-icea}$} : proportion de pairs au quintile $m$ de la note au CM2, calculée sur les retrouvés uniquement. \vfill
+-   \textcolor{red}{$p_{-icea}$} : proportion de retrouvés chez les pairs. \vfill
+-   \textcolor{red}{$x_{icea}$} : variables de contrôle au niveau individuel.
+-   \textcolor{red}{$\overline{x}_{-icea}$} : variables de contrôle chez (tous) les pairs. 
+-   \textcolor{red}{$t_{cea}$} : taille de classe. \vfill
+-   \textcolor{red}{$\eta_{ea}$} : effet établissement-année.
+-   \textcolor{red}{$\epsilon_{icea}$} : terme d'erreur.
+
+
+
+## @SOJ:13, effets de pairs linéaires en moyennes
+
+\scriptsize
+
+```{=tex}
+\begin{equation}
+\begin{aligned}
+& y^{dnb}_{icea} &=& \textcolor{red}{\beta} \textcolor{blue}{\overline{y}^{cm2}_{-icea}p_{-icea}} + \iota y^{cm2}_{icea} + \pi \textcolor{blue}{p_{-icea}} \\ 
+& &+& x_{icea} \gamma + \delta t_{cea} + \overline{x}_{-icea} \theta + \eta_{ea} + \epsilon_{icea}
+\end{aligned}
+\end{equation}
+```
+
+```{=tex}
+\vfill
+\centering
+
+\begin{tikzpicture}[->, >= stealth']
+  \node (1) at (0, 0) {\textcolor{blue}{$\overline{y}^{cm2}_{icea}p_{-icea}$}}; 
+  \node (2) at (2, 0) {$y^{dnb}_{icea}$};
+  
+  \node (3) at (4, - 2){$\epsilon_{icea}$} ; 
+  \node (5) at (- 2, - 2) {$\eta_{ea}$} ; 
+  
+  \node (6) at (0, 2) {$\overline{x}_{-icea}$} ; 
+  \node (7) at (2, 2) {$y^{cm2}_{icea}, x_{icea}$, $t_{cea}$} ; 
+   
+  \draw [->, red] (1) to (2) ; 
+  
+  \draw[->] (3) to (2) ; 
+  \draw[->] (5) to (2) ; 
+  \draw[->] (6) to (2) ; 
+  \draw[->] (7) to (2) ; 
+  
+  \draw[->, opacity = .1] (6) to (1) ; 
+  \draw[->, opacity = .1] (7) to (1) ; 
+  \draw[->, opacity = .1] (5) to (1) ; 
+  
+\end{tikzpicture}
+```
+
+- Prise en compte du niveau \textcolor{blue}{passé (CM2)} des pairs (en 3ème) : permet de contourner le problème de réflexion [@YEU:NGU:16].
+- Spécificité du modèle : prise en compte des données manquantes via \textcolor{blue}{$p_{-icea}$}.
+
+## @SOJ:13, effets de pairs linéaires en moyennes
+
+\scriptsize
+
+```{=tex}
+\begin{equation}
+\begin{aligned}
+& y^{dnb}_{icea} &=& \textcolor{red}{\beta} \overline{y}^{cm2}_{-icea}p_{-icea} + \iota \textcolor{blue}{y^{cm2}_{icea}} + \pi p_{-icea} \\ 
+& &+& x_{icea} \gamma + \delta t_{cea} + \overline{x}_{-icea} \theta + \eta_{ea} + \epsilon_{icea}
+\end{aligned}
+\end{equation}
+```
+
+```{=tex}
+\vfill
+\centering
+
+\begin{tikzpicture}[->, >= stealth']
+  \node (1) at (0, 0) {$\overline{y}^{cm2}_{icea}p_{-icea}$}; 
+  \node (2) at (2, 0) {$y^{dnb}_{icea}$};
+  
+  \node (3) at (4, - 2){$\epsilon_{icea}$} ; 
+  \node (5) at (- 2, - 2) {$\eta_{ea}$} ; 
+  
+  \node (6) at (0, 2) {$\overline{x}_{-icea}$} ; 
+  \node (7) at (2, 2) {$\textcolor{blue}{y^{cm2}_{icea}}, x_{icea}$, $t_{cea}$} ; 
+   
+  \draw [->, red] (1) to (2) ; 
+  
+  \draw[->] (3) to (2) ; 
+  \draw[->] (5) to (2) ; 
+  \draw[->] (6) to (2) ; 
+  \draw[->] (7) to (2) ; 
+  
+  \draw[->, opacity = .1] (6) to (1) ; 
+  \draw[->, opacity = .1] (7) to (1) ; 
+  \draw[->, opacity = .1] (5) to (1) ; 
+  
+\end{tikzpicture}
+```
+
+- \textcolor{blue}{$y^{cm2}_{icea}$} : prise en compte partielle de la formation endogène des pairs [@DAV:04 ; @SOJ:13]. Biais de surestimation si non.
+
+## @SOJ:13, effets de pairs linéaires en moyennes
+
+\scriptsize
+
+```{=tex}
+\begin{equation}
+\begin{aligned}
+& y^{dnb}_{icea} &=& \textcolor{red}{\beta} \overline{y}^{cm2}_{-icea}p_{-icea} + \iota y^{cm2}_{icea} + \pi p_{-icea} \\ 
+& &+& x_{icea} \gamma + \delta t_{cea} + \overline{x}_{-icea} \theta + \textcolor{blue}{\eta_{ea}} + \epsilon_{icea}
+\end{aligned}
+\end{equation}
+```
+
+```{=tex}
+\vfill
+\centering
+
+\begin{tikzpicture}[->, >= stealth']
+  \node (1) at (0, 0) {$\overline{y}^{cm2}_{icea}p_{-icea}$}; 
+  \node (2) at (2, 0) {$y^{dnb}_{icea}$};
+  
+  \node (3) at (4, - 2){$\epsilon_{icea}$} ; 
+  \node (5) at (- 2, - 2) {\textcolor{blue}{$\eta_{ea}$}} ; 
+  
+  \node (6) at (0, 2) {$\overline{x}_{-icea}$} ; 
+  \node (7) at (2, 2) {$y^{cm2}_{icea}, x_{icea}$, $t_{cea}$} ; 
+   
+  \draw [->, red] (1) to (2) ; 
+  
+  \draw[->] (3) to (2) ; 
+  \draw[->] (5) to (2) ; 
+  \draw[->] (6) to (2) ; 
+  \draw[->] (7) to (2) ; 
+  
+  \draw[->, opacity = .1] (6) to (1) ; 
+  \draw[->, opacity = .1] (7) to (1) ; 
+  \draw[->, opacity = .1] (5) to (1) ; 
+  
+\end{tikzpicture}
+```
+
+
+- \textcolor{blue}{$\eta_{ea}$} : prise en compte de la partie inobservée spécifique à l'établissement-année de laquelle peut résulter une sélection endogène (moyens, stratégie parentale, sélectivité de l'établissement).
+- S’appuie sur la variation intra établissement, inter classes : nécessite l'hypothèse d'assignation aléatoire des classes au sein d'un établissement-année : d'où les restrictions d'échantillon.
+
+## Cependant, le modèle linéaire en moyennes est très limité
+
+- L'effet estimé ne sert pas en termes de politiques publiques. Si ce modèle est vrai : 
+
+    - Le gain de l'arrivée d'un bon camarade dans une classe est exactement compensée par la perte due à son départ dans sa classe d'origine [@BRO:10]. \vfill
+    - La majorité des papiers rejettent empiriquement ce modèle [@HOX:WEI:05, par exemple]. \vfill
+    
+- D'où les modèles dits
+  
+    - \textcolor{red}{hétérogènes} : l'effet de pair dépend du niveau de l'individu. \vfill
+    - \textcolor{red}{non linéaires} : l'effet de pair dépend du niveau des pairs. \vfill
+    
+- Les fondations ($p_{-icea}, \eta_{ea}$) sont maintenues dans ces modèles plus flexibles [@SOJ:13].
+
+## @SOJ:13, effets de pairs hétérogènes (dépendent du niveau de l'individu)
+
+```{=tex}
+\begin{equation}
+\begin{aligned}
+& y^{dnb}_{icea} &=& \displaystyle\sum_{n = 1}^5 \textcolor{red}{\beta_{Qn}} (\overline{y}^{cm2}_{-icea}p_{-icea}) Qn_{icea} \semitransp{+ \displaystyle\sum_{n = 2}^5 \iota Qn_{icea} + \pi p_{-icea}} \\
+& &\semitransp{+}& \semitransp{x_{icea} \gamma + \delta t_{cea} + \overline{x}_{-icea} \theta + \eta_{ea} + \epsilon_{icea}}
+\end{aligned}
+\end{equation}
+```
+
+- Exemple : $\beta_{Q1}$ désigne l'effet de l'augmentation d'une unité de la note au CM2 des pairs pour un élève au $Q1$ (très faible). 
+
+## @SOJ:13, effets de pairs hétérogènes et non linéaires (dépendent du niveau de l'individu et des pairs)
+
+```{=tex}
+\begin{equation}
+\begin{aligned}
+& y^{dnb}_{icea} &=& \displaystyle\sum_{m \in \{1, 2, 4, 5\}} [\displaystyle\sum_{n = 1}^5 \textcolor{red}{\beta_{\bar{Qm}, Qn}}(\bar{Qm}_{-icea} p_{-icea}) Qn_{icea}] \semitransp{+ \displaystyle\sum_{n = 2}^5 \iota_{Qn} Qn_{icea} + \pi p_{-icea}} \\
+& &\semitransp{+}& \semitransp{x_{icea} \gamma + \delta t_{cea} + \overline{x}_{-icea} \theta + \eta_{ea} + \epsilon_{icea}}
+\end{aligned}
+\end{equation}
+```
+
+- Exemple : $\beta_{\bar{Q5}, Q1}$ désigne l'effet, l'effet du passage de 0\% à 100\% de la part de pairs au $Q5$ (très forts) contre des pairs au $Q3$ (moyen) pour un individu au $Q1$ (très faible). 
+
+# Résultats
+
+## Résultats : effets de pairs linéaires en moyenne
+
+```{r}
+mimicer2(list(ct.s13_sA_o1_dr2,
+              ct.s13_sB_o1_dr2,
+              ct.s13_sC_o1_dr2,
+              ct.s13_sD_o1_dr2,
+              ct.s13_sD_wclnivsup_o1_dr2,
+              ct.s13_sD_wclnivinf_o1_dr2) %>% lapply(function (x) x[str_detect(rownames(x), "v\\_ob"), ] 
+                                                     # %>% 
+                                                     #                 (function (x) {rownames(x) <- str_replace(rownames(x), "p:pnp_score", "p_v_ob_tot:p") ; x})
+                                                     )) %>% 
+  rbind(c("n", c(
+              n.s13_sA_o1_dr2,
+              n.s13_sB_o1_dr2,
+              n.s13_sC_o1_dr2,
+              n.s13_sD_o1_dr2,
+              n.s13_sD_wclnivsup_o1_dr2,
+              n.s13_sD_wclnivinf_o1_dr2) %>% round(3))) %>% rbind(c("arsq", c(
+              arsq.s13_sA_o1_dr2,
+              arsq.s13_sB_o1_dr2,
+              arsq.s13_sC_o1_dr2,
+              arsq.s13_sD_o1_dr2,
+              arsq.s13_sD_wclnivsup_o1_dr2,
+              arsq.s13_sD_wclnivinf_o1_dr2) %>% round(3))) %>% 
+  (function (d) {
+    d[, 1] <- c("Note CM2", "", "Note CM2 pairs", "", "N", "$R^2$ ajusté")
+    rbind(rep("", ncol (d)), d[1:(nrow(d) - 2), ], rep("", ncol (d)), d[(nrow(d) - 1):nrow(d), ])
+  }) %>% 
+  apply(2, function (x) {
+    x[is.na(x)] <- "" 
+    x
+    }) %>% 
+  (function (d) {
+    rbind(d[1:6, ],
+          c("Effets établissement-année", 
+            "\\ding{52}", "\\ding{52}", "\\ding{52}", "\\ding{52}",
+            "\\ding{52}", "\\ding{52}"),
+          c("Contrôles individuels", 
+            "\\ding{56}", "\\ding{52}", "\\ding{52}", "\\ding{52}",
+            "\\ding{52}", "\\ding{52}"), 
+          c("Taille de classe", 
+            "\\ding{56}", "\\ding{56}", "\\ding{52}", "\\ding{52}",
+            "\\ding{52}", "\\ding{52}"), 
+          c("Contrôles chez les pairs", 
+            "\\ding{56}", "\\ding{56}", "\\ding{56}", "\\ding{52}",
+            "\\ding{52}", "\\ding{52}"),
+          rep("", ncol(d)),
+          d[7:nrow(d), ])
+  }) %>% 
+  set_colnames(c("", "(1)", "(2)", "(3)", "(4)",
+                 "\\makecell{(4) avec classes \\\\ atypiques sup. \\\\ (5)}", 
+                 "\\makecell{(4) avec classes \\\\ atypiques inf. \\\\ (6)}")) %>% 
+  kable2 %>% kable_styling0 %>% 
+  add_header_above(c("", "Variable dépendante : note au DNB" = 6)) %>% 
+  footnote2(general = c("\\\\fontsize{4pt}{4pt}\\\\selectfont \\\\textit{Sources :} Fichiers DNB(2014 à 2016), fichiers CM2 (2010 à 2012) et fichiers CONSTAT, calculs de l'auteur.",
+                       "\\\\fontsize{4pt}{4pt}\\\\selectfont \\\\textit{Notes :} Notes en rang de percentiles.",
+                       "\\\\fontsize{4pt}{4pt}\\\\selectfont Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***. Écart-types robustes entre parenthèses."))
+```
+
+- (4) : 1 RP note CM2 pairs $\rightarrow$ 0.2 RP ($\approx$ 1/3 coefficient de la note au CM2) note DNB. 
+
+## Résultats : effets de pairs linéaires en moyenne
+
+```{r}
+mimicer2(list(ct.s13_sA_o1_dr2,
+              ct.s13_sB_o1_dr2,
+              ct.s13_sC_o1_dr2,
+              ct.s13_sD_o1_dr2,
+              ct.s13_sD_wclnivsup_o1_dr2,
+              ct.s13_sD_wclnivinf_o1_dr2) %>% lapply(function (x) x[str_detect(rownames(x), "v\\_ob"), ] 
+                                                     # %>% 
+                                                     #                 (function (x) {rownames(x) <- str_replace(rownames(x), "p:pnp_score", "p_v_ob_tot:p") ; x})
+                                                     )) %>% 
+  rbind(c("n", c(
+              n.s13_sA_o1_dr2,
+              n.s13_sB_o1_dr2,
+              n.s13_sC_o1_dr2,
+              n.s13_sD_o1_dr2,
+              n.s13_sD_wclnivsup_o1_dr2,
+              n.s13_sD_wclnivinf_o1_dr2) %>% round(3))) %>% rbind(c("arsq", c(
+              arsq.s13_sA_o1_dr2,
+              arsq.s13_sB_o1_dr2,
+              arsq.s13_sC_o1_dr2,
+              arsq.s13_sD_o1_dr2,
+              arsq.s13_sD_wclnivsup_o1_dr2,
+              arsq.s13_sD_wclnivinf_o1_dr2) %>% round(3))) %>% 
+  (function (d) {
+    d[, 1] <- c("Note CM2", "", "Note CM2 pairs", "", "N", "$R^2$ ajusté")
+    rbind(rep("", ncol (d)), d[1:(nrow(d) - 2), ], rep("", ncol (d)), d[(nrow(d) - 1):nrow(d), ])
+  }) %>% 
+  apply(2, function (x) {
+    x[is.na(x)] <- "" 
+    x
+    }) %>% 
+  (function (d) {
+    rbind(d[1:6, ],
+          c("Effets établissement-année", 
+            "\\ding{52}", "\\ding{52}", "\\ding{52}", "\\ding{52}",
+            "\\ding{52}", "\\ding{52}"),
+          c("Contrôles individuels", 
+            "\\ding{56}", "\\ding{52}", "\\ding{52}", "\\ding{52}",
+            "\\ding{52}", "\\ding{52}"), 
+          c("Taille de classe", 
+            "\\ding{56}", "\\ding{56}", "\\ding{52}", "\\ding{52}",
+            "\\ding{52}", "\\ding{52}"), 
+          c("Contrôles chez les pairs", 
+            "\\ding{56}", "\\ding{56}", "\\ding{56}", "\\ding{52}",
+            "\\ding{52}", "\\ding{52}"),
+          rep("", ncol(d)),
+          d[7:nrow(d), ])
+  }) %>% 
+  set_colnames(c("", "(1)", "(2)", "(3)", "(4)",
+                 "\\makecell{(4) avec classes \\\\ atypiques sup. \\\\ (5)}", 
+                 "\\makecell{(4) avec classes \\\\ atypiques inf. \\\\ (6)}")) %>% 
+  kable2 %>% kable_styling0 %>% 
+  add_header_above(c("", "Variable dépendante : note au DNB" = 6)) %>% 
+  footnote2(general = c("\\\\fontsize{4pt}{4pt}\\\\selectfont \\\\textit{Sources :} Fichiers DNB(2014 à 2016), fichiers CM2 (2010 à 2012) et fichiers CONSTAT, calculs de l'auteur.",
+                       "\\\\fontsize{4pt}{4pt}\\\\selectfont \\\\textit{Notes :} Notes en rang de percentiles.",
+                       "\\\\fontsize{4pt}{4pt}\\\\selectfont Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***. Écart-types robustes entre parenthèses."))
+```
+
+\scriptsize
+
+- (4) : Ordre de grandeur légèrement inférieure à @SOJ:13 et supérieure à @BOU:MAI:18. Explication possible : niveau d'éducation. 
+
+## Résultats : effets de pairs hétérogènes
+
+```{r}
+mimicer2(list(ct.s13h5_sD_dr2, 
+              ct.s13h5_sD_wclnivsup_dr2,
+              ct.s13h5_sD_wclnivinf_dr2) %>% lapply(function (x) x[str_detect(rownames(x), "v\\_ob"), ] 
+                                                          # %>% 
+                                                          #          (function (x) {
+                                                          #            rownames(x) <- str_replace(rownames(x), "totq", "tot_q") %>% str_remove("p:") %>% str_remove(":p$") %>% 
+                                                          #              str_replace("pnp_score", "p_v_ob_tot") %>% (function (x) ifelse(str_detect(x, "^p_"), invcov(x), x))
+                                                          #            x
+                                                          #          })
+                                                          )) %>% 
+  rbind(c("n", c(n.s13h5_sD_dr2, 
+              n.s13h5_sD_wclnivsup_dr2,
+              n.s13h5_sD_wclnivinf_dr2) %>% round(3))) %>% rbind(c("arsq", c(arsq.s13h5_sD_dr2, 
+              arsq.s13h5_sD_wclnivsup_dr2,
+              arsq.s13h5_sD_wclnivinf_dr2) %>% round(3))) %>% 
+  (function (d) {
+    d[, 1] <- c("Note CM2 pairs x Q1", "", "Note CM2 pairs x Q2", "", "Note CM2 pairs x Q3", "", "Note CM2 pairs x Q4", "", "Note CM2 pairs x Q5", "",
+                "N", "$R^2$ ajusté")
+    rbind(rep("", ncol (d)), d[1:(nrow(d) - 2), ], rep("", ncol (d)), d[(nrow(d) - 1):nrow(d), ])
+  }) %>% 
+  # (function (d) {
+  #       rbind(d[1:12, ], 
+  #         c("Effets établissement-année", 
+  #           "\\ding{52}", "\\ding{52}", "\\ding{52}"),
+  #         c("Indicateurs de quintiles individuels", 
+  #           "\\ding{52}", "\\ding{52}", "\\ding{52}"),
+  #         c("Contrôles individuels", 
+  #           "\\ding{52}", "\\ding{52}", "\\ding{52}"), 
+  #         c("Taille de classe", 
+  #           "\\ding{52}", "\\ding{52}", "\\ding{52}"), 
+  #         c("Contrôles chez les pairs", 
+  #           "\\ding{52}", "\\ding{52}", "\\ding{52}"),
+  #         rep("", ncol(d)),
+  #         d[13:nrow(d), ])
+  # }) %>%
+  set_colnames(c("", 
+                        "(1)", 
+                        "\\makecell{(1) avec classes \\\\ atypiques sup. \\\\ (2)}",
+                        "\\makecell{(1) avec classes \\\\ atypiques inf. \\\\ (3)}")) %>% 
+  kable2(align = c("l", "c", "c", "c")) %>% kable_styling0 %>% 
+  add_header_above(c("", "Variable dépendante : note au DNB" = 3)) %>% 
+  footnote2(general = c("\\\\fontsize{4pt}{4pt}\\\\selectfont \\\\textit{Sources :} Fichiers DNB(2014 à 2016), fichiers CM2 (2010 à 2012) et fichiers CONSTAT, calculs de l'auteur.",
+                       "\\\\fontsize{4pt}{4pt}\\\\selectfont \\\\textit{Notes :} Notes en rang de percentiles. Quintiles calculés sur les candidats au DNB, par année. Quintiles en contrôle. Tous les contrôles.", 
+                       "\\\\fontsize{4pt}{4pt}\\\\selectfont Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***. Écart-types robustes entre parenthèses."))
+```
+
+- (1) : Effet croissant de manière monotone avec le niveau au CM2 jusqu'à Q4. 
+
+## Résultats : effets de pairs hétérogènes
+
+```{r}
+mimicer2(list(ct.s13h5_sD_dr2, 
+              ct.s13h5_sD_wclnivsup_dr2,
+              ct.s13h5_sD_wclnivinf_dr2) %>% lapply(function (x) x[str_detect(rownames(x), "v\\_ob"), ] 
+                                                          # %>% 
+                                                          #          (function (x) {
+                                                          #            rownames(x) <- str_replace(rownames(x), "totq", "tot_q") %>% str_remove("p:") %>% str_remove(":p$") %>% 
+                                                          #              str_replace("pnp_score", "p_v_ob_tot") %>% (function (x) ifelse(str_detect(x, "^p_"), invcov(x), x))
+                                                          #            x
+                                                          #          })
+                                                          )) %>% 
+  rbind(c("n", c(n.s13h5_sD_dr2, 
+              n.s13h5_sD_wclnivsup_dr2,
+              n.s13h5_sD_wclnivinf_dr2) %>% round(3))) %>% rbind(c("arsq", c(arsq.s13h5_sD_dr2, 
+              arsq.s13h5_sD_wclnivsup_dr2,
+              arsq.s13h5_sD_wclnivinf_dr2) %>% round(3))) %>% 
+  (function (d) {
+    d[, 1] <- c("Note CM2 pairs x Q1", "", "Note CM2 pairs x Q2", "", "Note CM2 pairs x Q3", "", "Note CM2 pairs x Q4", "", "Note CM2 pairs x Q5", "",
+                "N", "$R^2$ ajusté")
+    rbind(rep("", ncol (d)), d[1:(nrow(d) - 2), ], rep("", ncol (d)), d[(nrow(d) - 1):nrow(d), ])
+  }) %>% 
+  # (function (d) {
+  #       rbind(d[1:12, ], 
+  #         c("Effets établissement-année", 
+  #           "\\ding{52}", "\\ding{52}", "\\ding{52}"),
+  #         c("Indicateurs de quintiles individuels", 
+  #           "\\ding{52}", "\\ding{52}", "\\ding{52}"),
+  #         c("Contrôles individuels", 
+  #           "\\ding{52}", "\\ding{52}", "\\ding{52}"), 
+  #         c("Taille de classe", 
+  #           "\\ding{52}", "\\ding{52}", "\\ding{52}"), 
+  #         c("Contrôles chez les pairs", 
+  #           "\\ding{52}", "\\ding{52}", "\\ding{52}"),
+  #         rep("", ncol(d)),
+  #         d[13:nrow(d), ])
+  # }) %>%
+  set_colnames(c("", 
+                        "(1)", 
+                        "\\makecell{(1) avec classes \\\\ atypiques sup. \\\\ (2)}",
+                        "\\makecell{(1) avec classes \\\\ atypiques inf. \\\\ (3)}")) %>% 
+  kable2(align = c("l", "c", "c", "c")) %>% kable_styling0 %>% 
+  add_header_above(c("", "Variable dépendante : note au DNB" = 3)) %>% 
+  footnote2(general = c("\\\\fontsize{4pt}{4pt}\\\\selectfont \\\\textit{Sources :} Fichiers DNB(2014 à 2016), fichiers CM2 (2010 à 2012) et fichiers CONSTAT, calculs de l'auteur.",
+                       "\\\\fontsize{4pt}{4pt}\\\\selectfont \\\\textit{Notes :} Notes en rang de percentiles. Quintiles calculés sur les candidats au DNB, par année. Quintiles en contrôle. Tous les contrôles.", 
+                       "\\\\fontsize{4pt}{4pt}\\\\selectfont Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***. Écart-types robustes entre parenthèses."))
+```
+
+\scriptsize
+
+- (1) : Pas en accord avec la majorité des papiers, sauf @DUF:eal:11 (Kenya) : contexte socio-économique similaire ?. 
+
+## Résultats : effets de pairs hétérogènes et non linéaires
+
+\centering \scriptsize Variable dépendante : note au DNB.
+
+```{r}
+rbind(hnolintab_q5_dr2 %>% 
+        mutate(spec = "retenue"), 
+      hnolintab_q5_wclnivsup_dr2 %>% 
+        mutate(spec = "wclnivsup"),
+      hnolintab_q5_wclnivinf_dr2 %>% 
+        mutate(spec = "wclnivinf")) %>% 
+  mutate(spec = factor(spec, 
+                       levels = c("retenue",
+                                  "wclnivsup",
+                                  "wclnivinf"))) %>% 
+  ggplot(aes(peer, coef / 10)) + geom_point() + geom_line(aes(group = indiv)) + geom_errorbar(aes(ymin = low / 10, ymax = up / 10), width = .1) + 
+  facet_grid(spec ~ indiv, 
+             labeller = alabel) + 
+  geom_hline(aes(yintercept = 0), linetype = "dashed", color = "red") + labs %>% 
+  (function (l) {
+    l$caption = "Sources : Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers, calculs de l'auteur. \nNotes : Quintiles calculées par année (DNB). \nIntervalles de confiance à 95% à partir d'écart-types robustes." 
+    l}) + scale_x_discrete(labels = peerlab) + theme_bw() + mytheme
+```
+
+\raggedright Spécification retenue : 
+
+- Pas d'effet considérable (ampleur, significativité) pour les individus les plus faibles (colonne de panels Q1). 
+- Les pairs les plus faibles ont un effet négatif sur tous les individus ayant un niveau qui leur sont supérieurs, sauf les plus forts (Q5). Voir $\bar{Q1}$, colonnes de panels Q2 à Q4. 
+- Les pairs les plus forts ont un effet positif sur les individus au moins de niveau moyen. 
+
+## Implications (spéculatif)
+
+\centering \scriptsize Variable dépendante : note au DNB.
+
+```{r, fig.asp = .3}
+rbind(hnolintab_q5_dr2 %>% 
+        mutate(spec = "retenue"), 
+      hnolintab_q5_wclnivsup_dr2 %>% 
+        mutate(spec = "wclnivsup"),
+      hnolintab_q5_wclnivinf_dr2 %>% 
+        mutate(spec = "wclnivinf")) %>% 
+  mutate(spec = factor(spec, 
+                       levels = c("retenue",
+                                  "wclnivsup",
+                                  "wclnivinf"))) %>% 
+  filter(spec == "retenue") %>% 
+  ggplot(aes(peer, coef / 10)) + geom_point() + geom_line(aes(group = indiv)) + geom_errorbar(aes(ymin = low / 10, ymax = up / 10), width = .1) + 
+  facet_grid(spec ~ indiv, 
+             labeller = alabel) + 
+  geom_hline(aes(yintercept = 0), linetype = "dashed", color = "red") + labs %>% 
+  (function (l) {
+    l$caption = "Sources : Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers, calculs de l'auteur. \nNotes : Quintiles calculées par année (DNB). \nIntervalles de confiance à 95% à partir d'écart-types robustes." 
+    l}) + scale_x_discrete(labels = peerlab) + theme_bw() + mytheme
+```
+
+```{=tex}
+\usetikzlibrary{shapes,fit} %use shapes library if you need ellipse
+\centering
+\tiny
+\begin{tikzpicture}
+\node (q1) at (- 1, 1) {Q1} ; 
+\node (q2) at (1, 1) {Q2} ; 
+\node (q3) at (0, 0) {Q3} ; 
+\node (q4) at (- 1, - 1) {Q4} ; 
+\node (q5) at (1, - 1) {Q5} ; 
+
+\node[ellipse, draw = red, fit = (q3) (q4) (q5)] (fit) {} ; 
+
+\draw [-, color = blue] (q1) to [in = 0] (q5) ; 
+\draw [-, color = green] (q2) to [in = 0] (q4) ; 
+\end{tikzpicture}
+```
+
+- Regrouper \textcolor{red}{Q3, Q4, Q5} équitablement entre eux. 
+- Favoriser les combinaisons \textcolor{blue}{(Q1, Q5)} et \textcolor{green}{(Q2, Q4)}.
+ 
+# Conclusion
+
+## En résumé
+
+- Objectif : Mesurer l'influence du niveau initial des pairs sur les résultats en fin de collège à La Réunion. \vfill
+- Méthodologie : 
+
+  -   Forme réduite (niveau initial des pairs). 
+  -   Effets établissement (variation intra établissement inter classes). 
+  -   Restriction d'échantillon : suppression des classes atypiques et tests statistiques. 
+  -   Prise en compte des valeurs manquantes sur le niveau initial des pairs : @SOJ:13. \vfill
+
+- Résultats : 
+
+  - Un effet linéaire en moyennes positif et significatif, en cohérence avec la littérature.
+  - Un effet croissant avec le niveau de l'élève jusqu'à un certain niveau, en contradiction avec la littérature, sauf @DUF:eal:11. 
+  - Des effets hétérogènes et non linéaires incitant à regrouper les plus forts entre eux puis à départager les plus faibles dans ces groupes en respectant quelques règles. 
+  
+## Discussions
+
+- Limites (liste non exhaustive) : 
+
+  -   Absence de modèle général englobant les 3 spécifications (linéaires en moyenne, hétérogène, hétérogène et non linéaire). 
+  -   Pas de données sur les enseignants (biais de surestimation si les meilleurs enseignants sont affectés aux classes de bon niveau).
+  -   Manque d'information explicite sur la pratique de regroupement des élèves selon leur niveau de la part des établissements. \vfill
+
+- Perspectives (liste non exhaustive) : 
+
+  -   Effets différenciés selon le genre et la CSP.
+  -   Confrontation avec les résultats des études comparables.
+
+## 
+
+\centering \LARGE \vfill Merci de votre attention. \vfill
+
+## Bibliographie {.allowframebreaks}

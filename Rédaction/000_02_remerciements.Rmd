@@ -1,0 +1,13 @@
+# Remerciements {-}
+  
+<!-- Si un travail de recherche n'est jamais fini, je finalise ma formation doctorale avec cette thèse. Il m'est impensable de ne pas remercier convenablement toutes les parties y ayant contribué, de près ou de loin.  -->
+  
+Merci premièrement à mon directeur de thèse, Yves Croissant, pour avoir accepté de diriger ma thèse. Outre toutes vos indispensables aides techniques, toutes nos réunions remotivantes et enrichissantes, il vous a fallu mobiliser patience, disponibilité et mots d'encouragements à mon égard. Merci également aux membres de mon comité de suivi de thèse, qui sont Liliane Bonnal, Alexis Parmentier et Nicolas Moreau, pour les conseils et les encouragements que vous m'avez prodigués. Merci tout particulièrement à Nicolas Moreau pour toutes vos relectures et discussions approfondies de mes travaux et pour avoir permis au troisième chapitre de ma thèse d'exister. Mes remerciements vont aussi au Rectorat de La Réunion et particulièrement à Fabrice Payet et Jean-Eric Parvedy. Si j'ai pu obtenir et comprendre les données que j'exploite dans ma thèse, c'est grâce à vous. 
+    
+\quad Je suis très honoré et très reconnaissant envers Habiba Djebbari et Yannick L'Horty pour avoir accepté de rapporter mon travail. Je remercie pareillement les autres membres de mon jury de thèse : Liliane Bonnal, Jeannot Ramiaramanana et Nicolas Moreau. Les échanges que nous effectuerons me seront sans doute intéressantes. 
+  
+\quad Je n'oublie pas tous les collègues du CEMOI ainsi que les membres du personnel administratif. Vous m'aurez permis de me former à la recherche dans un cadre particulièrement bienveillant. Je me dois de remercier particulièrement Anna Genave. On aura partagé le bureau, une amitié et du café aussi. À un de ces jours. Une pensée aux doctorants de ma promotion et à ceux des promotions suivantes. Avec toutes les heures que j'ai passées dans les locaux, le laboratoire était déjà peut-être un deuxième CHEZ-MOI. 
+  
+\quad À tous mes amis, que je ne saurais citer exhaustivement mais qui se reconnaîtront, où qu'ils soient, merci. Vous avez contribué à ce que je sors grandi de ce parcours. Une pensée à des proches, dont des membres de famille, que j'ai perdus en chemin et que je ne retrouverai pas.  
+  
+\quad Enfin, je ne saurais jamais assez remercier toute ma famille, particulièrement mes parents, mes deux petites sœurs et ma famille proche en métropole, pour leur présence et leur soutien constants. Je peux affirmer que je n'y serais pas arrivé sans vous. 

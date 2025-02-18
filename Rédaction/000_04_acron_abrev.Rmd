@@ -1,0 +1,59 @@
+# Acronymes et abréviations {-}
+
+ABS : Absolu  
+ABSREL : Absolu et relatif  
+AES : Administration Économique et Sociale  
+APOGEE : Application Pour l'Organisation et la Gestion des Enseignements et des Étudiants  
+BTS : Brevet de Technicien Supérieur  
+CE1 : Cours Élémentaire 1^ère^ année    
+CE2 : Cours Élémentaire 2^ème^ année  
+CM1 : Cours Moyen 1^ère^ année       
+CM2 : Cours Moyen 2^ème^ année     
+CP : Cours Préparatoire    
+CSP : Catégorie Socio-Professionnelle    
+DEPP : Direction de l'Évaluation, de la Prospective et de la Performance  
+DIMA : Dispositif d'Initiation aux Métiers en Alternance  
+DNB : Diplôme National de Brevet  
+DROM : Département et Région d'Outre-Mer  
+Eco-Ge : Économie et Gestion  
+ES : Économique et Social  
+EE : Enquête Emploi  
+EP : Éducation Prioritaire  
+FCH : Fonction de Contrôle avec Hétérogénéité  
+FRD : *Fuzzy Regression Discontinuity*  
+GT : Général et Technologique  
+HEP : Hors Éducation Prioritaire  
+ICILS : *International Computer and Information Literacy Study*  
+IDEOM : Institut d'Émission des Départements d'Outre-Mer  
+INE : Identifiant National de l'Élève  
+INSEE : Institut National de la Statistique et des Études Économiques  
+JDC : Journée Défense Citoyenneté  
+KS : Kolmogorov-Smirnov  
+L : Littéraire  
+MCO : Moindres Carrés Ordinaires  
+NAEP : *National Assessment of Educational Progress*  
+NLSY : *National Longitudinal Survey of Youth Mother-Child*  
+OCDE : Organisation de Coopération et de Développement Économiques  
+PIB : Produit Intérieur Brut  
+PIRLS : *Progress in International Reading Literacy Study*  
+PISA : *Programme for International Student Assessment*/Programme International pour le Suivi des Acquis des élèves  
+Pro : Professionnel   
+REL : Relatif  
+S : Scientifique  
+S2TMD : Sciences et Techniques du Théâtre, de la Musique et de la Danse  
+SEGPA : Section d'Enseignement Général et Professionnel Adapté  
+ST2S : Sciences et Technologies de la Santé et du Social  
+STAR : *Student-Teacher Achievement Ratio*  
+STAV : Sciences et Technologies de l'Agronomie et du Vivant  
+STD2A : Sciences et Technologies du Design et des Arts Appliqués  
+STHR : Sciences et Technologies de l'Hôtellerie et de la Restauration  
+STL : Sciences et Technologies de Laboratoire  
+STMG : Sciences et Technologies du Management et de la Gestion  
+TD : Travaux Dirigés  
+TEMA : *Tests for Early Mathematics Ability*  
+TIMSS : *Trends in Mathematics and Science Study*  
+UE : Unité d'Enseignement  
+UET : Unité d'Écart-Type  
+ULIS : Unités Localisées pour l'Inclusion Scolaire   
+VI : Variable Instrumentale      
+VI-EXCL : Variable Instrumentale - Test indirect de la restriction   d'Exclusion [@GOU:MAU:07]  

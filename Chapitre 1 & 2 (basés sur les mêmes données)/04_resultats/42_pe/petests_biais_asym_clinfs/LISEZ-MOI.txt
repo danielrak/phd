@@ -1,0 +1,3 @@
+Le 2022_02_23. Il s'agira de tester les deux propositions : 
+	- il y a un biais asymétrique des classes atypiques car les classes atypiques sups sont trop peu nombreuses (petests_biais_asym_clinfs_eff). Voir docear pour le plan (carte finalisation pe). 
+	- il y a un biais asymétrique des classes atypiques car les élèves des clinf sont  très différents des clnonat par rapport aux clsup (petests_biais_asym_clinfs_diff). Voir docear pour le plan (carte finalisation pe). 

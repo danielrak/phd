@@ -1,0 +1,2 @@
+L'idée est de construire l'indice de ségrégation de Ly : q1-pq5. 
+Puis de se restreindre à un échantillon où cet indice est proche de 20% : comment définir la tolérance ? 

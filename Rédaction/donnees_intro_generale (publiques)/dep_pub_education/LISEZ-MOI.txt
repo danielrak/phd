@@ -1,0 +1,3 @@
+Source : site de la banque mondiale.
+https://donnees.banquemondiale.org/indicator/SE.XPD.TOTL.GD.ZS => tous les pays.
+union européenne ? => https://ec.europa.eu/eurostat/web/education-and-training/data/database

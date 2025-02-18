@@ -1,0 +1,1185 @@
+<!-- \renewcommand{\thetable}{\Alph{section}.\arabic{table}}  -->
+<!-- \renewcommand{\theHtable}{Supplement.\thetable} -->
+
+<!-- \renewcommand{\thefigure}{\Alph{section}\arabic{figure}} -->
+<!-- \renewcommand{\theHfigure}{Supplement.\thefigure} -->
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+<!-- ## Distribution de l'âge à la rentrée des néo-bacheliers {#g20age26aoutcompl} -->
+
+## Distribution de l'âge à la rentrée et des notes des néo-bacheliers {#g20age26aoutnotescompl}
+
+```{r, "g20age26aoutcompl", fig.cap = "Distributions de l'âge à la rentrée des néo-bacheliers"}
+act2 <- NA
+# MAJ2022_08_20 : corrigé car les trois derniers panels étaient les mêmes (mêmes données).
+g20age26aout_compl_corr + 
+  labs(caption = "<br>Sources : Base Parcoursup - L1 AES et Eco-Ge, plateforme 'J'ai 20 en maths', APOGEE (version extraite en mai 2021), calculs de l'auteur.") + # astuce ultime (du moment) pour les notes de figure ggplot.
+  theme_bw() + mytheme %>% 
+  (function (m) {
+    m$strip.text <- element_text(
+      ## size = m$strip.text$size - 8,
+      angle = 45) 
+  m$axis.text.x <- element_text(size = m$axis.text$size - 7)
+    
+    m$plot.caption <- element_textbox_simple(
+      vjust = 1,
+      size = m$plot.caption$size,
+      hjust = 0,
+      # padding = margin(10, - 200, 30, 0)
+      )
+  m})
+```
+
+
+<!-- \setcounter{table}{0} -->
+<!-- \setcounter{figure}{0} -->
+<!-- ## Distribution des notes des néo-bacheliers {#g20notes} -->
+
+```{r, "g20notes", fig.cap = "Distribution des notes des néo-bacheliers"}
+act <- NA
+g20notes_corr + 
+  labs(x = "Note", y = "Densité",
+       caption = "<br>Sources : Base Parcoursup - L1 AES et Eco-Ge, plateforme 'J'ai 20 en maths', APOGEE (version extraite en mai 2021), calculs de l'auteur. <br>Notes : La note à l'UE est la moyenne des notes aux TD et aux examens. TD : Travaux Dirigés. UE : Unité d'Enseignement.") + 
+  theme_bw() + mytheme %>% 
+  (function (m) {
+    m$strip.text <- element_text(size = m$strip.text$size - 2)
+    m
+  })
+```
+
+
+\newpage
+<!-- \setcounter{table}{0} -->
+<!-- \setcounter{figure}{0} -->
+<!-- ## Comparaison entre les intéressés (non néo-bacheliers y compris) en fonction de l'incitation {#g20compintz0z1all} -->
+
+<!-- ```{r, "g20compintz0z1all"} -->
+<!-- g20comp_int_z0_z1_all %>%  -->
+<!--   (function (d) { -->
+<!--     d[nchar(str_trim(rownames(d))) != 0, ] -->
+<!--   }) %>%  -->
+<!--   (function (d) {rownames(d) <- g20replace0(rownames(d)) ; d}) %>%  -->
+<!--   set_colnames(c(c("\\makecell{Moyenne \\\\ (Écart-type)}", -->
+<!--                  "\\makecell{Proportion \\\\ manquantes}") %>%  -->
+<!--                  rep(2), -->
+<!--                "\\makecell{(1) = (3) \\\\ probabilité critique}") %>%  -->
+<!--                  col_numbers()) %>%  -->
+<!--   kable(booktabs = TRUE, escape = FALSE, longtable = TRUE, -->
+<!--         linesep = "",  -->
+<!--         caption = "Comparaison entre les étudiants non incités et incités (intéressés, non néo-bacheliers y compris)") %>%  -->
+<!--   kable_styling(font_size = 6) %>%  -->
+<!--   group_rows("Note au bac", 1, 3) %>% -->
+<!--   group_rows("Série au bac", 4, 8) %>% -->
+<!--   group_rows("Mention au bac", 9, 12) %>% -->
+<!--   group_rows(" ", 13, 13) %>% -->
+<!--   group_rows("Sexe", 14, 15) %>% -->
+<!--   group_rows("Pays de naissance", 16, 17) %>% -->
+<!--   group_rows("Nationalité", 18, 19) %>% -->
+<!--   group_rows("Statut de boursier", 20, 22) %>% -->
+<!--   group_rows("Statut de l'établissement d'origine", 23, 24) %>% -->
+<!--   group_rows("Type de l'établissement d'origine", 25, 27) %>% -->
+<!--   group_rows("Département de l'établissement d'origine", 28, 30) %>% -->
+<!--   group_rows("Campus", 31, 32) %>% -->
+<!--   group_rows("Filière", 33, 34) %>% -->
+<!--   group_rows(" ", 35, 35) %>% -->
+<!--   add_header_above(c(" ",  -->
+<!--                      "Non incités" = 2,  -->
+<!--                      "Incités" = 2, " ")) %>%  -->
+<!--   footnote(general = c( -->
+<!--     "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge (version 17 Août 2020), plateforme '\\\\textit{J'ai 20 en maths}', APOGEE (version extraite en mai 2021), calculs de l'auteur.", -->
+<!--     "\\\\textit{Notes :} Moyennes et proportions. Écart-types entre parenthèses. Les probabilités critiques correspondent à des tests de comparaison de moyennes pour les variables quantitatives et à des tests de comparaison de proportions pour les variables qualitatives. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion.", -->
+<!--     "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***." -->
+<!--     )) -->
+<!-- ``` -->
+
+
+\newpage
+  
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Comparaison entre les intéressés et les inscrits {#g20compintinsc}
+
+```{r, "g20compintinsc"}
+g20comp_int_insc %>% 
+  (function (d) {
+    d[nchar(str_trim(rownames(d))) != 0, ]
+  }) %>% 
+  (function (d) {rownames(d) <- g20replace0(rownames(d)) ; d}) %>% 
+  # set_colnames(c(c("\\makecell{Moyenne \\\\ (Écart-type)}"
+  #                  ## ,
+  #                ## "\\makecell{Proportion \\\\ manquantes}"
+  #                ) %>% 
+  #                rep(2),
+  #              "\\makecell{(1) = (2) \\\\ probabilité critique}") %>% 
+  #                col_numbers()) %>% 
+  set_colnames(c(c("\\makecell{Non-inscrits \\\\ \\ }", 
+                   "\\makecell{Inscrits \\\\ \\ }",
+                 "\\makecell{(1) = (2) \\\\ probabilité critique}")) %>% col_numbers()) %>% 
+  kable(booktabs = TRUE, escape = FALSE, longtable = TRUE,
+        linesep = "", 
+        caption = "Comparaison entre les étudiants inscrits et non-inscrits (parmi les intéressés)") %>% 
+  kable_styling(font_size = 6) %>% 
+  group_rows("Note au bac", 1, 3) %>%
+  group_rows("Série au bac", 4, 8) %>%
+  group_rows("Mention au bac", 9, 12) %>%
+  group_rows(" ", 13, 13) %>%
+  group_rows("Sexe", 14, 15) %>%
+  group_rows("Pays de naissance", 16, 17) %>%
+  group_rows("Nationalité", 18, 19) %>%
+  group_rows("Statut de boursier", 20, 21) %>%
+  group_rows("Statut de l'établissement d'origine", 22, 23) %>%
+  group_rows("Type de l'établissement d'origine", 24, 25) %>%
+  group_rows("Département de l'établissement d'origine", 26, 28) %>%
+  group_rows("Campus", 29, 30) %>%
+  group_rows("Filière", 31, 32) %>%
+  group_rows(" ", 33, 33) %>%
+  ## add_header_above(c(" ", 
+  ##                    "Non incités" = 2, 
+  ##                    "Incités" = 2, " ")) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge, plateforme '\\\\textit{J'ai 20 en maths}', APOGEE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Moyennes et proportions. Écart-types entre parenthèses. Les proportions de valeurs manquantes ne sont pas montrées dans ce tableau puisqu'elles sont largement négligeables. Les probabilités critiques correspondent à des tests de comparaison de moyennes pour les variables quantitatives et à des tests de comparaison de proportions pour les variables qualitatives. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    ))
+```
+
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+<!-- ## Comparaison entre les néo-bacheliers intéressés en fonction de l'incitation {#g20compintz0z1} -->
+
+## Comparaison des néo-bacheliers intéressés entre eux et des néo-bacheliers inscrits entre eux en fonction de l'incitation {#g20compintinscz0z1}
+
+```{r, "g20compintz0z1"}
+act <- NA
+g20comp_int_z0_z1 %>% 
+  (function (d) {
+    d[nchar(str_trim(rownames(d))) != 0, ]
+  }) %>% 
+  (function (d) {rownames(d) <- g20replace0(rownames(d)) ; d}) %>% 
+  set_colnames(c(c("\\makecell{Moyenne \\\\ (Écart-type)}",
+                 "\\makecell{Proportion \\\\ manquantes}") %>% 
+                 rep(2),
+               "\\makecell{(1) = (3) \\\\ probabilité critique}") %>% 
+                 col_numbers()) %>% 
+  kable(booktabs = TRUE, escape = FALSE, longtable = TRUE,
+        linesep = "", 
+        caption = "Comparaison entre les étudiants non incités et incités (intéressés, néo-bacheliers)") %>% 
+  kable_styling(font_size = 6) %>% 
+  group_rows("Note au bac", 1, 3) %>%
+  group_rows("Série au bac", 4, 8) %>%
+  group_rows("Mention au bac", 9, 12) %>%
+  group_rows(" ", 13, 13) %>%
+  group_rows("Sexe", 14, 15) %>%
+  group_rows("Pays de naissance", 16, 17) %>%
+  group_rows("Nationalité", 18, 19) %>%
+  group_rows("Statut de boursier", 20, 21) %>%
+  group_rows("Statut de l'établissement d'origine", 22, 23) %>%
+  group_rows("Type de l'établissement d'origine", 24, 25) %>%
+  group_rows("Département de l'établissement d'origine", 26, 28) %>%
+  group_rows("Campus", 29, 30) %>%
+  group_rows("Filière", 31, 32) %>%
+  group_rows(" ", 33, 33) %>%
+  add_header_above(c(" ", 
+                     "Non incités" = 2, 
+                     "Incités" = 2, " ")) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge, plateforme '\\\\textit{J'ai 20 en maths}', APOGEE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Moyennes et proportions. Écart-types entre parenthèses. Les probabilités critiques correspondent à des tests de comparaison de moyennes pour les variables quantitatives et à des tests de comparaison de proportions pour les variables qualitatives. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    ))
+```
+
+<!-- \setcounter{table}{0} -->
+<!-- \setcounter{figure}{0} -->
+<!-- ## Comparaison entre les inscrits en fonction de l'incitation {#g20compinscz0z1} -->
+
+```{r, "g20compinscz0z1"}
+act <- NA
+g20comp_insc_z0_z1 %>% 
+  (function (d) {
+    d[nchar(str_trim(rownames(d))) != 0, ]
+  }) %>% 
+  (function (d) {rownames(d) <- g20replace0(rownames(d)) ; d}) %>% 
+  set_colnames(c(c("\\makecell{Non incités \\\\ \\ }",
+                 "\\makecell{Incités \\\\ \\ }"),
+               "\\makecell{(1) = (3) \\\\ probabilité critique}") %>% 
+                 col_numbers()) %>% 
+  kable(booktabs = TRUE, escape = FALSE, longtable = TRUE,
+        linesep = "", 
+        caption = "Comparaison entre les étudiants non incités et incités (inscrits)") %>% 
+  kable_styling(font_size = 5) %>% 
+  group_rows("Note au bac", 1, 3) %>%
+  group_rows("Série au bac", 4, 8) %>%
+  group_rows("Mention au bac", 9, 12) %>%
+  group_rows(" ", 13, 13) %>%
+  group_rows("Sexe", 14, 15) %>%
+  group_rows("Pays de naissance", 16, 17) %>%
+  group_rows("Nationalité", 18, 19) %>%
+  group_rows("Statut de boursier", 20, 21) %>%
+  group_rows("Statut de l'établissement d'origine", 22, 23) %>%
+  group_rows("Type de l'établissement d'origine", 24, 25) %>%
+  group_rows("Département de l'établissement d'origine", 26, 28) %>%
+  group_rows("Campus", 29, 30) %>%
+  group_rows("Filière", 31, 32) %>%
+  group_rows("Plateforme", 33, 43) %>%
+  group_rows(" ", 44, 44) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge, plateforme '\\\\textit{J'ai 20 en maths}', APOGEE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Moyennes et proportions. Écart-types entre parenthèses. Les proportions de valeurs manquantes ne sont pas montrées puisqu'il n'y a que la note au bac qui contient 2 valeurs manquantes pour tous les inscrits. Les probabilités critiques correspondent à des tests de comparaison de moyennes pour les variables quantitatives et à des tests de comparaison de proportions pour les variables qualitatives. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    ))
+```
+
+  
+
+  
+\newpage
+  
+
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Comparaison entre les inscrits ayant une note aux TD ou non {#g20compinscvenutd0venutd1}
+
+```{r, "g20compinscvenutd0venutd1"}
+act <- NA
+g20comp_insc_venu_td0_venu_td1 %>% 
+  (function (d) {
+    d[nchar(str_trim(rownames(d))) != 0, ]
+  }) %>% 
+  (function (d) {rownames(d) <- g20replace0(rownames(d)) ; d}) %>% 
+  # set_colnames(c(c("\\makecell{Moyenne \\\\ (Écart-type)}"
+  #                  ## ,
+  #                ## "\\makecell{Proportion \\\\ manquantes}"
+  #                ) %>% 
+  #                rep(2),
+  #              "\\makecell{(1) = (2) \\\\ probabilité critique}") %>% 
+  #                col_numbers()) %>% 
+  set_colnames(c(c("\\makecell{N'ayant pas une note aux TD \\\\ \\ }",
+                   "\\makecell{Ayant une note aux TD \\\\ \\ }",
+                 "\\makecell{(1) = (2) \\\\ probabilité critique}") %>% col_numbers())) %>% 
+  kable(booktabs = TRUE, escape = FALSE, longtable = TRUE,
+        linesep = "", 
+        caption = "Comparaison entre les étudiants ayant une note aux TD ou non (parmi les inscrits)") %>% 
+  kable_styling(font_size = 5) %>% 
+  group_rows(" ", 1, 1) %>% 
+  group_rows("Note au bac", 2, 4) %>%
+  group_rows("Série au bac", 5, 9) %>%
+  group_rows("Mention au bac", 10, 13) %>%
+  group_rows(" ", 14, 14) %>%
+  group_rows("Sexe", 15, 16) %>%
+  group_rows("Pays de naissance", 17, 18) %>%
+  group_rows("Nationalité", 19, 20) %>%
+  group_rows("Statut de boursier", 21, 22) %>%
+  group_rows("Statut de l'établissement d'origine", 23, 24) %>%
+  group_rows("Type de l'établissement d'origine", 25, 26) %>%
+  group_rows("Département de l'établissement d'origine", 27, 29) %>%
+  group_rows("Campus", 30, 31) %>%
+  group_rows("Filière", 32, 33) %>%
+  group_rows("Plateforme", 34, 44) %>%
+  group_rows(" ", 45, 45) %>%
+  ## add_header_above(c(" ", 
+  ##                    "Non incités" = 2, 
+  ##                    "Incités" = 2, " ")) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge, plateforme '\\\\textit{J'ai 20 en maths}', APOGEE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Moyennes et proportions. Écart-types entre parenthèses. Les proportions de valeurs manquantes ne sont pas montrées dans ce tableau puisqu'elles sont largement négligeables. Les probabilités critiques correspondent à des tests de comparaison de moyennes pour les variables quantitatives et à des tests de comparaison de proportions pour les variables qualitatives. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    ))
+```
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Comparaison entre les inscrits ayant une note aux examens ou non {#g20compinscvenuctqcm0venuctqcm1}
+
+```{r, "g20compinscvenuctqcm0venuctqcm1"}
+act <- NA
+g20comp_insc_venu_ctqcm0_venu_ctqcm1 %>% 
+  (function (d) {
+    d[nchar(str_trim(rownames(d))) != 0, ]
+  }) %>% 
+  (function (d) {rownames(d) <- g20replace0(rownames(d)) ; d}) %>% 
+  # set_colnames(c(c("\\makecell{Moyenne \\\\ (Écart-type)}"
+  #                  ## ,
+  #                ## "\\makecell{Proportion \\\\ manquantes}"
+  #                ) %>% 
+  #                rep(2),
+  #              "\\makecell{(1) = (2) \\\\ probabilité critique}") %>% 
+  #                col_numbers()) %>% 
+  set_colnames(c("\\makecell{N'ayant pas une note aux examens \\\\ \\ }",
+                 "\\makecell{Ayant une note aux examens \\\\ \\ }",
+                 "\\makecell{(1) = (2) \\\\ probabilité critique}") %>% col_numbers()) %>% 
+  kable(booktabs = TRUE, escape = FALSE, longtable = TRUE,
+        linesep = "", 
+        caption = "Comparaison entre les étudiants ayant une note aux examens ou non (parmi les inscrits)") %>% 
+  kable_styling(font_size = 5) %>% 
+  group_rows(" ", 1, 1) %>% 
+  group_rows("Note au bac", 2, 4) %>%
+  group_rows("Série au bac", 5, 9) %>%
+  group_rows("Mention au bac", 10, 13) %>%
+  group_rows(" ", 14, 14) %>%
+  group_rows("Sexe", 15, 16) %>%
+  group_rows("Pays de naissance", 17, 18) %>%
+  group_rows("Nationalité", 19, 20) %>%
+  group_rows("Statut de boursier", 21, 22) %>%
+  group_rows("Statut de l'établissement d'origine", 23, 24) %>%
+  group_rows("Type de l'établissement d'origine", 25, 26) %>%
+  group_rows("Département de l'établissement d'origine", 27, 29) %>%
+  group_rows("Campus", 30, 31) %>%
+  group_rows("Filière", 32, 33) %>%
+  group_rows("Plateforme", 34, 44) %>%
+  group_rows(" ", 45, 45) %>%
+  ## add_header_above(c(" ", 
+  ##                    "Non incités" = 2, 
+  ##                    "Incités" = 2, " ")) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge, plateforme '\\\\textit{J'ai 20 en maths}', APOGEE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Moyennes et proportions. Écart-types entre parenthèses. Les proportions de valeurs manquantes ne sont pas montrées dans ce tableau puisqu'elles sont largement négligeables. Les probabilités critiques correspondent à des tests de comparaison de moyennes pour les variables quantitatives et à des tests de comparaison de proportions pour les variables qualitatives. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    ))
+```
+
+\newpage
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Les 4 mails envoyés aux incités {#g20mails}
+
+<!-- ```{r, "g20mails", fig.cap = "Les 4 mails envoyés aux incités", eval = FALSE} -->
+<!-- include_graphics(here(dir_g20, "mails_version_jolie_2022_08_20.png")) -->
+<!-- # mtext("Mamadou") # ne marche pas -->
+<!-- ``` -->
+
+
+```{r, "g20mails", fig.cap = "Les 4 mails envoyés aux incités", fig.asp = .8}
+qplot(1:10, 1:10, geom = "blank") + 
+  annotation_custom(rasterGrob(png::readPNG(here(dir_g20, "mails_version_jolie_2022_08_20_paysage.png")))) + 
+  labs(caption = "Sources : boîte mail des chercheurs ayant conduit l'expérimentation. \nNotes : Lorsque deux dates sont mentionnées pour chaque mail, elles correspondent aux deux vagues d'inscription dans Parcoursup.") + theme_void() %>% 
+  (function (t) {
+    t$plot.caption <- element_text(hjust = 0)
+    t
+  })
+```
+
+\newpage
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Régressions de première étape pour les inscrits {#g20pemodelsinsc}
+
+```{r, "g20pemodelsinsc"}
+act2 <- NA
+g20pemodels_insc %>% set_colnames(NULL) %>% 
+  ## Sélection des lignes. On prend tout. 
+  
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- d[, 1] %>% g20replace
+    d
+      
+  }) %>% 
+  set_colnames(c(" ",
+                 c("Vidéos complètes et exercices",
+                   "Vidéos et exercices",
+                   "Vidéos complètes",
+                   "Vidéos",
+                   "Exercices") %>% 
+                   col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE, 
+        caption = "Résultats de première étape (Inscrits)") %>% 
+  kable_styling(font_size = 8) %>% 
+  add_header_above(c(" ",
+                     "Variable dépendante : Note " = 5)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge, plateforme '\\\\textit{J'ai 20 en maths}', APOGEE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Moindres carrés ordinaires. Écart-types robustes entre parenthèses. Une colonne correspond à une régression. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    ))
+```
+
+  
+\newpage
+  
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Notions mathématiques proposées aux étudiants dans le cadre de l'expérimentation {#g20notions}
+
+Cette liste est tirée d'une convention (confidentielle) entre l'Université de La Réunion et la plateforme établie dans le cadre de l'expérimentation. 
+
+1. Règles de calcul dans $\mathbb{R}$, développement, factorisation, fractions, puissances. 
+1. Équations et inéquations du premier degré, intervalles. 
+1. Équations et inéquations du second degré. 
+1. Droites : équations, représentations graphiques. 
+1. Quelques fonctions (simples) : fonctions affines, fonctions polynômes du second degré, fonction racine carrée, fonction inverse (Seulement : domaine de définition, propriétés graphiques, pas de dérivées). 
+1. Dérivées : définition, interprétation géométrique, règles de dérivation.
+1. Sens de variation d'une fonction, représentation graphique. 
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Utilisation de la plateforme par campus, par filière et par incitation {#g20cfztreat}
+
+```{r, "g20cfztreat"}
+group_by(datg20_neo, campus, filiere, z) %>% 
+  summarise(eff = n(),
+            mpratique_tot = mean(pratique_tot),
+            mpratique_tot2 = mean(pratique_tot2),
+            mvideos_comp_tot = mean(videos_comp_tot),
+            mvideos_views_tot = mean(videos_views_tot),
+            msheets_views_tot = mean(sheets_views_tot)) %>% 
+  ungroup %>% 
+  mutate(campus = factor(campus,
+                         labels = c("Tampon", "Saint-Denis")),
+         filiere = factor(filiere, 
+                          labels = c("AES", "Eco-Ge")),
+         z = factor(z, labels = c("Non", "Oui"))) %>% mutate_if(is.factor, as.character) %>% 
+  mutate_if(is.double, function (x) round(x, 2)) %>% 
+  (function (d) split(d, factor(d$campus, levels = c("Tampon",
+                                                     "Saint-Denis")))) %>% 
+  lapply(function (x) 
+    mutate_at(x, "filiere", 
+              function (y) {y[duplicated(y)] <- " " ; y})) %>%
+  do.call(what = rbind) %>% 
+  set_rownames(NULL) %>% 
+  mutate_at("campus", function (x) {x[duplicated(x)] <- " " ; x}) %>% 
+  set_colnames(c("\\makecell{Campus \\\\ \\ }", 
+                 "\\makecell{Filière \\\\ \\ }", 
+                 "\\makecell{Incitation \\\\ \\ }",
+                 "\\makecell{Effectif \\\\ \\ }",
+                 "\\makecell{Vidéos (complètes) \\\\ et exercices}",
+                 "\\makecell{Vidéos et exercices \\\\ \\ }",
+                 "\\makecell{Vidéos (complètes) \\\\ \\ }",
+                 "\\makecell{Vidéos \\\\ \\ }",
+                 "\\makecell{Exercices \\\\ \\ }")) %>% 
+  kable(booktabs = TRUE, escape = FALSE, longtable = TRUE, 
+        linesep = " ",
+        caption = "Utilisation de la plateforme par campus, par filière et par incitation") %>% 
+  kable_styling(font_size = 8) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge, plateforme '\\\\textit{J'ai 20 en maths}', APOGEE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Moyennes et effectifs. AES : Administration Économique et Sociale, Eco-Ge : Économie-Gestion."
+    )) 
+```
+
+
+<!--\newpage
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Modèle Tobit : prise en compte de la nature des variables dépendantes {#g20tobit}
+
+### Sans variable instrumentale {#g20tobitnoinst}
+
+Dans cette spécification, nous considérons qu'il existe une variable latente $y^{l1*}$ telle que
+
+```{=tex}
+\begin{equation}
+(\#eq:g20tobitlatent)
+y_i^{l1*} = \sigma_0^* + \sigma_1^* g_i + x_i' \sigma_2^* + \phi_i^*.
+\end{equation}
+```
+
+
+Dans notre cas, elle représente le vrai niveau de l'étudiant $i$ (Section \@ref(g20methods)). Le niveau mesuré par les examens est $y_i^{l1}$ telle que
+
+```{=tex}
+\begin{equation}
+(\#eq:g20tobit)
+\begin{cases}
+y_i^{l1} = y_i^{l1*} \ si \ y_i^{l1*} > 0, \\
+y_i^{l1} = 0 \ si \ non.
+\end{cases}
+\end{equation}
+```
+
+<!-- Voir https://econ2017.sites.olt.ubc.ca/files/2019/05/pdf_594lecture6_thomas-lemieux.pdf pour l'obtention de la fonction de log de vraisemblance. -->
+<!--
+Il s'agit alors d'un modèle non linéaire et il est connu que les paramètres de l'Équation \@ref(eq:g20tobitlatent) peuvent s'estimer usuellement par maximum de vraisemblance^[Une alternative serait d'utiliser une procédure d'Heckman.]. Si nous désignons par $\sigma_{\phi}$ l'écart-type de la loi normale que nous supposons que $\phi_i^*$ suit, la fonction de log de vraisemblance associée à l'Équation \@ref(eq:g20tobit) peut s'écrire
+
+```{=tex}
+\begin{equation*}
+ln \  L(\sigma_0, \sigma_1, \sigma_2, \sigma_{\phi}) = \sum_{y_y^{l1} > 0} ln(\frac{1}{\sigma_{\phi}} \upvarphi(\frac{y_i^{l1} - \sigma_0 - \sigma_1 g_i - x_i' \sigma_2}{\sigma_{\phi}})) +
+\sum_{y_i^{l1} = 0} ln(1 - \Phi(\frac{\sigma_0 + \sigma_1 g_i + x_i' \sigma_2}{\sigma_{\phi}})),
+\end{equation*}
+```
+
+les fonctions $\upvarphi()$ et $\Phi()$ étant respectivement les fonctions de densité et de répartition de la loi Normale centrée réduite.
+
+### Avec variable instrumentale {#g20tobitinst}
+
+Le problème d'endogénéité de $g_i$ discuté dans la Section \@ref(g20methods) reste présent dans l'Équation \@ref(eq:g20tobitlatent). Il en est de même pour l'idée d'utiliser l'incitation comme variable instrumentale.
+
+L'estimation d'un modèle Tobit avec une variable instrumentale est essentiellement une combinaison de l'estimation présentée dans la sous-section précédente avec une estimation par fonction de contrôle (voir Section \@ref(agemethods) du Chapitre \@ref(age)).
+Plus précisément, nous supposons que la corrélation entre le terme d'erreur de l'Équation \@ref(eq:g20tobitlatent) du présent annexe et celui de l'Équation \@ref(eq:g20pe) (première étape, corps du texte) est linéaire :
+
+```{=tex}
+\begin{equation}
+(\#eq:g20errors)
+\phi_i^* = c^* \psi_i + e_i^*.
+\end{equation}
+```
+
+Par construction, les variables $e_i^*$ et $\psi_i$ ne sont pas corrélées.
+
+En remplaçant $\phi_i^*$ (Équation \ref{eq:g20tobitlatent}) par son expression de l'Équation \@ref(eq:g20errors), nous obtenons
+
+```{=tex}
+\begin{equation}
+(\#eq:g20ivtobit0)
+y_i^{l1*} = \sigma_0^* + \sigma_1^* g_i + x_i' \sigma_2^* + c^* \psi_i + e^*_i.
+\end{equation}
+```
+
+Les valeurs de $\psi_i$ sont inconnues mais les résidus de la première étape $\widehat{\psi}_i$ constituent des estimations sans biais et convergents des $\psi_i$.
+
+Nous obtenons une version estimable de l'Équation \@ref(eq:g20ivtobit0) :
+
+```{=tex}
+\begin{equation}
+(\#eq:g20ivtobit)
+y_i^{l1*} = \sigma_0^* + \sigma_1^* g_i + x_i' \sigma_2^* + c^* \widehat{\psi}_i + e^*_i.
+\end{equation}
+```
+
+Il s'agit alors d'estimer les paramètres de l'Équation \@ref(eq:g20ivtobit) par maximum de vraisemblance selon le modèle décrit par l'Équation \@ref(eq:g20tobit). Si nous désignons par $\sigma_{e^*}$ l'écart-type de la loi normale que nous supposons que $e_i^*$ suit, la fonction de log de vraisemblance s'écrit
+
+```{=tex}
+\begin{equation*}
+ln \  L(\sigma_0, \sigma_1, \sigma_2, \sigma_{e^*}) = \sum_{y_y^{l1} > 0} ln(\frac{1}{\sigma_{e^*}} \upvarphi(\frac{y_i^{l1} - \sigma_0 - \sigma_1 g_i - x_i' \sigma_2 - c^* \widehat{\psi_i}}{\sigma_{e^*}})) +
+\sum_{y_i^{l1} = 0} ln(1 - \Phi(\frac{\sigma_0 + \sigma_1 g_i + x_i' \sigma_2 + c^* \widehat{\psi_i}}{\sigma_{e^*}})).
+\end{equation*}
+```
+-->  
+  
+\newpage
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Effets de l'incitation sur les notes de mathématiques (intention de traiter) - versions normalisées des notes {#g20rfmodelsnormpop}
+
+```{r, "g20rfmodelsnormpop"}
+act <- NA
+g20rfmodels_normpop_corr %>% set_colnames(NULL) %>% 
+  ## Sélection des lignes. On prend tout. 
+  
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- d[, 1] %>% g20replace
+    d
+      
+  }) %>% 
+  set_colnames(c(" ",
+                 c("Aux TD", "Aux examens", "À l'UE") %>% 
+                   col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE, 
+        caption = "Effets de l'incitation sur les notes de mathématiques (intention de traiter) - versions normalisées des notes") %>% 
+  kable_styling(font_size = 8) %>% 
+  add_header_above(c(" ",
+                     "Variable dépendante : Note " = 3)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge, plateforme '\\\\textit{J'ai 20 en maths}', APOGEE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Écart-types robustes entre parenthèses. 
+    Les notes sont normalisées sur la population de tous les inscrits, y compris ceux hors de l'expérimentation. Une colonne correspond à une régression. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion. TD : Travaux Dirigés. UE : Unité d'Enseignement.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    ))
+```
+
+\newpage
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Effets de l'utilisation de la plateforme sur les notes de mathématiques - versions normalisées des notes {#g20modelsnormpop}
+
+```{r, "g20modelsnormpop"}
+rbind(
+  g20models_pratique_tot_normpop %>% set_colnames(NULL) %>% 
+  g20selectvars("pratique.tot") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 7),
+  
+  g20models_pratique_tot2_normpop %>% set_colnames(NULL) %>% 
+  g20selectvars("pratique.tot2") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 7),
+  
+  g20models_videos_comp_tot_normpop %>% set_colnames(NULL) %>% 
+  g20selectvars("videos.comp.tot") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 7),
+  
+  g20models_videos_views_tot_normpop %>% set_colnames(NULL) %>% 
+  g20selectvars("videos.views.tot") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 7),
+  
+  g20models_sheets_views_tot_normpop %>% set_colnames(NULL) %>% 
+  g20selectvars("sheets.views.tot") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d})
+  ) %>% 
+  set_colnames(c(" ", 
+                 c("MCO", "VI") %>% rep(3) %>% col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE, 
+        caption = "Effets de l'utilisation de la plateforme sur les notes normalisées de mathématiques") %>% 
+  group_rows("Panel A : Vidéos (complètes) et exercices", 1, 6, hline_after = TRUE) %>% 
+  group_rows("Panel B : Vidéos et exercices", 7, 12, hline_after = TRUE) %>% 
+  group_rows("Panel C : Vidéos (complètes)", 13, 18, hline_after = TRUE) %>% 
+  group_rows("Panel D : Vidéos", 19, 24, hline_after = TRUE) %>% 
+  group_rows("Panel E : Exercices", 25, 29, hline_after = TRUE) %>% 
+  kable_styling(font_size = 8) %>% 
+  add_header_above(c(" ", 
+                     "Aux TD" = 2,
+                     "Aux examens" = 2,
+                     "À l'UE" = 2), escape = FALSE) %>% 
+  add_header_above(c(" ", 
+                     "Variable dépendante : Note " = 6)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge, plateforme '\\\\textit{J'ai 20 en maths}', APOGEE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Écart-types robustes entre parenthèses. 
+    Les notes sont normalisées sur la population de tous les inscrits, y compris ceux hors de l'expérimentation. Une colonne et un panel donnés correspondent à une régression. Les variables liées à la plateforme sont exprimées en comptages. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion. TD : Travaux Dirigés. UE : Unité d'Enseignement. MCO : Moindres Carrés Ordinaires. VI : Variables Instrumentales.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    ))
+```
+  
+\newpage
+  
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Effets de l'utilisation de la plateforme sur les versions normalisées des autres notes {#g20modelsautresnotesnormpop}
+
+```{r, "g20modelsautresnotesnormpop"}
+rbind(
+  g20models_pratique_tot_autres_notes_normpop %>% set_colnames(NULL) %>% 
+  g20selectvars("pratique.tot") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 9),
+  
+  g20models_pratique_tot2_autres_notes_normpop %>% set_colnames(NULL) %>% 
+  g20selectvars("pratique.tot2") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 9),
+  
+  g20models_videos_comp_tot_autres_notes_normpop %>% set_colnames(NULL) %>% 
+  g20selectvars("videos.comp.tot") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 9),
+  
+  g20models_videos_views_tot_autres_notes_normpop %>% set_colnames(NULL) %>% 
+  g20selectvars("videos.views.tot") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 9),
+  
+  g20models_sheets_views_tot_autres_notes_normpop %>% set_colnames(NULL) %>% 
+  g20selectvars("sheets.views.tot") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d})
+  ) %>% 
+  set_colnames(c(" ", 
+                 c("MCO", "VI") %>% rep(4) %>% col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE, 
+        caption = "Effets de l'utilisation de la plateforme sur les versions normalisées des autres notes") %>% 
+  group_rows("Panel A : Vidéos (complètes) et exercices", 1, 6, hline_after = TRUE) %>% 
+  group_rows("Panel B : Vidéos et exercices", 7, 12, hline_after = TRUE) %>% 
+  group_rows("Panel C : Vidéos (complètes)", 13, 18, hline_after = TRUE) %>% 
+  group_rows("Panel D : Vidéos", 19, 24, hline_after = TRUE) %>% 
+  group_rows("Panel E : Exercices", 25, 29, hline_after = TRUE) %>% 
+  kable_styling(font_size = 8) %>% 
+  add_header_above(c(" ", 
+                     "Aux TD" = 2, "Aux examens" = 2, 
+                     "Aux TD" = 2, "Aux examens" = 2), escape = FALSE) %>% 
+  add_header_above(c(" ",
+                     "Ayant une note " = 8)) %>% 
+  add_header_above(c(" ", 
+                     "En gestion" = 4, 
+                     "En économie" = 4)) %>% 
+  add_header_above(c(" ", 
+                     "Variable dépendante : Note " = 8)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge, plateforme '\\\\textit{J'ai 20 en maths}', APOGEE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Écart-types robustes entre parenthèses. 
+    Les notes sont normalisées sur la population de tous les inscrits, y compris ceux hors de l'expérimentation. Une colonne et un panel donnés correspondent à une régression. Les variables liées à la plateforme sont exprimées en comptages. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion. TD : Travaux Dirigés. UE : Unité d'Enseignement. MCO : Moindres Carrés Ordinaires. VI : Variables Instrumentales.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    ))
+```
+  
+\newpage
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Relation entre l'utilisation de la plateforme et les observables dans un monde sans incitation {#g20ovbmodels}
+
+```{r, "g20ovbmodels"}
+g20ovbmodels %>% set_colnames(NULL) %>% 
+  (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}) %>% 
+  set_colnames(c(" ", 
+                 c("\\makecell{Vidéos (complètes) \\\\ et exercices}",
+                 "\\makecell{Vidéos et exercices \\\\ \\ }",
+                 "\\makecell{Vidéos (complètes) \\\\ \\ }",
+                 "\\makecell{Vidéos \\\\ \\ }",
+                 "\\makecell{Exerices \\\\ \\ }") %>% col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE, caption = "Relation entre l'utilisation de la plateforme et les observables dans un monde sans incitation") %>% 
+  kable_styling(font_size = 8) %>% 
+  add_header_above(c(" ",
+                     "Variable dépendante : Nombre " = 5)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge, plateforme '\\\\textit{J'ai 20 en maths}', APOGEE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Écart-types robustes entre parenthèses. Une colonne correspond à une régression. Les régressions sont effectuées sur les non incitées. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    ))
+```
+
+<!-- \blandscape -->
+<!-- \setcounter{table}{0} -->
+<!-- \setcounter{figure}{0} -->
+<!-- ## Effets de l'utilisation de la plateforme sur les notes de mathématiques (Heckit) {#g20heckitmodels} -->
+
+<!-- ```{r, "g20heckitmodels"} -->
+<!-- rbind( -->
+<!--   g20heckitmodels_pratique_tot %>% set_colnames(NULL) %>%  -->
+<!--   g20selectvars("pratique.tot") %>%  -->
+<!--   (function (d) rbind(d[1:(nrow(d) - 1), ], -->
+<!--                       rep(" ", ncol(d)), -->
+<!--                       c("Contrôles", rep("Oui", ncol(d) - 1)), -->
+<!--                       d[nrow(d), ])) %>%  -->
+<!--     (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}), -->
+
+<!--   rep(" ", 13), -->
+
+<!--   g20heckitmodels_pratique_tot2 %>% set_colnames(NULL) %>%  -->
+<!--   g20selectvars("pratique.tot2") %>%  -->
+<!--   (function (d) rbind(d[1:(nrow(d) - 1), ], -->
+<!--                       rep(" ", ncol(d)), -->
+<!--                       c("Contrôles", rep("Oui", ncol(d) - 1)), -->
+<!--                       d[nrow(d), ])) %>%  -->
+<!--     (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}), -->
+
+<!--   rep(" ", 13), -->
+
+<!--   g20heckitmodels_videos_comp_tot %>% set_colnames(NULL) %>%  -->
+<!--   g20selectvars("videos.comp.tot") %>%  -->
+<!--   (function (d) rbind(d[1:(nrow(d) - 1), ], -->
+<!--                       rep(" ", ncol(d)), -->
+<!--                       c("Contrôles", rep("Oui", ncol(d) - 1)), -->
+<!--                       d[nrow(d), ])) %>%  -->
+<!--     (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}), -->
+
+<!--   rep(" ", 13), -->
+
+<!--   g20heckitmodels_videos_views_tot %>% set_colnames(NULL) %>%  -->
+<!--   g20selectvars("videos.views.tot") %>%  -->
+<!--   (function (d) rbind(d[1:(nrow(d) - 1), ], -->
+<!--                       rep(" ", ncol(d)), -->
+<!--                       c("Contrôles", rep("Oui", ncol(d) - 1)), -->
+<!--                       d[nrow(d), ])) %>%  -->
+<!--     (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}), -->
+
+<!--   rep(" ", 13), -->
+
+<!--   g20heckitmodels_sheets_views_tot %>% set_colnames(NULL) %>%  -->
+<!--   g20selectvars("sheets.views.tot") %>%  -->
+<!--   (function (d) rbind(d[1:(nrow(d) - 1), ], -->
+<!--                       rep(" ", ncol(d)), -->
+<!--                       c("Contrôles", rep("Oui", ncol(d) - 1)), -->
+<!--                       d[nrow(d), ])) %>%  -->
+<!--     (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}) -->
+<!--   ) %>%  -->
+<!--   set_colnames(c(" ",  -->
+<!--                  c("Heckit", "Heckit-VI") %>% rep(6) %>% col_numbers())) %>%  -->
+<!--   kable(booktabs = TRUE, longtable = TRUE, linesep = "", -->
+<!--         escape = FALSE,  -->
+<!--         caption = "Effets de l'utilisation de la plateforme sur les notes de mathématiques - Heckit") %>%  -->
+<!--   group_rows("Panel A : Vidéos (complètes) et exercices", 1, 6, hline_after = TRUE) %>%  -->
+<!--   group_rows("Panel B : Vidéos et exercices", 7, 12, hline_after = TRUE) %>%  -->
+<!--   group_rows("Panel C : Vidéos (complètes)", 13, 18, hline_after = TRUE) %>%  -->
+<!--   group_rows("Panel D : Vidéos", 19, 24, hline_after = TRUE) %>%  -->
+<!--   group_rows("Panel E : Exercices", 25, 29, hline_after = TRUE) %>%  -->
+<!--   kable_styling(font_size = 6) %>%  -->
+<!--   add_header_above(c(" ",  -->
+<!--                      "Aux TD" = 2, "Aux TD $\\\\geq 10$" = 2, -->
+<!--                      "Aux examens" = 2, "Aux examens $\\\\geq 10$" = 2, -->
+<!--                      "À l'UE" = 2, "À l'UE $\\\\geq 10$" = 2), escape = FALSE) %>%  -->
+<!--   add_header_above(c(" ",  -->
+<!--                      "Variable dépendante : Note " = 12)) %>%  -->
+<!--   footnote(general = c( -->
+<!--     "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge (version 17 Août 2020), plateforme '\\\\textit{J'ai 20 en maths}', APOGEE (version extraite en mai 2021), calculs de l'auteur.", -->
+<!--     "\\\\textit{Notes :} Écart-types robustes entre parenthèses.  -->
+<!--     Les variables dépendantes sont des notes sur 20 (pour comparer les régressions avec ceux montrés dans le corps du texte). Une colonne et un panel donnés correspondent à une régression. Les variables liées à la plateforme sont exprimées en comptages. Pour ceux ayant une aux TD, aucune variable d'exclusion n'est facilement identifiée. Nous retenons le statut de boursier et le campus, vu qu'ils sont marginalement significatifs dans l'équation de sélection. Pour ceux ayant une note aux examens, nous retenons le statut de boursier comme variable d'exclusion vu que cette dernière est clairement significative dans l'équation de sélection sans l'être dans l'équation d'intention de traiter. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion.", -->
+<!--     "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***." -->
+<!--     )) -->
+<!-- ``` -->
+
+<!-- \newpage -->
+<!-- ```{r, "g20heckitmodelsnormpop"} -->
+<!-- rbind( -->
+<!--   g20heckitmodels_pratique_tot_normpop %>% set_colnames(NULL) %>%  -->
+<!--   g20selectvars("pratique.tot") %>%  -->
+<!--   (function (d) rbind(d[1:(nrow(d) - 1), ], -->
+<!--                       rep(" ", ncol(d)), -->
+<!--                       c("Contrôles", rep("Oui", ncol(d) - 1)), -->
+<!--                       d[nrow(d), ])) %>%  -->
+<!--     (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}), -->
+
+<!--   rep(" ", 7), -->
+
+<!--   g20heckitmodels_pratique_tot2_normpop %>% set_colnames(NULL) %>%  -->
+<!--   g20selectvars("pratique.tot2") %>%  -->
+<!--   (function (d) rbind(d[1:(nrow(d) - 1), ], -->
+<!--                       rep(" ", ncol(d)), -->
+<!--                       c("Contrôles", rep("Oui", ncol(d) - 1)), -->
+<!--                       d[nrow(d), ])) %>%  -->
+<!--     (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}), -->
+
+<!--   rep(" ", 7), -->
+
+<!--   g20heckitmodels_videos_comp_tot_normpop %>% set_colnames(NULL) %>%  -->
+<!--   g20selectvars("videos.comp.tot") %>%  -->
+<!--   (function (d) rbind(d[1:(nrow(d) - 1), ], -->
+<!--                       rep(" ", ncol(d)), -->
+<!--                       c("Contrôles", rep("Oui", ncol(d) - 1)), -->
+<!--                       d[nrow(d), ])) %>%  -->
+<!--     (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}), -->
+
+<!--   rep(" ", 7), -->
+
+<!--   g20heckitmodels_videos_views_tot_normpop %>% set_colnames(NULL) %>%  -->
+<!--   g20selectvars("videos.views.tot") %>%  -->
+<!--   (function (d) rbind(d[1:(nrow(d) - 1), ], -->
+<!--                       rep(" ", ncol(d)), -->
+<!--                       c("Contrôles", rep("Oui", ncol(d) - 1)), -->
+<!--                       d[nrow(d), ])) %>%  -->
+<!--     (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}), -->
+
+<!--   rep(" ", 7), -->
+
+<!--   g20heckitmodels_sheets_views_tot_normpop %>% set_colnames(NULL) %>%  -->
+<!--   g20selectvars("sheets.views.tot") %>%  -->
+<!--   (function (d) rbind(d[1:(nrow(d) - 1), ], -->
+<!--                       rep(" ", ncol(d)), -->
+<!--                       c("Contrôles", rep("Oui", ncol(d) - 1)), -->
+<!--                       d[nrow(d), ])) %>%  -->
+<!--     (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}) -->
+<!--   ) %>%  -->
+<!--   set_colnames(c(" ",  -->
+<!--                  c("Heckit", "Heckit-VI") %>% rep(3) %>% col_numbers())) %>%  -->
+<!--   kable(booktabs = TRUE, longtable = TRUE, linesep = "", -->
+<!--         escape = FALSE,  -->
+<!--         caption = "Effets de l'utilisation de la plateforme sur les notes normalisées de mathématiques - Heckit") %>%  -->
+<!--   group_rows("Panel A : Vidéos (complètes) et exercices", 1, 6, hline_after = TRUE) %>%  -->
+<!--   group_rows("Panel B : Vidéos et exercices", 7, 12, hline_after = TRUE) %>%  -->
+<!--   group_rows("Panel C : Vidéos (complètes)", 13, 18, hline_after = TRUE) %>%  -->
+<!--   group_rows("Panel D : Vidéos", 19, 24, hline_after = TRUE) %>%  -->
+<!--   group_rows("Panel E : Exercices", 25, 29, hline_after = TRUE) %>%  -->
+<!--   kable_styling(font_size = 8) %>%  -->
+<!--   add_header_above(c(" ",  -->
+<!--                      "Aux TD" = 2, -->
+<!--                      "Aux examens" = 2, -->
+<!--                      "À l'UE" = 2), escape = FALSE) %>%  -->
+<!--   add_header_above(c(" ",  -->
+<!--                      "Variable dépendante : Note " = 6)) %>%  -->
+<!--   footnote(general = c( -->
+<!--     "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge (version 17 Août 2020), plateforme '\\\\textit{J'ai 20 en maths}', APOGEE (version extraite en mai 2021), calculs de l'auteur.", -->
+<!--     "\\\\textit{Notes :} Écart-types robustes entre parenthèses.  -->
+<!--     Les variables dépendantes sont des notes normalisées sur tous les inscrits, y compris ceux hors de l'expérimentation. Une colonne et un panel donnés correspondent à une régression. Les variables liées à la plateforme sont exprimées en comptages. Pour ceux ayant une aux TD, aucune variable d'exclusion n'est facilement identifiée. Nous retenons le statut de boursier et le campus, vu qu'ils sont marginalement significatifs dans l'équation de sélection. Pour ceux ayant une note aux examens, nous retenons le statut de boursier comme variable d'exclusion vu que cette dernière est clairement significative dans l'équation de sélection sans l'être dans l'équation d'intention de traiter. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion.", -->
+<!--     "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***." -->
+<!--     )) -->
+<!-- ``` -->
+
+
+<!-- \elandscape -->
+
+\newpage  
+\setcounter{table}{0}
+\setcounter{figure}{0}  
+## Caractérisation des compliers des vidéos et exercices {#g20compliers}
+
+```{r, "g20compliersvideosviewstot"}
+g20compliers_videos_views_tot %>% mutate(var = if_else(duplicated(var), " ", var)) %>% 
+  mutate(var = g20replace_compliers(var), mod = g20replace_compliers(mod)) %>% 
+  (function (d) set_colnames(d, g20replace_compliers(colnames(d)))) %>% 
+  (function (d) {
+    d[, 2][d[, 1] == "Pays de naissance" & 
+             d[, 2] == "Non boursier"] <- "À l'étranger"
+    d
+  }) %>%
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE, caption = "Caractérisation des compliers - Vidéos") %>% 
+  group_rows(" ", 1, 5, indent = FALSE) %>% 
+  group_rows(" ", 6, 7,indent = FALSE) %>% 
+  group_rows(" ", 8, 12, indent = FALSE) %>% 
+  group_rows(" ", 13, 17, indent = FALSE) %>% 
+  group_rows(" ", 18, 19, indent = FALSE) %>% 
+  group_rows(" ", 20, 21, indent = FALSE) %>% 
+  group_rows(" ", 22, 23, indent = FALSE) %>% 
+  group_rows(" ", 24, 25, indent = FALSE) %>% 
+  group_rows(" ", 26, 27, indent = FALSE) %>% 
+  kable_styling(font_size = 8) %>% 
+  add_header_above(c(" " = 2, "Ayant une note aux TD" = 2, "Ayant une note aux examens" = 2), escape = FALSE) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge, plateforme '\\\\textit{J'ai 20 en maths}', APOGEE (version extraite en mai 2021), calculs de l'auteur",
+    "\\\\textit{Notes :} Le traitement est binarisé (au moins un) par souci de simplification. Rapport de parts de compliers = différence de moyenne du traitement en fonction de l'incitation divisée par différence de moyenne du traitement en fonction de l'incitation sur l'échantillon considéré (ayant une note aux TD ou ayant une note aux examens) - Angrist et Pischke (2008, p. 171). UE : Unité d'enseignement, ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale, Eco-Ge : Économie-Gestion. TD : Travaux Dirigés."
+    ))
+```
+
+\newpage
+```{r, "g20complierssheetsviewstot"}
+g20compliers_sheets_views_tot %>% mutate(var = if_else(duplicated(var), " ", var)) %>% 
+  mutate(var = g20replace_compliers(var), mod = g20replace_compliers(mod)) %>% 
+  (function (d) set_colnames(d, g20replace_compliers(colnames(d)))) %>% 
+  (function (d) {
+    d[, 2][d[, 1] == "Pays de naissance" & 
+             d[, 2] == "Non boursier"] <- "À l'étranger"
+    d
+  }) %>%
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE, caption = "Caractérisation des compliers - Exercices") %>% 
+  group_rows(" ", 1, 5, indent = FALSE) %>% 
+  group_rows(" ", 6, 7,indent = FALSE) %>% 
+  group_rows(" ", 8, 12, indent = FALSE) %>% 
+  group_rows(" ", 13, 17, indent = FALSE) %>% 
+  group_rows(" ", 18, 19, indent = FALSE) %>% 
+  group_rows(" ", 20, 21, indent = FALSE) %>% 
+  group_rows(" ", 22, 23, indent = FALSE) %>% 
+  group_rows(" ", 24, 25, indent = FALSE) %>% 
+  group_rows(" ", 26, 27, indent = FALSE) %>% 
+  kable_styling(font_size = 8) %>% 
+  add_header_above(c(" " = 2, "Ayant une note aux TD" = 2, "Ayant une note aux examens" = 2), escape = FALSE) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge, plateforme '\\\\textit{J'ai 20 en maths}', APOGEE (version extraite en mai 2021), calculs de l'auteur",
+    "\\\\textit{Notes :} Le traitement est binarisé (au moins un) par souci de simplification. Rapport de parts de compliers = différence de moyenne du traitement en fonction de l'incitation divisée par différence de moyenne du traitement en fonction de l'incitation sur l'échantillon considéré (ayant une note aux TD ou ayant une note aux examens) - Angrist et Pischke (2008, p. 171). UE : Unité d'enseignement, ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale, Eco-Ge : Économie-Gestion. TD : Travaux Dirigés."
+    ))
+```
+
+
+  
+\blandscape
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Effets potentiellement hétérogènes de l'incitation sur les notes de mathématiques (intention de traiter) - version normalisée des notes {#g20rfhetermodels}
+
+```{r, "g20rfhetermodelsnormpop"}
+act <- NA
+rbind(
+  g20rfmodels_normpop_mention_diplome_ps_corr %>% 
+    set_colnames(NULL) %>% 
+        (function (g) g20selectvars2(g, g[, 1][str_detect(g[, 1], "z1|mention")])) %>% 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[c(nrow(d) - 1, nrow(d)), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 4),
+  
+  g20rfmodels_normpop_serie_diplome_psv4_corr %>% 
+    set_colnames(NULL) %>% 
+        (function (g) g20selectvars2(g, g[, 1][str_detect(g[, 1], "z1|serie")])) %>% 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[c(nrow(d) - 1, nrow(d)), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 4),
+  
+  g20rfmodels_normpop_q5age_26aout_corr %>% 
+    set_colnames(NULL) %>% 
+        (function (g) g20selectvars2(g, g[, 1][str_detect(g[, 1], "z1|q5age")])) %>% 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[c(nrow(d) - 1, nrow(d)), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 4),
+  
+  g20rfmodels_normpop_sexe_ps_corr %>% 
+    set_colnames(NULL) %>% 
+        (function (g) g20selectvars2(g, g[, 1][str_detect(g[, 1], "z1|sexe")])) %>% 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[c(nrow(d) - 1, nrow(d)), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 4),
+  
+  g20rfmodels_normpop_pays_nais_fr_corr %>% 
+    set_colnames(NULL) %>% 
+        (function (g) g20selectvars2(g, g[, 1][str_detect(g[, 1], "z1|pays")])) %>% 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[c(nrow(d) - 1, nrow(d)), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 4),
+  
+  g20rfmodels_normpop_boursier_corr %>% 
+    set_colnames(NULL) %>% 
+        (function (g) g20selectvars2(g, g[, 1][str_detect(g[, 1], "z1|boursier")])) %>% 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[c(nrow(d) - 1, nrow(d)), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d})
+  
+  ) %>% 
+  set_colnames(c(" ",
+                 c("Aux TD", "Aux examens", "À l'UE") %>% col_numbers)) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE, 
+        caption = "Effets potentiellement hétérogènes de l'incitation sur les notes de mathématiques (intention de traiter) - version normalisée des notes") %>% 
+  group_rows("Panel A : Hétérogénéité en fonction de la mention au bac", 1, 19, hline_after = TRUE) %>% 
+  group_rows("Panel B : Hétérogénéité en fonction de la série au bac", 20, 42, hline_after = TRUE) %>% 
+  group_rows("Panel C : Hétérogénéité en fonction du quintile de l'âge à la rentrée", 43, 65, hline_after = TRUE) %>% 
+  group_rows("Panel D : Hétérogénéité en fonction du sexe", 66, 76, hline_after = TRUE) %>% 
+  group_rows("Panel E : Hétérogénéité en fonction du pays de naissance", 77, 87, hline_after = TRUE) %>% 
+  group_rows("Panel F : Hétérogénéité en fonction du statut de boursier", 88, 97, hline_after = TRUE) %>% 
+  kable_styling(font_size = 7) %>% 
+  add_header_above(c(" ",
+                     "Variable dépendante : Note " = 3)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge, plateforme '\\\\textit{J'ai 20 en maths}', APOGEE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Écart-types robustes entre parenthèses. 
+    Les variables dépendantes sont des notes normalisées sur la population de tous les inscrits, y compris ceux hors de l'expérimentation. Une colonne et un panel donnés correspondent à une régression. ES : Économique et social, S : Scientifique, AES : Administration Économique et Sociale. Eco-Ge : Économie-Gestion. TD : Travaux Dirigés. UE : Unité d'Enseignement.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    ))
+```
+\elandscape
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Robustesse des résultats principaux - versions normalisées des notes {#g20modelsrobcovsgraphnormpop}
+
+```{r, "g20modelsrobcovsgraphnormpop", fig.cap = "Robustesse des résultats principaux - Vidéos visionnées entièrement"}
+g20models_robcov_tab %>% 
+  filter(depvar %in% c("note_td_normpop", "note_ctqcm_normpop") & 
+           treat == "videos_comp_tot" & 
+           data %in% c("datg20_neo_venus_td", "datg20_neo_venus_ctqcm")) %>%
+  mutate(depvar = str_remove(depvar, "_normpop")) %>% 
+  filter(! (depvar == "note_ctqcm" & mod == "ivtobit")) %>%
+  filter(! (depvar == "note_td" & mod == "ivtobitl")) %>% 
+  filter(! (depvar == "note_ctqcm" & data == "datg20_neo_venus_td")) %>% 
+  filter(! (depvar == "note_td" & data == "datg20_neo_venus_ctqcm")) %>% 
+  mutate(mod = str_replace(mod, "ivtobitl", "ivtobit")) %>% 
+  mutate(depvar = factor(depvar, levels = c("note_td", "note_ctqcm"),
+                         labels = c("Note aux TD", "Note à l'examen")),
+         mod = factor(mod, levels = c("iv", "ivtobit"), labels = c("VI", "VI-Tobit")),
+         cov2 = factor(cov, levels = levels(cov), 
+                       labels = c("Aucune", "Note au bac", "Préc. + série au bac",
+                                  "Préc. + campus", "Préc. + filière", "Préc. + âge à la rentrée",
+                                  "Préc. + sexe", "Préc. + pays de naissance", "Préc. + nationalité",
+                                  "Préc. + statut de boursier", "Préc. + statut d'étab.", 
+                                  "Préc. + type d'étab.", "Préc. + dép. d'étab.", 
+                                  "Retenue")),
+         cov = cov2) %>% 
+  ggplot(aes(cov, coef)) + geom_point() +
+  geom_errorbar(aes(ymin = low, ymax = up), width = .1) + 
+  geom_hline(aes(yintercept = 0), linetype = "dashed", color = "red") + 
+  facet_wrap(. ~ depvar) + 
+  labs(x = "Variables de contrôle",
+       y = "Coefficients estimés",
+       caption =  "<br>Sources : Base Parcoursup - L1 AES et Eco-Ge, plateforme 'J'ai 20 en maths', APOGEE (version extraite en mai 2021), calculs de l'auteur. <br>Notes : Un point correspond à une régression. Intervalles de confiance à 95% à partir d'écart-types robustes. Les variables dépendantes sont des notes normalisées sur la population de tous les inscrits, y compris ceux hors de l'expérimentation. TD : Travaux Dirigés.") + 
+  theme_bw() + 
+  mytheme + 
+  mytheme %>% (function (m) {
+    m$axis.text.x <- element_text(size = m$axis.text$size - 4, angle = 45, vjust = 1, hjust = 1)
+    m
+  })
+```
+
+\newpage  
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Robustesse des résultats par rapport à l'absence des pics de 20 aux notes de TD et à l'exclusion des étudiants non connectés {#g20modelsrob2}
+  
+```{r, "g20modelsrob2"}
+rbind(
+  
+  g20models_videos_comp_tot_no20td %>% set_colnames(NULL) %>% 
+    g20selectvars("videos.comp.tot") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace ; d}),
+  
+  rep(" ", 7),
+  
+  g20models_videos_comp_tot_ori %>% set_colnames(NULL) %>% 
+    g20selectvars("videos.comp.tot.ori") %>% 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep(" ", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[nrow(d), ])) %>% 
+    (function (d) {d[, 1] <- d[, 1] %>% g20replace %>% str_remove(".ori$") ; 
+    d})  
+  ) %>% 
+  set_colnames(c(" ", 
+                 c("Aux TD", "Aux TD $\\geq 10$", 
+                 "Aux examens", "Aux examens $\\geq10$", 
+                 "À l'UE", "À l'UE $\\geq 10$") %>% col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = " ", 
+        escape = FALSE, 
+        caption = "Robustesse des résultats par rapport à deux éléments") %>% 
+  group_rows("Panel A : Sans les étudiants ayant eu 20 sur 20 aux TD", 1, 6, hline_after = TRUE) %>% 
+  group_rows("Panel B : Sans les étudiants non connectés", 7, 11, hline_after = TRUE) %>% 
+  kable_styling(font_size = 8) %>% 
+  add_header_above(c(" ",
+                     "Variable dépendante : Note " = 6)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Base Parcoursup - L1 AES et Eco-Ge, plateforme '\\\\textit{J'ai 20 en maths}', APOGEE (version extraite en mai 2021), calculs de l'auteur.",
+    "\\\\textit{Notes :} Écart-types robustes entre parenthèses. 
+    Les variables dépendantes sont des notes sur 20. Une colonne et un panel donnés correspondent à une régression. Les vidéos visionnées entièrement sont des comptages. TD : Travaux Dirigés. UE : Unité d'Enseignement.",
+    "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+    ))
+```
+

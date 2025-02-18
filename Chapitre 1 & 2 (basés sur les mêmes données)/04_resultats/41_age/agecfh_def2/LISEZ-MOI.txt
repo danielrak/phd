@@ -1,0 +1,7 @@
+Applique les conseils de M. Croissant du 14 sept 2021 : 
+
+Ne pas estimer pleins de modèles séparés. Faire des estimations intelligentes. 
+
+Minimums : par depvar, par année, par spec sexe et spec année. Sans effets fixes nulpart. 
+
+https://stats.stackexchange.com/questions/207295/control-function-cf-approach-with-nonlinear-functions-of-endogenous-variables

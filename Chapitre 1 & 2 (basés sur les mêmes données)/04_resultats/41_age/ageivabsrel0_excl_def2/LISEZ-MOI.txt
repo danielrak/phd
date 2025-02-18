@@ -1,0 +1,4 @@
+version excl de ageivabsrel0_def2. excl sur zbar_-i. 
+
+0 => pas de p_covars. 
+bim uniquement puisque je sais que ça ne marche pas pour mois. 

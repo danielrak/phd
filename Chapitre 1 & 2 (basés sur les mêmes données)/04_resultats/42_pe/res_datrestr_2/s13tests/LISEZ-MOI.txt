@@ -1,0 +1,12 @@
+Contient divers tests empirique d'idées. 
+
+Modèles de base pour faire les tests : chge-sD et npchge-sF. 
+
+Liste : 
+
+- instpiketty : sur les s13, je trouve un coefficient positif sur tdivconstatrneses. On devrait trouver un coefficient négatif. Il faut résoudre cela. Solution : effet école uniquement : permet d'utiliser l'instrument de Piketty. 
+- endogénéité de age_absdnb : les variables d'âge et de position sont endogènes. Il faudrait résoudre cette endogénéité et bien surveiller les autres coefficients. 
+- effet individuel (inter-subject variation) : de lavy et al. 2012. À tester. 
+- Écart-types à insérer : de Boutchenik et Maillard 2018. Mais application probablement erronée (Sojourner 2013). 
+	La contrepartie c'est que l'on peut tester les modèles de HW05. 
+- Typologies de classes à insérer : de Boutchenik et Maillard 2018. Pas très prioritaire. 

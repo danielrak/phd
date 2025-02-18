@@ -1,0 +1,4 @@
+La différence avec 01_construction : 
+
+	- Plus complet. 
+	- On part des étudiants qu'on retrouve à l'examen du premier semestre 2020-2021, puis on récupère toutes les infos possibles sur g20 et parcoursup. 

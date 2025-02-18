@@ -1,0 +1,2148 @@
+<!-- \renewcommand{\thetable}{\Alph{section}.\arabic{table}}  -->
+<!-- \renewcommand{\theHtable}{Supplement.\thetable} -->
+
+<!-- \renewcommand{\thefigure}{\Alph{section}\arabic{figure}} -->
+<!-- \renewcommand{\theHfigure}{Supplement.\thefigure} -->
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Les fichiers constats et récupération d'informations correspondantes {#ageconstats}
+
+Les fichiers constat sont des fichiers établis en début d'année scolaire et qui couvrent tous les établissements publics et privés sous contrat de La Réunion. Elles contiennent des informations sur l'établissement, la classe et l'individu. On n'y retrouve pas de variables de performances scolaires. 
+Nous disposons de deux catégories de fichiers constat : ceux de 6^ème^ et ceux de 3^ème^. Les fichiers constat en 6^ème^ à notre disposition couvrent les années scolaires allant de 2010-2011 à 2012-2013 tandis que ceux en 3^ème^ couvrent les années scolaires allant de 2013-2014 à 2016-2017. Les débuts de ces années correspondent aux fins des années des fichiers d'évaluation de CM2 et de DNB, respectivement.  
+  
+\quad Les informations au niveau individuel disponibles dans les fichiers constat sont l'INE (Identifiant National de l'Élève), la date de naissance exacte, le sexe, la catégorie sociale en deux chiffres, la commune d'origine, le régime scolaire, le régime de transport de transport, le statut de boursier, des identifiants et libellés de niveau-option (exemple : 6^ème^ internationale) et les différentes options de langue vivante choisies par l'élève.  
+  
+\quad Au niveau de la classe, seuls les identifiants de la classe (en début d'année, au collège, pour le niveau considéré).  
+  
+\quad Au niveau de l'école, nous avons les identifiants d'école et le statut (public ou privé).   
+  
+\quad Au CM2, nous récupérons la CSP au sein des fichiers constat de 6^ème^ via l'INE. Tous les INE des élèves de CM2 ne sont pas retrouvés dans les fichiers constat de 6^ème^. Une exception à cette récupération est l'année 2011-2012 : les correspondances entre l'INE et les CSP au sein des fichiers constat de 6^ème^ 2011-2012 apparaissent douteuses. Pour le savoir, nous avons régressé (non reporté), par année scolaire au CM2, les notes en fonction des CSP récupérées au sein des fichiers constat de 6^ème^. Nous trouvons que les coefficients en 2011 sont très différents des coefficients des deux autres années, tant en ampleur qu'en significativité.  
+Pour l'année de 2011, nous récupérons alors les CSP au sein des fichiers constat de 3^ème^. Cela suppose que nous possédons une erreur de mesure de la CSP pour l'année de 2011. Cette erreur de mesure est très probablement négligeable car il est difficile de penser qu'un changement structurel des CSP puisse se produire sur le territoire entre le CM2 et la 3^ème^.
+  
+Il n'y a pas eu de problème sur la récupération de la CSP des candidats du DNB.     
+  
+\quad Le Tableau \@ref(tab:agerecuppcs) illustre, pour chaque année au CM2 et au DNB des fichiers d'examens la récupération des informations sur la CSP. 
+  
+```{r, "agerecuppcs"}
+agerecup_pcs2 %>% 
+  set_colnames(c("Année", 
+                 "Proportion d'INE manquants",
+                 "Source", 
+                 "\\makecell[l]{Proportion de CSP manquants \\\\ (Parmi les INE non manquants)}")) %>% 
+  kable(booktabs = TRUE, linesep = "", longtable = TRUE,
+        escape = FALSE,
+        caption = "Récupération des CSP",
+        align = c("l", "r", "l", "r")) %>% 
+  group_rows("CM2", 1, 4) %>%
+  group_rows("DNB", 5, 7) %>%
+  kable_styling(font_size = 8) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), Fichiers DNB (2014 à 2016), Fichiers CONSTAT 6\\\\textsuperscript{ème} et 3\\\\textsuperscript{ème}, calculs de l'auteur.",
+                       "\\\\textit{Notes :} CM2 : Cours Moyen 2\\\\textsuperscript{ème} année. DNB : Diplôme National du Brevet. CSP : Catégorie Socio-Professionnelle. INE : Identifiant National Élève."))
+```
+  
+\newpage  
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Correspondances entre la classification en 4 postes de la catégorie socio-professionnelle et la version détaillée {#agecorrespcsp}
+
+```{r, "agecorrespcsp"}
+act2 <- NA
+kable(agecorrespcsp2 %>% (function (x) setNames(x, str_replace_all(names(x), "\xe9", "é"))), 
+      booktabs = TRUE, escape = FALSE, 
+      longtable = TRUE, linesep = "",
+      caption = "Correspondances entre la CSP en 4 postes et sa version détaillée") %>% 
+  kable_styling(font_size = 8) %>% 
+  group_rows("", 1, 6, indent = FALSE) %>% 
+  group_rows("", 7, 16, indent = FALSE) %>% 
+  group_rows("", 17, 23, indent = FALSE) %>% 
+  group_rows("", 24, 31, indent = FALSE) %>% 
+  footnote(general = c("Source : Métayer et al. 2017, p. 124"))
+```
+
+\newpage
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Tests de $\chi^2$ supplémentaires {#agechisqsupp}
+
+```{r, "agechisqsupp"}
+agechisq_tab %>% round(2) %>% 
+  (function (d) {
+    d <- as.data.frame(d)
+    transmute(d, 
+              "Année" = substr(rownames(d), 1, 4),
+              ## "Spécification de la CSP" = substr(rownames(d),
+              ##                                    6, nchar(rownames(d))),
+              "Statistique de $\\chi^2$" = stat,
+              "Probabilité critique" = pval) %>% 
+      set_rownames(NULL)
+  }) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Tests supplémentaires d'indépendance entre le mois de naissance et la catégorie sociale
+        ") %>%
+  group_rows("Spécification de la CSP : Autres et valeurs manquantes comme modalité",
+           1, 3) %>% 
+  group_rows("Spécification de la CSP : sans Autres et valeurs manquantes comme modalité", 4, 6) %>% 
+  kable_styling(font_size = 8) %>% 
+  footnote(general = c("\\\\textit{Source :} Fichiers CM2 (2010 à 2012), calculs de l'auteur."))
+```
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Description du calcul d'écart-type par *bootstrap* {#agewbootdesc}
+
+Considérons l'équation \@ref(eq:agecfh). $\hat{\nu}_{i}$ est une variable issue d'une première étape. Il est de connaissance commune qu'une inférence standard n'est pas valide dans ce type de cas [@WOO:15]. Ainsi,nous calculons les écart-types des coefficients estimés par fonction de contrôle par *bootstrap*. Plus particulièrement, nous suivons une procédure bien précise (parmi plusieurs) proposée par @DAV:FLA:08 : le *wild bootstrap*, qui est robuste à l'hétéroscédasticité de forme inconnue. De manière générale, il s'agit de réestimer un grand nombre de fois l'équation \@ref(eq:agecfh) à chaque fois avec les mêmes variables explicatives mais différents vecteurs de variables dépendantes. Ces vecteurs sont eux-mêmes obtenus à partir des valeurs prédites et résidus transformés issus d'une première estimation standard de l'équation \@ref(eq:agecfh). Au bout, nous obtenons une distribution empirique de paramètres estimés de laquelle nous pouvons calculer l'écart-type pour en faire une inférence.
+
+\quad Formellement, considérons une première estimation par moindre carrés ordinaires de l'équation \@ref(eq:agecfh). Considérons ensuite le vecteur de résidus associé : $\hat{a}_{i}$. Désignons ensuite par $r()$ la fonction de masse de la loi discrète de *Rademacher* :
+
+$$
+r(x) = 
+\begin{cases} 
+x = - 1 \text{ avec probabilité } \frac{1}{2} \\
+x = 1 \text{ avec probabilité } \frac{1}{2} 
+\end{cases}
+$$
+
+Définissons ensuite un nombre de réplications $B$. Nous considérons $B = 1001$. À chaque réplication $b = \{1, 2, ..., B\}$, un résidu transformé $\hat{a}^b_i = \hat{a}_i r(x), \forall i$ est calculé. Ce résidu transformé est utilisé pour obtenir le nouveau vecteur de variable dépendante composée de $\hat{y}^b_i = y_i + \hat{a}^b_i, \forall i$ où $y_i$ est la valeur observée de la variable indépendante pour l'individu $i$. Une nouvelle estimation de l'équation \@ref(eq:agecfh) est ensuite effectuée en utilisant la variable dépendante composée de $\hat{y}^b_i$ et les mêmes variables explicatives et données que dans l'estimation principale.  
+En tout, on obtient alors $B$ valeurs de $\hat{\alpha}_1^b, b = \{1, 2, ..., B\}$. Pour effectuer les tests d'hypothèse, L'écart-type estimé du paramètre estimé $\hat{\alpha_1}$ retenu est alors l'écart-type de la distribution empirique de $\hat{\alpha}_1^b, b = \{1, 2, ..., B\}$. 
+
+\newpage
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Hétérogénéité des effets de l'âge aux examens par rapport aux facultés {#ageheterofac}
+
+À partir de l'équation estimable de l'approche par fonction de contrôle (équation \ref{eq:agecfh}), nous pouvons écrire
+
+```{=tex}
+\begin{equation}
+(\#eq:agecfhest)
+  y_i = \hat{\alpha_0} + \hat{\alpha_1} a_i + x'_i \hat{\alpha_2} + \hat{c_1} \hat{\nu_i} + \hat{c_2} \hat{\nu_i} a_i + \hat{\epsilon_i}.
+\end{equation}
+```
+
+
+Dans notre étude, nous trouvons $\hat{c_1} < 0$ et $\hat{c_2} < 0$ (Tableau \@ref(tab:agemodels), colonne 5). Il est important de comprendre que cela pourrait en être autrement dans d'autres applications empiriques sur les effets de l'âge.  
+  
+D'une part, selon l'équation \@ref(eq:agecfhest), la variation de la note en fonction de $\hat{\nu_i}$ est 
+
+$$
+\frac{\partial y_i}{\partial \hat{\nu_i}} = \hat{c_1} + \hat{c_2} a_i.
+$$
+  
+Puisque $\hat{c_1} < 0$ et $\hat{c_2} < 0$, combiné au fait que $a_i > 0$, nous en déduisons que 
+
+```{=tex}
+\begin{equation}
+(\#eq:agesignefac)
+\frac{\partial y_i}{\partial \hat{\nu_i}} < 0.
+\end{equation}
+```
+
+L'équation \@ref(eq:agesignefac) nous permet d'interpréter $\hat{\nu_i}$ comme une variable d'*anti-faculté* ou des difficultés scolaires, pour le dire plus simplement. Cela implique que $- \nu_i$ peut être interprétée pratiquement comme une variable de faculté. 
+  
+  \quad D'autre part, l'équation \@ref(eq:agecfhest) nous permet également d'écrire l'effet de l'âge aux examens sur la note totale comme suit :
+
+$$
+\frac{\partial y_i}{\partial a_i} = \hat{\alpha_1} + \hat{c_2} \hat{\nu_i} = \hat{\alpha_1} - \hat{c_2}(- \hat{\nu_i}). 
+$$
+La variation de cet effet en fonction des facultés est alors 
+
+$$
+\frac{\partial ^ 2 y_i}{\partial (\hat{-\nu_i}) \partial a_i} = - \hat{c_2}.
+$$
+Comme $\hat{c_2} < 0$, 
+
+$$
+\frac{\partial ^ 2 y_i}{\partial (-\hat{\nu_i}) \partial a_i} > 0.
+$$
+Autrement dit, nos résultats indiquent que l'effet de l'âge aux examens augmente avec les facultés. 
+
+\blandscape
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Résultats sur les notes en sous-composantes de français et de mathématiques {#agemodelsssitems}
+
+### Effets homogènes par rapport aux observables 
+
+```{r, "agemodelsssitemsfrench"}
+agemodels_ssitemsfrench %>% 
+  set_colnames(c("", "ivecrire", "cfhecrire",
+                 "ivgrammaire", "cfhgrammaire",
+                 "ivlire", "cfhlire",
+                 "iveortho", "cfhortho",
+                 "ivvoca", "cfhvoca"))%>% 
+  ## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.abs", "resid", "age.abs:resid"), 
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "age.abs", "Âge aux examens") %>%
+      str_replace("^z$", "Àge relatif théorique") %>% 
+      str_replace("resid", "$\\\\hat{\\\\nu}$") %>% 
+      str_replace("sexeM", "Sexe - Garçon") %>%
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  set_colnames(c("", rep(c("VI", "FCH"), 5) %>% 
+                   col_numbers())) %>%
+  (function (d) {
+    d[nrow(d), str_detect(colnames(d), "VI")] <- "-"
+    d
+  }) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Résultats principaux, sous-items de français") %>%
+  kable_styling(font_size = 8) %>%
+  add_header_above(c("", "Écriture" = 2,
+                     "Grammaire" = 2,
+                     "Lecture" = 2,
+                     "Orthographe" = 2,
+                     "Vocabulaire" = 2)) %>% 
+  add_header_above(c("", "Variable dépendante : Note en " = 10)) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. La variable $\\\\hat{\\\\nu}$ est le résidu de la première étape. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "VI : Variable Instrumentale. FCH : Fonction de Contrôle avec prise en compte de l'Hétérogénéité de l'effet de l'âge.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***.")) 
+```
+
+\newpage
+  
+```{r, "agemodelsssitemsmaths"}
+agemodels_ssitemsmaths %>% 
+  set_colnames(c("", "ivecalcul", "cfhcalcul",
+                 "ivgeomtrie", "cfhgeometrie",
+                 "ivgrandmes", "cfhgrandmes",
+                 "ivnombre", "cfhnombre",
+                 "ivorgdonnee", "cfhorgdonnee")) %>%  
+  ## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.abs", "resid", "age.abs:resid"), 
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "age.abs", "Âge aux examens") %>%
+      str_replace("^z$", "Àge relatif théorique") %>% 
+      str_replace("resid", "$\\\\hat{\\\\nu}$") %>% 
+      str_replace("sexeM", "Sexe - Garçon") %>%
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  set_colnames(c("", rep(c("VI", "FCH"), 5) %>% 
+                   col_numbers())) %>%
+  (function (d) {
+    d[nrow(d), str_detect(colnames(d), "VI")] <- "-"
+    d
+  }) %>%
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Résultats principaux, sous-items de mathématiques") %>%
+  kable_styling(font_size = 8) %>%
+  add_header_above(c("", "Calcul" = 2,
+                     "Géométrie" = 2,
+                     "\\\\makecell{Grandeurs et \\\\\\\\ mesures}" = 2,
+                     "Nombre" = 2,
+                     "\\\\makecell{Organisation et \\\\\\\\ gestion de données}" = 2), escape = FALSE) %>% 
+  add_header_above(c("", "Variable dépendante : Note en " = 10)) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. La variable $\\\\hat{\\\\nu}$ est le résidu de la première étape. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "VI : Variable Instrumentale. FCH : Fonction de Contrôle avec prise en compte de l'Hétérogénéité de l'effet de l'âge.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."))  
+```
+
+\elandscape
+
+\blandscape
+
+### Effets hétérogènes selon le sexe {#agemodelssexessitems}
+
+```{r, "agemodelssexessitemsfrench"}
+agemodels_sexe_ssitemsfrench %>% 
+  set_colnames(c("",
+                 "ivecrire", "cfhecrire",
+                 "ivgrammaire", "cfhgrammaire",
+                 "ivlire", "cfhlire",
+                 "ivortho", "cfhortho",
+                 "ivvoca", "cfhvoca")) %>%  
+  ## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.abs", "age.abs:sexeM"
+             ## , 
+                      ## "resid", "age.abs:resid",
+                      ## "sexeM:resid", "age.abs:sexeM:resid"
+                      ), 
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+   ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+   ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "age.abs", "Âge aux examens") %>%
+      str_replace("^z$", "Àge relatif théorique") %>% 
+      str_replace("resid", "$\\\\hat{\\\\nu}$") %>% 
+      str_replace("sexeM", "Sexe - Garçon") %>%
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  set_colnames(c("", rep(c("VI", "FCH"), 5) %>% 
+                   col_numbers())) %>%
+  (function (d) {
+    d[nrow(d), str_detect(colnames(d), "VI")] <- "-"
+    d
+  }) %>%
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Résultats avec effets hétérogènes selon le sexe, sous-items de français")  %>%
+  add_header_above(c("", "Écriture" = 2,
+                     "Grammaire" = 2,
+                     "Lecture" = 2,
+                     "Orthographe" = 2,
+                     "Vocabulaire" = 2)) %>% 
+  add_header_above(c("", "Variable dépendante : Note en " = 10)) %>% 
+  kable_styling(font_size = 8) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "VI : Variable Instrumentale. FCH : Fonction de Contrôle avec prise en compte de l'Hétérogénéité de l'effet de l'âge.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."))
+```
+  
+\newpage
+  
+```{r, "agemodelssexessitemsmaths"}
+agemodels_sexe_ssitemsmaths %>% 
+  set_colnames(c("",
+                 "ivcalcul", "cfhcalcul",
+                 "ivgeometrie", "cfhgeometrie",
+                 "ivgrandmes", "cfhgrandmes",
+                 "ivnombre", "cfhnombre",
+                 "ivorgdonnee", "cfhorgdonnee")) %>%  
+  ## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.abs", "age.abs:sexeM"
+             ## , 
+                      ## "resid", "age.abs:resid",
+                      ## "sexeM:resid", "age.abs:sexeM:resid"
+             ), 
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+   ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+   ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "age.abs", "Âge aux examens") %>%
+      str_replace("^z$", "Àge relatif théorique") %>% 
+      str_replace("resid", "$\\\\hat{\\\\nu}$") %>% 
+      str_replace("sexeM", "Sexe - Garçon") %>%
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  set_colnames(c("", rep(c("VI", "FCH"), 5) %>% 
+                   col_numbers())) %>%
+  (function (d) {
+    d[nrow(d), str_detect(colnames(d), "VI")] <- "-"
+    d
+  }) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Résultats avec effets hétérogènes selon le sexe, sous-items de mathématiques") %>%
+  kable_styling(font_size = 8) %>%
+  add_header_above(c("", "Calcul" = 2,
+                     "Géométrie" = 2,
+                     "\\\\makecell{Grandeurs et \\\\\\\\\ mesures}" = 2,
+                     "Nombre" = 2,
+                     "\\\\makecell{Organisation et \\\\\\\\ gestion de données}" = 2), escape = FALSE) %>% 
+  add_header_above(c("", "Variable dépendante : Note en " = 10)) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "VI : Variable Instrumentale. FCH : Fonction de Contrôle avec prise en compte de l'Hétérogénéité de l'effet de l'âge.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."))
+```
+
+\elandscape
+
+\blandscape
+
+### Effets hétérogènes selon la catégorie sociale {#agemodelspcsg2ssitems}
+
+
+```{r, "agemodelspcsg2ssitemsfrench"}
+act <- NA
+agemodels_pcs_g2_ssitemsfrench %>% 
+  set_colnames(c("",
+                 "ivecrire", "cfhecrire",
+                 "ivgrammaire", "cfhgrammaire",
+                 "ivlire", "cfhlire",
+                 "ivortho", "cfhortho",
+                 "ivvoca", "cfhvoca")) %>% 
+  ## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.abs", 
+             "age.abs:pcsRMoy",
+             "age.abs:pcsRFav",
+             "age.abs:pcsRTresfav",
+             "age.abs:pcsRAutres"
+             ## ,
+             ## "resid", "age.abs:resid",
+             ## "age.abs:pcsRMoy:resid",
+             ## "age.abs:pcsRFav:resid",
+             ## "age.abs:pcsRTresfav:resid",
+             ## "age.abs:pcsRAutres:resid"
+             ), 
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+   ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+   ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "age.abs", "Âge aux examens") %>%
+      str_replace("^z$", "Àge relatif théorique") %>% 
+      str_replace("resid", "$\\\\hat{\\\\nu}$") %>% 
+      str_replace("pcsR", "CSP - ") %>%
+      str_replace("Moy", "Moyenne") %>% 
+      str_replace("Fav", "Favorisée") %>% 
+      str_replace("Tresfav", "Très favorisée") %>% 
+      str_replace("Autres", "Autre") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  set_colnames(c("", rep(c("VI", "FCH"), 5) %>% 
+                   col_numbers())) %>%
+  (function (d) {
+    d[nrow(d), str_detect(colnames(d), "VI")] <- "-"
+    d
+  }) %>%
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Résultats avec effets hétérogènes selon la catégorie sociale, sous-items de français") %>%
+  add_header_above(c("", "Écriture" = 2,
+                     "Grammaire" = 2,
+                     "Lecture" = 2,
+                     "Orthographe" = 2,
+                     "Vocabulaire" = 2)) %>% 
+  add_header_above(c("", "Variable dépendante : Note en " = 10)) %>% 
+  kable_styling(font_size = 8) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "VI : Variable Instrumentale. FCH : Fonction de Contrôle avec prise en compte de l'Hétérogénéité de l'effet de l'âge. CSP : Catégorie Socio-Professionnelle.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."))
+```
+  
+\newpage
+  
+```{r, "agemodelspcsg2ssitemsmaths"}
+act <- NA
+agemodels_pcs_g2_ssitemsmaths %>% 
+  set_colnames(c("",
+                 "ivcalcul", "cfhcalcul",
+                 "ivgeometrie", "cfhgeometrie",
+                 "ivgrandmes", "cfhgrandmes",
+                 "ivnombre", "cfhnombre",
+                 "ivorgdonnee", "cfhorgdonnee")) %>%  
+  ## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.abs", 
+             "age.abs:pcsRMoy",
+             "age.abs:pcsRFav",
+             "age.abs:pcsRTresfav",
+             "age.abs:pcsRAutres"
+             ## ,
+             ## "resid", "age.abs:resid",
+             ## "age.abs:pcsRMoy:resid",
+             ## "age.abs:pcsRFav:resid",
+             ## "age.abs:pcsRTresfav:resid",
+             ## "age.abs:pcsRAutres:resid"
+             ), 
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+   ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+   ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "age.abs", "Âge aux examens") %>%
+      str_replace("^z$", "Âge relatif théorique") %>% 
+      str_replace("resid", "$\\\\hat{\\\\nu}$") %>% 
+      str_replace("pcsR", "CSP - ") %>%
+      str_replace("Moy", "Moyenne") %>% 
+      str_replace("Fav", "Favorisée") %>% 
+      str_replace("Tresfav", "Très favorisée") %>% 
+      str_replace("Autres", "Autre") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  set_colnames(c("", rep(c("VI", "FCH"), 5) %>% 
+                   col_numbers())) %>%
+  (function (d) {
+    d[nrow(d), str_detect(colnames(d), "VI")] <- "-"
+    d
+  }) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Résultats avec effets hétérogènes da la catégorie sociale, sous-items de mathématiques") %>%
+  kable_styling(font_size = 8) %>%
+  add_header_above(c("", "Calcul" = 2,
+                     "Géométrie" = 2,
+                     "\\\\makecell{Grandeurs et \\\\\\\\\ mesures}" = 2,
+                     "Nombre" = 2,
+                     "\\\\makecell{Organisation et \\\\\\\\ gestion de données}" = 2), escape = FALSE) %>% 
+  add_header_above(c("", "Variable dépendante : Note en " = 10)) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "VI : Variable Instrumentale. FCH : Fonction de Contrôle avec prise en compte de l'Hétérogénéité de l'effet de l'âge. CSP : Catégorie Socio-Professionnelle.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."))
+```
+
+\elandscape
+
+\blandscape
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Résultats sur les notes en sous-composantes de français et de mathématiques avec effets hétérogènes selon la catégorie sociale, par éducation prioritaire {#agemodelssexereseaubinsep}
+
+<!-- MAJ 2021_12_30 : pas besoin de cet annexe en fait puisqu'il n'apparaît nulpart dans le raisonnement. -->
+<!-- ### Effets hétérogènes selon le sexe -->
+
+<!-- ```{r, "agemodelssexereseaubinsep"} -->
+<!-- agemodels_sexe_reseau_bin_sep %>%  -->
+<!--   set_colnames(c("",  -->
+<!--                  "cfhtotnon", "cfhtotoui", -->
+<!--                  "cfhfrenchnon", "cfhfrenchoui", -->
+<!--                  "cfhmathsnon", "cfhmathsoui")) %>%   -->
+<!--   ## Sélection de lignes.  -->
+<!--   (function (d) { -->
+<!--     sapply(c("age.abs", "age.abs:sexeM" -->
+<!--              ## ,  -->
+<!--              ##          "resid", "age.abs:resid", -->
+<!--              ##          "sexeM:resid", "age.abs:sexeM:resid" -->
+<!--              ),  -->
+<!--            function (x) which(d[, 1] == x) %>%  -->
+<!--              (function (w) c(w, w + 1))) %>%  -->
+<!--       as.vector %>%  -->
+<!--       (function (v) sapply(c("n", "arsq"), -->
+<!--                            function (x) which(d[, 1] == x)) %>%  -->
+<!--          as.vector %>% (function (v2) c(v, v2))) %>%  -->
+<!--       (function (v3) d[v3, ]) -->
+<!--   }) %>% -->
+<!--    ## Rajout de ligne : contrôles.  -->
+<!--   (function (d) rbind(d[1:(nrow(d) - 2), ], -->
+<!--                       rep("", ncol(d)), -->
+<!--                       c("Contrôles", rep("Oui", ncol(d) - 1)), -->
+<!--                       d[(nrow(d) - 1):nrow(d), ])) %>%  -->
+<!--    ## Remplacement nom de variables.  -->
+<!--   (function (d) { -->
+<!--     d[, 1] <- str_replace(d[, 1], "age.abs", "Âge aux examens") %>% -->
+<!--       str_replace("^z$", "Àge relatif théorique") %>%  -->
+<!--       str_replace("resid", "$\\\\hat{\\\\nu}$") %>%  -->
+<!--       str_replace("sexeM", "Sexe - Garçon") %>% -->
+<!--       str_replace("^n$", "Observations") %>%  -->
+<!--       str_replace("arsq", "R$^2$ ajusté") %>%  -->
+<!--       str_replace_all(":", " $\\\\times$ ")  -->
+<!--     d -->
+<!--   }) %>%  -->
+<!--   set_colnames(c("", rep(c("FCH, Hors EP", -->
+<!--                            "FCH, EP"), 3) %>%  -->
+<!--                    col_numbers())) %>%  -->
+<!--   kable(booktabs = TRUE, longtable = TRUE, linesep = "", -->
+<!--         escape = FALSE, -->
+<!--         caption = "Résultats avec effets hétérogènes selon le sexe, par éducation prioritaire") %>% -->
+<!--   add_header_above(c("", "Note totale" = 2, -->
+<!--                      "Note en français" = 2, -->
+<!--                      "Note en mathématiques" = 2)) %>%  -->
+<!--   add_header_above(c("", "Variable dépendante : " = 6)) %>%  -->
+<!--   kable_styling() %>%  -->
+<!--   footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.", -->
+<!--                        "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.", -->
+<!--                        "VI : Variable instrumentale. FCH : Fonction de contrôle avec prise en compte de l'hétérogénéité de l'effet de l'âge.", -->
+<!--                        "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."))  -->
+<!-- ``` -->
+
+<!-- \elandscape -->
+
+<!-- \blandscape -->
+
+<!-- ### Effets hétérogènes selon le sexe, sous-composantes de français et de mathématiques {#agemodelssexereseaubinsepssitems} -->
+
+<!-- ```{r, "agemodelssexereseaubinsepssitemsfrench"} -->
+<!-- agemodels_sexe_reseau_bin_sep_ssitemsfrench %>%  -->
+<!--   set_colnames(c("",  -->
+<!--                  "cfhecrirenon",  -->
+<!--                  "cfhecrireoui", -->
+
+<!--                  "cfhgrammairenon",  -->
+<!--                  "cfhgrammaireoui", -->
+
+<!--                  "cfhlirenon",  -->
+<!--                  "cfhlireoui", -->
+
+<!--                  "cfhorthonon",  -->
+<!--                  "cfhorthooui", -->
+
+<!--                  "cfhvocanon",  -->
+<!--                  "cfhvocaoui")) %>%   -->
+<!--   ## Sélection de lignes.  -->
+<!--   (function (d) { -->
+<!--     sapply(c("age.abs", "age.abs:sexeM" -->
+<!--              ## ,  -->
+<!--              ##          "resid", "age.abs:resid", -->
+<!--              ##          "sexeM:resid", "age.abs:sexeM:resid" -->
+<!--              ),  -->
+<!--            function (x) which(d[, 1] == x) %>%  -->
+<!--              (function (w) c(w, w + 1))) %>%  -->
+<!--       as.vector %>%  -->
+<!--       (function (v) sapply(c("n", "arsq"), -->
+<!--                            function (x) which(d[, 1] == x)) %>%  -->
+<!--          as.vector %>% (function (v2) c(v, v2))) %>%  -->
+<!--       (function (v3) d[v3, ]) -->
+<!--   }) %>% -->
+<!--    ## Rajout de ligne : contrôles.  -->
+<!--   (function (d) rbind(d[1:(nrow(d) - 2), ], -->
+<!--                       rep("", ncol(d)), -->
+<!--                       c("Contrôles", rep("Oui", ncol(d) - 1)), -->
+<!--                       d[(nrow(d) - 1):nrow(d), ])) %>%  -->
+<!--    ## Remplacement nom de variables.  -->
+<!--   (function (d) { -->
+<!--     d[, 1] <- str_replace(d[, 1], "age.abs", "Âge aux examens") %>% -->
+<!--       str_replace("^z$", "Àge relatif théorique") %>%  -->
+<!--       str_replace("resid", "$\\\\hat{\\\\nu}$") %>%  -->
+<!--       str_replace("sexeM", "Sexe - Garçon") %>% -->
+<!--       str_replace("^n$", "Observations") %>%  -->
+<!--       str_replace("arsq", "R$^2$ ajusté") %>%  -->
+<!--       str_replace_all(":", " $\\\\times$ ")  -->
+<!--     d -->
+<!--   }) %>%  -->
+<!--   set_colnames(c("", rep(c("FCH, Hors EP", -->
+<!--                            "FCH, EP"), 5) %>%  -->
+<!--                    col_numbers())) %>%  -->
+<!--   kable(booktabs = TRUE, longtable = TRUE, linesep = "", -->
+<!--         escape = FALSE, -->
+<!--         caption = "Résultats avec effets hétérogènes selon le sexe, sous-items de français, par éducation prioritaire")  %>% -->
+<!--   add_header_above(c("", "Écriture" = 2, -->
+<!--                      "Grammaire" = 2, -->
+<!--                      "Lecture" = 2, -->
+<!--                      "Orthographe" = 2, -->
+<!--                      "Vocabulaire" = 2)) %>%  -->
+<!--   add_header_above(c("", "Variable dépendante : Note en " = 10)) %>%  -->
+<!--   kable_styling(font_size = 8) %>%  -->
+<!--   footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.", -->
+<!--                        "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.", -->
+<!--                        "FCH : Fonction de contrôle avec prise en compte de l'hétérogénéité de l'effet de l'âge.", -->
+<!--                        "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***.")) -->
+<!-- ``` -->
+
+<!-- ```{r, "agemodelssexereseaubinsepssitemsmaths"} -->
+<!-- agemodels_sexe_reseau_bin_sep_ssitemsmaths %>%  -->
+<!--   set_colnames(c("", -->
+<!--                  "cfhcalculnon", "cfhcalculoui", -->
+<!--                  "cfhgeometrienon", "cfhgeometrieoui", -->
+<!--                  "cfhgrandmesnon", "cfhgrandmesoui", -->
+<!--                  "cfhnombrenon", "cfhnombreoui", -->
+<!--                  "cfhorgdonneenon", "cfhorgdonneeoui")) %>%   -->
+<!--   ## Sélection de lignes.  -->
+<!--   (function (d) { -->
+<!--     sapply(c("age.abs", "age.abs:sexeM" -->
+<!--              ## ,  -->
+<!--              ##          "resid", "age.abs:resid", -->
+<!--              ##          "sexeM:resid", "age.abs:sexeM:resid" -->
+<!--              ),  -->
+<!--            function (x) which(d[, 1] == x) %>%  -->
+<!--              (function (w) c(w, w + 1))) %>%  -->
+<!--       as.vector %>%  -->
+<!--       (function (v) sapply(c("n", "arsq"), -->
+<!--                            function (x) which(d[, 1] == x)) %>%  -->
+<!--          as.vector %>% (function (v2) c(v, v2))) %>%  -->
+<!--       (function (v3) d[v3, ]) -->
+<!--   }) %>% -->
+<!--    ## Rajout de ligne : contrôles.  -->
+<!--   (function (d) rbind(d[1:(nrow(d) - 2), ], -->
+<!--                       rep("", ncol(d)), -->
+<!--                       c("Contrôles", rep("Oui", ncol(d) - 1)), -->
+<!--                       d[(nrow(d) - 1):nrow(d), ])) %>%  -->
+<!--    ## Remplacement nom de variables.  -->
+<!--   (function (d) { -->
+<!--     d[, 1] <- str_replace(d[, 1], "age.abs", "Âge aux examens") %>% -->
+<!--       str_replace("^z$", "Àge relatif théorique") %>%  -->
+<!--       str_replace("resid", "$\\\\hat{\\\\nu}$") %>%  -->
+<!--       str_replace("sexeM", "Sexe - Garçon") %>% -->
+<!--       str_replace("^n$", "Observations") %>%  -->
+<!--       str_replace("arsq", "R$^2$ ajusté") %>%  -->
+<!--       str_replace_all(":", " $\\\\times$ ")  -->
+<!--     d -->
+<!--   }) %>%  -->
+<!--   set_colnames(c("", rep(c("FCH, Hors EP", -->
+<!--                            "FCH, EP"), 5) %>%  -->
+<!--                    col_numbers())) %>%  -->
+<!--   kable(booktabs = TRUE, longtable = TRUE, linesep = "", -->
+<!--         escape = FALSE, -->
+<!--         caption = "Résultats avec effets hétérogènes selon le sexe, sous-items de maths, par éducation prioritaire")  %>% -->
+<!--   add_header_above(c("", "Calcul" = 2, -->
+<!--                      "Géométrie" = 2, -->
+<!--                      "\\\\makecell{Grandeurs et \\\\\\\\\ mesures}" = 2, -->
+<!--                      "Nombre" = 2, -->
+<!--                      "\\\\makecell{Organisation et \\\\\\\\ gestion de données}" = 2), escape = FALSE) %>%  -->
+<!--   add_header_above(c("", "Variable dépendante : Note en " = 10)) %>%  -->
+<!--   kable_styling(font_size = 8) %>%  -->
+<!--   footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.", -->
+<!--                        "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.", -->
+<!--                        "FCH : Fonction de contrôle avec prise en compte de l'hétérogénéité de l'effet de l'âge.", -->
+<!--                        "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***.")) -->
+<!-- ``` -->
+
+<!-- \elandscape -->
+
+<!-- \blandscape -->
+
+<!-- ### Effets hétérogènes selon la catégorie sociale, sous-composantes de français et de mathématiques {#agemodelspcsg2reseaubinsepssitems} -->
+
+```{r, "agemodelspcsg2reseaubinsepssitemsfrench"}
+agemodels_pcs_g2_reseau_bin_sep_ssitemsfrench %>% 
+  set_colnames(c("", 
+                 "cfhecrirenon", 
+                 "cfhecrireoui",
+                 
+                 "cfhgrammairenon", 
+                 "cfhgrammaireoui",
+                 
+                 "cfhlirenon", 
+                 "cfhlireoui",
+                 
+                 "cfhorthonon", 
+                 "cfhorthooui",
+                 
+                 "cfhvocanon", 
+                 "cfhvocaoui")) %>%  
+  ## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.abs", 
+             "age.abs:pcsRMoy",
+             "age.abs:pcsRFav",
+             "age.abs:pcsRTresfav",
+             "age.abs:pcsRAutres"
+             ## ,
+             ## "resid", "age.abs:resid",
+             ## "age.abs:pcsRMoy:resid",
+             ## "age.abs:pcsRFav:resid",
+             ## "age.abs:pcsRTresfav:resid",
+             ## "age.abs:pcsRAutres:resid"
+             ), 
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+   ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+   ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "age.abs", "Âge aux examens") %>%
+      str_replace("^z$", "Âge relatif théorique") %>% 
+      str_replace("resid", "$\\\\hat{\\\\nu}$") %>% 
+      str_replace("pcsR", "CSP - ") %>%
+      str_replace("Moy", "Moyenne") %>% 
+      str_replace("Fav", "Favorisée") %>% 
+      str_replace("Tresfav", "Très favorisée") %>% 
+      str_replace("Autres", "Autre") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  set_colnames(c("", rep(c("FCH, Hors EP",
+                           "FCH, EP"), 5) %>% 
+                   col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Résultats avec effets hétérogènes da la catégorie sociale, sous-items de français, par éducation prioritaire") %>%
+  kable_styling(font_size = 7)  %>%
+  add_header_above(c("", "Écriture" = 2,
+                     "Grammaire" = 2,
+                     "Lecture" = 2,
+                     "Orthographe" = 2,
+                     "Vocabulaire" = 2)) %>% 
+  add_header_above(c("", "Variable dépendante : Note en " = 10)) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "FCH : Fonction de Contrôle avec prise en compte de l'Hétérogénéité de l'effet de l'âge. CSP : Catégorie Socio-Professionnelle.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***.")) 
+```
+  
+\newpage
+  
+```{r, "agemodelspcsg2reseaubinsepssitemsmaths"}
+agemodels_pcs_g2_reseau_bin_sep_ssitemsmaths %>% 
+  set_colnames(c("",
+                 "cfhcalculnon", "cfhcalculoui",
+                 "cfhgeometrienon", "cfhgeometrieoui",
+                 "cfhgrandmesnon", "cfhgrandmesoui",
+                 "cfhnombrenon", "cfhnombreoui",
+                 "cfhorgdonneenon", "cfhorgdonneeoui")) %>%  
+  ## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.abs", 
+             "age.abs:pcsRMoy",
+             "age.abs:pcsRFav",
+             "age.abs:pcsRTresfav",
+             "age.abs:pcsRAutres"
+             ## ,
+             ## "resid", "age.abs:resid",
+             ## "age.abs:pcsRMoy:resid",
+             ## "age.abs:pcsRFav:resid",
+             ## "age.abs:pcsRTresfav:resid",
+             ## "age.abs:pcsRAutres:resid"
+             ), 
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+   ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+   ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "age.abs", "Âge aux examens") %>%
+      str_replace("^z$", "Âge relatif théorique") %>% 
+      str_replace("resid", "$\\\\hat{\\\\nu}$") %>% 
+      str_replace("pcsR", "CSP - ") %>%
+      str_replace("Moy", "Moyenne") %>% 
+      str_replace("Fav", "Favorisée") %>% 
+      str_replace("Tresfav", "Très favorisée") %>% 
+      str_replace("Autres", "Autre") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  set_colnames(c("", rep(c("FCH, Hors EP",
+                           "FCH, EP"), 5) %>% 
+                   col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Résultats avec effets hétérogènes da la catégorie sociale, sous-items de mathématiques, par éducation prioritaire") %>%
+  kable_styling(font_size = 7) %>%
+  add_header_above(c("", "Calcul" = 2,
+                     "Géométrie" = 2,
+                     "\\\\makecell{Grandeurs et \\\\\\\\\ mesures}" = 2,
+                     "Nombre" = 2,
+                     "\\\\makecell{Organisation et \\\\\\\\ gestion de données}" = 2), escape = FALSE) %>% 
+  add_header_above(c("", "Variable dépendante : Note en " = 10)) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "FCH : Fonction de Contrôle avec prise en compte de l'Hétérogénéité de l'effet de l'âge. CSP : Catégorie Socio-Professionnelle.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."))
+```
+
+\elandscape
+
+\blandscape
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Résultats de régressions sur une discontinuité sur les sous-composantes de français et de mathématiques {#agefrdcfhmodelsssitems0}
+
+### Effets homogènes selon les observables {#agefrdcfhmodelsssitems}
+
+```{r, "agefrdcfhmodelsssitemsfrench"}
+agefrdcfhmodels_ssitemsfrench %>% 
+  set_colnames(c("", "p1ecrire", "p2ecrire",
+                 "p1grammaire", "p2grammaire",
+                 "p1lire", "p2lire",
+                 "p1ortho", "p2ortho",
+                 "p1voca", "p2voca")) %>% 
+  ## Sélection de lignes. 
+(function (d) {
+  sapply(c("age.abs", "dist", 
+           ## "old:dist",
+           "dist:old",
+           "Idist.2", "old:Idist.2"), 
+         function (x) which(d[, 1] == x) %>% 
+           (function (w) c(w, w + 1))) %>% 
+    as.vector %>% 
+    (function (v) sapply(c("n", "arsq"),
+                         function (x) which(d[, 1] == x)) %>% 
+       as.vector %>% (function (v2) c(v, v2))) %>% 
+    (function (v3) d[v3, ])
+}) %>%
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "age.abs", "Âge aux examens") %>%
+      str_replace("Idist\\.2", "dist$^2$") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace("dist:old", "old:dist") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  set_colnames(c("", 
+                 rep(c("FRD, p = 1", "FRD, p = 2"), 5) %>% 
+                   col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Résultats avec la régression sur une discontinuité, sous-items de français") %>%
+  add_header_above(c("", "Écriture" = 2,
+                     "Grammaire" = 2,
+                     "Lecture" = 2, "Orthographe" = 2,
+                     "Vocabulaire" = 2)) %>% 
+  add_header_above(c("", "Variable dépendante : " = 10)) %>% 
+  kable_styling(font_size = 8) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les estimations se font par fonction de contrôle avec prise en compte de l'hétérogénéité de l'effet de l'âge. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "FRD : \\\\textit{Fuzzy Regression Discontinuity}. La variable p désigne degré de polynômes de la date de naissance.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."))
+```
+  
+\newpage
+  
+```{r, "agefrdcfhmodelsssitemsmaths"}
+agefrdcfhmodels_ssitemsmaths %>% 
+  set_colnames(c("", "p1ecrire", "p2ecrire",
+                 "p1grammaire", "p2grammaire",
+                 "p1lire", "p2lire",
+                 "p1ortho", "p2ortho",
+                 "p1voca", "p2voca")) %>% ## Sélection de lignes. 
+(function (d) {
+  sapply(c("age.abs", "dist", 
+           ## "old:dist",
+           "dist:old",
+           "Idist.2", "old:Idist.2"), 
+         function (x) which(d[, 1] == x) %>% 
+           (function (w) c(w, w + 1))) %>% 
+    as.vector %>% 
+    (function (v) sapply(c("n", "arsq"),
+                         function (x) which(d[, 1] == x)) %>% 
+       as.vector %>% (function (v2) c(v, v2))) %>% 
+    (function (v3) d[v3, ])
+}) %>%
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "age.abs", "Âge aux examens") %>%
+      str_replace("Idist\\.2", "dist$^2$") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace("dist:old", "old:dist") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  set_colnames(c("", 
+                 rep(c("FRD, p = 1", "FRD, p = 2"), 5) %>% 
+                   col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Résultats avec la régression sur une discontinuité, sous-items de mathématiques") %>%
+  add_header_above(c("", 
+                     "Calcul" = 2,
+                     "Géométrie" = 2,
+                     "Grandeurs et mesures" = 2, 
+                     "Nombre" = 2,
+                     "\\\\makecell{Organisation et \\\\\\\\
+                     gestion des données}" = 2),
+                   escape = FALSE) %>% 
+  add_header_above(c("", "Variable dépendante : " = 10)) %>% 
+  kable_styling(font_size = 8) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les estimations se font par fonction de contrôle avec prise en compte de l'hétérogénéité de l'effet de l'âge. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "FRD : \\\\textit{Fuzzy Regression Discontinuity}. La variable p désigne degré de polynômes de la date de naissance.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."))
+```
+
+\elandscape
+
+\blandscape
+
+### Effets hétérogènes selon le sexe {#agefrdcfhmodelssexessitems}
+
+```{r, "agefrdcfhmodelssexessitemsfrench"}
+agefrdcfhmodels_sexe_ssitemsfrench %>% 
+  apply(2, function (x) str_replace(x, "dist:old",
+                                    "old:dist")) %>% 
+  ## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.abs", "age.abs:sexeM",
+             "dist", "old:dist",
+             "Idist.2", "old:Idist.2") , 
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "age.abs", "Âge aux examens") %>%
+      str_replace("Idist\\.2", "dist$^2$") %>% 
+      str_replace("sexeM", "Sexe - Garçon") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  set_colnames(c("", 
+                 c("FRD, p = 1", "FRD, p = 2") %>% 
+                   rep(5) %>% 
+                   col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Résultats de régressions sur une discontinuité, effets hétérogènes selon le sexe sur les sous-composantes de français") %>%
+  kable_styling(font_size = 7) %>% 
+  add_header_above(c("", "Écriture" = 2,
+                     "Grammaire" = 2,
+                     "Lecture" = 2,
+                     "Orthographe" = 2,
+                     "Vocabulaire" = 2)) %>% 
+  add_header_above(c("", "Variable dépendante : " = 10)) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les estimations se font par fonction de contrôle avec prise en compte de l'hétérogénéité de l'effet de l'âge. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "FRD : \\\\textit{Fuzzy Regression Discontinuity}. La variable p désigne degré de polynômes de la date de naissance.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."))
+```
+
+  
+\newpage
+  
+```{r, "agefrdcfhmodelssexessitemsmaths"}
+agefrdcfhmodels_sexe_ssitemsmaths %>% 
+  apply(2, function (x) str_replace(x, "dist:old",
+                                    "old:dist")) %>% 
+  ## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.abs", "age.abs:sexeM",
+             "dist", "old:dist",
+             "Idist.2", "old:Idist.2") , 
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "age.abs", "Âge aux examens") %>%
+      str_replace("Idist\\.2", "dist$^2$") %>% 
+      str_replace("sexeM", "Sexe - Garçon") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  set_colnames(c("", 
+                 c("FRD, p = 1", "FRD, p = 2") %>% 
+                   rep(5) %>% 
+                   col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Résultats de régressions sur une discontinuité, effets hétérogènes selon le sexe sur les sous-composantes de mathématiques") %>%
+  kable_styling(font_size = 7) %>%
+  add_header_above(c("", "Calcul" = 2,
+                     "Géométrie" = 2,
+                     "\\\\makecell{Grandeurs et \\\\\\\\\ mesures}" = 2,
+                     "Nombre" = 2,
+                     "\\\\makecell{Organisation et \\\\\\\\ gestion de données}" = 2), escape = FALSE) %>% 
+  add_header_above(c("", "Variable dépendante : Note en " = 10)) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les estimations se font par fonction de contrôle avec prise en compte de l'hétérogénéité de l'effet de l'âge. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "FRD : \\\\textit{Fuzzy Regression Discontinuity}. La variable p désigne degré de polynômes de la date de naissance.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."))
+```
+
+\elandscape
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Résultats à moyen terme en utilisant des variables dépendantes alternatives {#agemodelsmtssmoy0}
+
+### Effets homogènes par rapport aux observables {#agemodelsmtssmoy}
+
+```{r, "agemodelsmtssmoy"}
+agemodelsmt_ssmoy %>% 
+  ## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.absdnb", "resid", "age.absdnb:resid"), 
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "age.absdnb", "Âge aux examens") %>%
+      str_replace("^z\\.dnb$", "Àge relatif théorique") %>% 
+      str_replace("resid", "$\\\\hat{\\\\nu}$") %>% 
+      str_replace("sexe\\.modM", "Sexe - Garçon") %>%
+      str_replace("pcs\\.reg\\.mod", "CSP - ") %>% 
+      str_replace("Moy", "Moyenne") %>% 
+      str_replace("Fav", "Favorisée") %>% 
+      str_replace("Tresfav", "Très favorisée") %>% 
+      str_replace("lregime\\.constat\\.", "Régime scolaire - ") %>% 
+      str_replace("gint", "Interne") %>% 
+      str_replace("gext", "Externe") %>% 
+      str_replace("session.mod2015", "Cohorte - 2015") %>% 
+      str_replace("session.mod2016", "Cohorte - 2016") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  set_colnames(c("", 
+                 c(
+                 rep(c("\\makecell{VI \\\\ \\ }", 
+                       "\\makecell{FCH \\\\ \\ }"), 3)) %>% 
+                   col_numbers())) %>%
+  (function (d) {
+    d[nrow(d), str_detect(colnames(d), "VI")] <- "-"
+    d
+  }) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Résultats principaux à moyen terme, variables dépendantes alternatives") %>% 
+  add_header_above(c("", 
+                     "Histoire-et-géographie" = 2,
+                     "Dictée" = 2,
+                     "Rédaction" = 2)) %>% 
+  add_header_above(c("", 
+                     "Variable dépendante : Note en" = 6)) %>% 
+  kable_styling(font_size = 8) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. La variable $\\\\hat{\\\\nu}$ est le résidu de la première étape. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "VI : Variable Instrumentale. FCH : Fonction de Contrôle avec prise en compte de l'Hétérogénéité de l'effet de l'âge.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."))  
+```
+  
+\newpage
+  
+### Effets hétérogènes selon le sexe {#agemodelsmtssmoysexemod}
+
+```{r, "agemodelsmtsexemodssmoy"}
+agemodelsmt_sexe_mod_ssmoy %>% 
+  ## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.absdnb", "age.absdnb:sexe.modM"
+             ## ,
+             ## "resid", "age.absdnb:resid",
+             ## "sexe.modM:resid",
+             ## "age.absdnb:sexe.modM:resid",
+             ## "sexe.modM"
+             ), 
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "age.absdnb", "Âge aux examens") %>%
+      str_replace("^z\\.dnb$", "Àge relatif théorique") %>% 
+      str_replace("resid", "$\\\\hat{\\\\nu}$") %>% 
+      str_replace("sexe\\.modM", "Sexe - Garçon") %>%
+      str_replace("pcs\\.reg\\.mod", "CSP - ") %>% 
+      str_replace("Moy", "Moyenne") %>% 
+      str_replace("Fav", "Favorisée") %>% 
+      str_replace("Tresfav", "Très favorisée") %>% 
+      str_replace("lregime\\.constat\\.", "Régime scolaire - ") %>% 
+      str_replace("gint", "Interne") %>% 
+      str_replace("gext", "Externe") %>% 
+      str_replace("session.mod2015", "Cohorte - 2015") %>% 
+      str_replace("session.mod2016", "Cohorte - 2016") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  set_colnames(c("", 
+                   rep(c("\\makecell{VI \\\\ \\ }", 
+                         "\\makecell{FCH \\\\ \\ }"), 3) %>% 
+                   col_numbers())) %>%
+  (function (d) {
+    d[nrow(d), str_detect(colnames(d), "VI")] <- "-"
+    d
+  }) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Résultats principaux hétérogènes selon le sexe, à moyen terme, variables dépendantes alternatives") %>% 
+  add_header_above(c("", 
+                     "Histoire-et-géographie" = 2,
+                     "Dictée" = 2,
+                     "Rédaction" = 2)) %>% 
+  add_header_above(c("",
+                     "Variable dépendante : Note en" = 6)) %>% 
+  kable_styling(font_size = 8) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "VI : Variable Instrumentale. FCH : Fonction de Contrôle avec prise en compte de l'Hétérogénéité de l'effet de l'âge.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."))  
+```
+    
+  
+### Effets hétérogènes selon la catégorie sociale {#agemodelsmtssmoypcsregmod}
+
+```{r, "agemodelsmtpcsregmodssmoy"}
+agemodelsmt_pcs_reg_mod_ssmoy %>% 
+  ## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.absdnb", 
+             "age.absdnb:pcs.reg.modMoy",
+             "age.absdnb:pcs.reg.modFav",
+             "age.absdnb:pcs.reg.modTresfav",
+             "age.absdnb:pcs.reg.modAutres"
+             ## ,
+             ## "resid", "age.absdnb:resid",
+             ## "age.absdnb:pcs.reg.modMoy:resid",
+             ## "age.absdnb:pcs.reg.modFav:resid",
+             ## "age.absdnb:pcs.reg.modTresfav:resid",
+             ## "age.absdnb:pcs.reg.modAutres:resid"
+             ), 
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "age.absdnb", "Âge aux examens") %>%
+      str_replace("^z\\.dnb$", "Àge relatif théorique") %>% 
+      str_replace("resid", "$\\\\hat{\\\\nu}$") %>% 
+      str_replace("sexe\\.modM", "Sexe - Garçon") %>%
+      str_replace("pcs\\.reg\\.mod", "CSP - ") %>% 
+      str_replace("Moy", "Moyenne") %>% 
+      str_replace("Fav", "Favorisée") %>% 
+      str_replace("Tresfav", "Très favorisée") %>% 
+      str_replace("lregime\\.constat\\.", "Régime scolaire - ") %>% 
+      str_replace("gint", "Interne") %>% 
+      str_replace("gext", "Externe") %>% 
+      str_replace("session.mod2015", "Cohorte - 2015") %>% 
+      str_replace("session.mod2016", "Cohorte - 2016") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  set_colnames(c("", 
+                   rep(c("\\makecell{VI \\\\ \\ }", 
+                         "\\makecell{FCH \\\\ \\ }"), 3) %>% 
+                   col_numbers())) %>%
+  (function (d) {
+    d[nrow(d), str_detect(colnames(d), "VI")] <- "-"
+    d
+  }) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Résultats principaux hétérogènes selon la catégorie sociale, à moyen terme, variables dépendantes alternatives") %>% 
+  add_header_above(c("", 
+                     "Histoire-et-géographie" = 2,
+                     "Dictée" = 2,
+                     "Rédaction" = 2)) %>% 
+  add_header_above(c("",
+                     "Variable dépendante : Note en" = 6)) %>% 
+  kable_styling(font_size = 8) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "VI : Variable instrumentale. FCH : Fonction de Contrôle avec prise en compte de l'Hétérogénéité de l'effet de l'âge. CSP : Catégorie Socio-Professionnelle.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."))  
+```
+
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+\blandscape
+## Résultats des modèles d'extension en utilisant les sous-composantes des notes au CM2 comme variables dépendantes {#agemodelssuppssitems0}
+
+
+### Effets homogènes par rapport aux observables {#agemodelssuppssitems}
+
+```{r, "agemodelsrelssitemsfrench"}
+agemodelsrel_ssitemsfrench %>% 
+  ## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.abs", 
+             "Iage.abs $-$ p.age.abs",
+             "age.abs:cohorte2010", "age.abs:cohorte2011",
+             "age.abs:cohorte2012"), 
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], 
+                          "^age\\.abs$", "Âge aux examens") %>%
+      str_replace("Iage\\.abs \\$-\\$ p\\.age\\.abs", 
+                  "Âge relatif (classe)") %>% 
+      str_replace("age\\.abs", "Âge aux examens") %>% 
+      str_replace("cohorte", "Cohorte - ") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  set_colnames(c("", 
+                 rep(c("ABS", "REL", "ABSREL"), 5) %>% 
+                 col_numbers())) %>%
+  (function (d) {
+    d[nrow(d), str_detect(colnames(d), "REL")] <- "-"
+    d
+  }) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Effets de l'âge absolu et de l'âge relatif (CM2), sous-items de français") %>% 
+  add_header_above(c("", "Écriture" = 3,
+                     "Grammaire" = 3,
+                     "Lecture" = 3,
+                     "Orthographe" = 3,
+                     "Vocabulaire" = 3)) %>% 
+  add_header_above(c("", "Variable dépendante : Note en " = 15)) %>%  
+  kable_styling(font_size = 5) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les modèles labellisés ABS sont estimés par fonction de contrôle. Les autres modèles sont estimés par variables instrumentales. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "ABS, REL et ABSREL sont décrits dans le corps du texte.", 
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***.")) 
+```
+  
+\newpage 
+  
+```{r, "agemodelsrelssitemsmaths"}
+agemodelsrel_ssitemsmaths %>% 
+  ## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.abs", 
+             "Iage.abs $-$ p.age.abs",
+             "age.abs:cohorte2010", "age.abs:cohorte2011",
+             "age.abs:cohorte2012"), 
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], 
+                          "^age\\.abs$", "Âge aux examens") %>%
+      str_replace("Iage\\.abs \\$-\\$ p\\.age\\.abs", 
+                  "Âge relatif (classe)") %>% 
+      str_replace("age\\.abs", "Âge aux examens") %>% 
+      str_replace("cohorte", "Cohorte - ") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  set_colnames(c("", 
+                 rep(c("ABS", "REL", "ABSREL"), 5) %>% 
+                 col_numbers())) %>%
+  (function (d) {
+    d[nrow(d), str_detect(colnames(d), "REL")] <- "-"
+    d
+  }) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Effets de l'âge absolu et de l'âge relatif (CM2), sous-items de mathématiques") %>% 
+  add_header_above(c("", "Calcul" = 3,
+                     "Géométrie" = 3,
+                     "\\\\makecell{Grandeurs et \\\\\\\\ mesures}" = 3,
+                     "Nombre" = 3,
+                     "\\\\makecell{Organisation et \\\\\\\\ gestion de données}" = 3), escape = FALSE) %>% 
+  add_header_above(c("", "Variable dépendante : Note en " = 15)) %>%  
+  kable_styling(font_size = 5) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les modèles labellisés ABS sont estimés par fonction de contrôle. Les autres modèles sont estimés par variables instrumentales. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "ABS, REL et ABSREL sont décrits dans le corps du texte.", 
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."))
+```
+\elandscape
+
+\blandscape
+### Effets hétérogènes selon le sexe {#agemodelssuppsexessitems}
+
+```{r, "agemodelsrelsexessitemsfrench"}
+agemodelsrel_sexe_ssitemsfrench %>% 
+  (function (a) {
+    a[, 1] <- str_replace(a[, 1], 
+                          "sexeM:cohorte2010", 
+                          "cohorte2010:sexeM") %>% 
+      str_replace("sexeM:cohorte2011", "cohorte2011:sexeM") %>% 
+      str_replace("sexeM:cohorte2012", "cohorte2012:sexeM")
+    a
+  }) %>% 
+  ## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.abs", "age.abs:sexeM",
+             "Iage.abs $-$ p.age.abs",
+             "Iage.abs $-$ p.age.abs:sexeM",
+             "age.abs:cohorte2010", "age.abs:cohorte2011",
+             "age.abs:cohorte2012",
+             "age.abs:cohorte2010:sexeM", 
+             "age.abs:cohorte2011:sexeM",
+             "age.abs:cohorte2012:sexeM"), 
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], 
+                          "^age\\.abs$", "Âge aux examens") %>%
+      str_replace("Iage\\.abs \\$-\\$ p\\.age\\.abs", 
+                  "Âge relatif (classe)") %>% 
+      str_replace("age\\.abs", "Âge aux examens") %>% 
+      str_replace("cohorte", "Cohorte - ") %>% 
+      str_replace("sexeM", "Sexe - Garçon") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  set_colnames(c("", 
+                 rep(c("ABS", "REL", "ABSREL"), 5) %>% 
+                 col_numbers())) %>%
+  (function (d) {
+    d[nrow(d), str_detect(colnames(d), "REL")] <- "-"
+    d
+  }) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Effets de l'âge absolu et de l'âge relatif hétérogènes selon le sexe (CM2), sous-items de français") %>% 
+  add_header_above(c("", "Écriture" = 3,
+                     "Grammaire" = 3,
+                     "Lecture" = 3,
+                     "Orthographe" = 3,
+                     "Vocabulaire" = 3)) %>% 
+  add_header_above(c("", "Variable dépendante : Note en " = 15)) %>% 
+  kable_styling(font_size = 4) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les modèles labellisés ABS sont estimés par fonction de contrôle. Les autres modèles sont estimés par variables instrumentales. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "ABS, REL et ABSREL sont décrits dans le corps du texte.", 
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."))
+```
+  
+\newpage
+   
+```{r, "agemodelsrelsexessitemsmaths"}
+agemodelsrel_sexe_ssitemsmaths %>% 
+  (function (a) {
+    a[, 1] <- str_replace(a[, 1], 
+                          "sexeM:cohorte2010", 
+                          "cohorte2010:sexeM") %>% 
+      str_replace("sexeM:cohorte2011", "cohorte2011:sexeM") %>% 
+      str_replace("sexeM:cohorte2012", "cohorte2012:sexeM")
+    a
+  }) %>% 
+  ## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.abs", "age.abs:sexeM",
+             "Iage.abs $-$ p.age.abs",
+             "Iage.abs $-$ p.age.abs:sexeM",
+             "age.abs:cohorte2010", "age.abs:cohorte2011",
+             "age.abs:cohorte2012",
+             "age.abs:cohorte2010:sexeM", 
+             "age.abs:cohorte2011:sexeM",
+             "age.abs:cohorte2012:sexeM"), 
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], 
+                          "^age\\.abs$", "Âge aux examens") %>%
+      str_replace("Iage\\.abs \\$-\\$ p\\.age\\.abs", 
+                  "Âge relatif (classe)") %>% 
+      str_replace("age\\.abs", "Âge aux examens") %>% 
+      str_replace("cohorte", "Cohorte - ") %>% 
+      str_replace("sexeM", "Sexe - Garçon") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  set_colnames(c("", 
+                 rep(c("ABS", "REL", "ABSREL"), 5) %>% 
+                 col_numbers())) %>%
+  (function (d) {
+    d[nrow(d), str_detect(colnames(d), "REL")] <- "-"
+    d
+  }) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Effets de l'âge absolu et de l'âge relatif hétérogènes selon le sexe (CM2), sous-items de mathématiques") %>% 
+  add_header_above(c("", "Calcul" = 3,
+                     "Géométrie" = 3,
+                     "\\\\makecell{Grandeurs et \\\\\\\\ mesures}" = 3,
+                     "Nombre" = 3,
+                     "\\\\makecell{Organisation et \\\\\\\\ gestion de données}" = 3), escape = FALSE) %>% 
+  add_header_above(c("", "Variable dépendante : Note en " = 15)) %>% 
+  kable_styling(font_size = 4) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les modèles labellisés ABS sont estimés par fonction de contrôle. Les autres modèles sont estimés par variables instrumentales. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "ABS, REL et ABSREL sont décrits dans le corps du texte.", 
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."))
+```
+
+\elandscape
+
+\blandscape
+### Effets hétérogènes selon la catégorie sociale {#agemodelssupppcsssitems}
+
+```{r, "agemodelsrelpcsssitemsfrench"}
+agemodelsrel_pcs_g2_ssitemsfrench %>% 
+  (function (a) {
+    a[, 1] <- str_replace(a[, 1], 
+                          "pcsRMoy:cohorte2010", 
+                          "cohorte2010:pcsRMoy") %>% 
+      str_replace("pcsRMoy:cohorte2011", "cohorte2011:pcsRMoy") %>% 
+      str_replace("pcsRMoy:cohorte2012", "cohorte2012:pcsRMoy") %>% 
+      
+      str_replace("pcsRFav:cohorte2010", 
+                  "cohorte2010:pcsRFav") %>% 
+      str_replace("pcsRFav:cohorte2011", 
+                  "cohorte2011:pcsRFav") %>% 
+      str_replace("pcsRFav:cohorte2012", 
+                  "cohorte2012:pcsRFav") %>% 
+      
+      str_replace("pcsRTresfav:cohorte2010", 
+                  "cohorte2010:pcsRTresfav") %>% 
+      str_replace("pcsRTresfav:cohorte2011", 
+                  "cohorte2011:pcsRTresfav") %>% 
+      str_replace("pcsRTresfav:cohorte2012", 
+                  "cohorte2012:pcsRTresfav") %>% 
+      
+      str_replace("pcsRAutres:cohorte2010", 
+                  "cohorte2010:pcsRAutres") %>% 
+      str_replace("pcsRAutres:cohorte2011", 
+                  "cohorte2011:pcsRAutres") %>% 
+      str_replace("pcsRAutres:cohorte2012", 
+                  "cohorte2012:pcsRAutres") %>% 
+      
+      str_replace("pcsRNA:cohorte2010", 
+                  "cohorte2010:pcsRNA") %>% 
+      str_replace("pcsRNA:cohorte2011", 
+                  "cohorte2011:pcsRNA") %>% 
+      str_replace("pcsRNA:cohorte2012", 
+                  "cohorte2012:pcsRNA") 
+      
+    a
+  }) %>% 
+  ## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.abs", 
+             "age.abs:pcsRMoy",
+             "age.abs:pcsRFav",
+             "age.abs:pcsRTresfav",
+             "age.abs:pcsRAutres",
+             "age.abs:pcsRNA",
+             
+             "Iage.abs $-$ p.age.abs",
+             "Iage.abs $-$ p.age.abs:pcsRMoy",
+             "Iage.abs $-$ p.age.abs:pcsRFav",
+             "Iage.abs $-$ p.age.abs:pcsRTresfav",
+             "Iage.abs $-$ p.age.abs:pcsRAutres",
+             "Iage.abs $-$ p.age.abs:pcsRNA",
+             
+             ## "age.abs:cohorte2010",
+             "age.abs:cohorte2011",
+             "age.abs:cohorte2012",
+             
+             ## "age.abs:cohorte2010:pcsRMoy", 
+             "age.abs:cohorte2011:pcsRMoy",
+             "age.abs:cohorte2012:pcsRMoy",
+             
+             ## "age.abs:cohorte2010:pcsRFav", 
+             "age.abs:cohorte2011:pcsRFav",
+             "age.abs:cohorte2012:pcsRFav",
+             
+             ## "age.abs:cohorte2010:pcsRTresfav", 
+             "age.abs:cohorte2011:pcsRTresfav",
+             "age.abs:cohorte2012:pcsRTresfav",
+             
+             ## "age.abs:cohorte2010:pcsRAutres", 
+             "age.abs:cohorte2011:pcsRAutres",
+             "age.abs:cohorte2012:pcsRAutres",
+             
+             ## "age.abs:cohorte2010:pcsRNA", 
+             "age.abs:cohorte2011:pcsRNA",
+             "age.abs:cohorte2012:pcsRNA"),
+           
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], 
+                          "^age\\.abs$", "Âge aux examens") %>%
+      str_replace("Iage\\.abs \\$-\\$ p\\.age\\.abs", 
+                  "Âge relatif (classe)") %>% 
+      str_replace("age\\.abs", "Âge aux examens") %>% 
+      str_replace("cohorte", "Cohorte - ") %>% 
+      str_replace("pcsR", "CSP - ") %>%
+      str_replace("Moy", "Moyenne") %>% 
+      str_replace("Fav", "Favorisée") %>% 
+      str_replace("Tresfav", "Très favorisée") %>% 
+      str_replace("Autres", "Autre") %>% 
+      str_replace("NA", "Manquante") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  set_colnames(c("", 
+                 rep(c("ABS", "REL", "ABSREL"), 5) %>% 
+                 col_numbers())) %>%
+  (function (d) {
+    d[nrow(d), str_detect(colnames(d), "REL")] <- "-"
+    d
+  }) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Effets de l'âge absolu et de l'âge relatif hétérogènes selon la catégorie sociale (CM2), sous-items de français") %>% 
+  add_header_above(c("", 
+                     "Écriture" = 3,
+                     "Grammaire" = 3,
+                     "Lecture" = 3,
+                     "Orthographe" = 3,
+                     "Vocabulaire" = 3)) %>% 
+  add_header_above(c("", "Variable dépendante : Note en " = 15)) %>% 
+  kable_styling(font_size = 4) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les modèles labellisés ABS sont estimés par fonction de contrôle. Les autres modèles sont estimés par variables instrumentales. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "ABS, REL et ABSREL sont décrits dans le corps du texte.", 
+                       "CSP : Catégorie Socio-Professionnelle.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***.")) 
+```
+
+```{r, "agemodelsrelpcsssitemsmaths"}
+agemodelsrel_pcs_g2_ssitemsmaths %>% 
+  (function (a) {
+    a[, 1] <- str_replace(a[, 1], 
+                          "pcsRMoy:cohorte2010", 
+                          "cohorte2010:pcsRMoy") %>% 
+      str_replace("pcsRMoy:cohorte2011", "cohorte2011:pcsRMoy") %>% 
+      str_replace("pcsRMoy:cohorte2012", "cohorte2012:pcsRMoy") %>% 
+      
+      str_replace("pcsRFav:cohorte2010", 
+                  "cohorte2010:pcsRFav") %>% 
+      str_replace("pcsRFav:cohorte2011", 
+                  "cohorte2011:pcsRFav") %>% 
+      str_replace("pcsRFav:cohorte2012", 
+                  "cohorte2012:pcsRFav") %>% 
+      
+      str_replace("pcsRTresfav:cohorte2010", 
+                  "cohorte2010:pcsRTresfav") %>% 
+      str_replace("pcsRTresfav:cohorte2011", 
+                  "cohorte2011:pcsRTresfav") %>% 
+      str_replace("pcsRTresfav:cohorte2012", 
+                  "cohorte2012:pcsRTresfav") %>% 
+      
+      str_replace("pcsRAutres:cohorte2010", 
+                  "cohorte2010:pcsRAutres") %>% 
+      str_replace("pcsRAutres:cohorte2011", 
+                  "cohorte2011:pcsRAutres") %>% 
+      str_replace("pcsRAutres:cohorte2012", 
+                  "cohorte2012:pcsRAutres") %>% 
+      
+      str_replace("pcsRNA:cohorte2010", 
+                  "cohorte2010:pcsRNA") %>% 
+      str_replace("pcsRNA:cohorte2011", 
+                  "cohorte2011:pcsRNA") %>% 
+      str_replace("pcsRNA:cohorte2012", 
+                  "cohorte2012:pcsRNA") 
+      
+    a
+  }) %>% 
+  ## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.abs", 
+             "age.abs:pcsRMoy",
+             "age.abs:pcsRFav",
+             "age.abs:pcsRTresfav",
+             "age.abs:pcsRAutres",
+             "age.abs:pcsRNA",
+             
+             "Iage.abs $-$ p.age.abs",
+             "Iage.abs $-$ p.age.abs:pcsRMoy",
+             "Iage.abs $-$ p.age.abs:pcsRFav",
+             "Iage.abs $-$ p.age.abs:pcsRTresfav",
+             "Iage.abs $-$ p.age.abs:pcsRAutres",
+             "Iage.abs $-$ p.age.abs:pcsRNA",
+             
+             ## "age.abs:cohorte2010",
+             "age.abs:cohorte2011",
+             "age.abs:cohorte2012",
+             
+             ## "age.abs:cohorte2010:pcsRMoy", 
+             "age.abs:cohorte2011:pcsRMoy",
+             "age.abs:cohorte2012:pcsRMoy",
+             
+             ## "age.abs:cohorte2010:pcsRFav", 
+             "age.abs:cohorte2011:pcsRFav",
+             "age.abs:cohorte2012:pcsRFav",
+             
+             ## "age.abs:cohorte2010:pcsRTresfav", 
+             "age.abs:cohorte2011:pcsRTresfav",
+             "age.abs:cohorte2012:pcsRTresfav",
+             
+             ## "age.abs:cohorte2010:pcsRAutres", 
+             "age.abs:cohorte2011:pcsRAutres",
+             "age.abs:cohorte2012:pcsRAutres",
+             
+             ## "age.abs:cohorte2010:pcsRNA", 
+             "age.abs:cohorte2011:pcsRNA",
+             "age.abs:cohorte2012:pcsRNA"),
+           
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], 
+                          "^age\\.abs$", "Âge aux examens") %>%
+      str_replace("Iage\\.abs \\$-\\$ p\\.age\\.abs", 
+                  "Âge relatif (classe)") %>% 
+      str_replace("age\\.abs", "Âge aux examens") %>% 
+      str_replace("cohorte", "Cohorte - ") %>% 
+      str_replace("pcsR", "CSP - ") %>%
+      str_replace("Moy", "Moyenne") %>% 
+      str_replace("Fav", "Favorisée") %>% 
+      str_replace("Tresfav", "Très favorisée") %>% 
+      str_replace("Autres", "Autre") %>% 
+      str_replace("NA", "Manquante") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  set_colnames(c("", 
+                 rep(c("ABS", "REL", "ABSREL"), 5) %>% 
+                 col_numbers())) %>%
+  (function (d) {
+    d[nrow(d), str_detect(colnames(d), "REL")] <- "-"
+    d
+  }) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Effets de l'âge absolu et de l'âge relatif hétérogènes selon la catégorie sociale (CM2), sous-items de mathématiques") %>% 
+  add_header_above(c("", "Calcul" = 3,
+                     "Géométrie" = 3,
+                     "\\\\makecell{Grandeurs et \\\\\\\\ mesures}" = 3,
+                     "Nombre" = 3,
+                     "\\\\makecell{Organisation et \\\\\\\\ gestion de données}" = 3), escape = FALSE) %>% 
+  add_header_above(c("", "Variable dépendante : Note en " = 15)) %>% 
+  kable_styling(font_size = 4) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers CM2 (2009 à 2012), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les modèles labellisés ABS sont estimés par fonction de contrôle. Les autres modèles sont estimés par variables instrumentales. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "ABS, REL et ABSREL sont décrits dans le corps du texte.", 
+                       "CSP : Catégorie Socio-Professionnelle.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***.")) 
+```
+
+
+\elandscape
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Résultats des modèles d'extension à moyen terme utilisant des variables dépendantes alternatives {#agemodelmtsuppssmoy0}
+
+### Effets homogènes par rapport aux observables {#agemodelsmtsuppssmoy}
+
+```{r, "agemodelsmtrelssmoy"}
+agemodelsmtrel_ssmoy[, - c(2, 4, 6)] %>% 
+## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.absdnb", 
+             "Iage.absdnb $-$ p.age.absdnb"), 
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "^age.absdnb$", "Âge aux examens") %>%
+      str_replace("Iage\\.absdnb \\$-\\$ p\\.age\\.absdnb",
+                  "Âge relatif (classe)") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  ## set_colnames(c("", 
+  ##                
+  ##                rep(c("\\makecell{Données \\\\ complètes}",
+  ##                      "\\makecell{Sans sections \\\\ spécifiques}"),
+  ##                    3) %>% 
+  ##                  col_numbers())) %>% 
+  set_colnames(c(" ",
+                 c("Histoire-et-géographie", "Dictée", "Rédaction") %>% 
+                 col_numbers())) %>% 
+  (function (d) {
+    d[- nrow(d), ]
+  }) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Effets de l'âge relatif à moyen terme, variables dépendantes alternatives") %>% 
+  ## add_header_above(c("", 
+  ##                    "Histoire-et-géographie" = 2,
+  ##                    "Dictée" = 2,
+  ##                    "Rédaction" = 2)) %>% 
+  add_header_above(c("", 
+                     "Variable dépendante :" = 3)) %>% 
+  kable_styling(font_size = 7) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers DNB (2014 à 2016), Fichiers constats (2013 à 2016), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les modèles labellisés ABS sont estimés par fonction de contrôle. Les autres modèles sont estimés par variables instrumentales. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "ABS, REL et ABSREL sont décrits dans le corps du texte.", 
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."))
+```
+
+### Effets hétérogènes selon le sexe {#agemodelsmtsuppsexemodssmoy}
+
+```{r, "agemodelsmtrelsexemodssmoy"}
+act <- NA
+agemodelsmtrel_sexe_mod_ssmoy %>% 
+  (function (a) {
+    a[, 1] <- str_replace(a[, 1], 
+                          "sexe\\.modM:Iage\\.absdnb \\$-\\$ p\\.age\\.absdnb",
+                          "Iage.absdnb $-$ p.age.absdnb:sexe.modM")
+    a
+  }) %>% 
+  (function (d) d[, - c(2, 4, 6)]) %>% 
+## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.absdnb", "age.absdnb:sexe.modM",
+             "Iage.absdnb $-$ p.age.absdnb",
+             "Iage.absdnb $-$ p.age.absdnb:sexe.modM"), 
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "^age.absdnb$", "Âge aux examens") %>%
+      str_replace("age.absdnb:sexe.modM", 
+                  "Âge aux examens $\\\\times$ Sexe - Garçon") %>% 
+      str_replace("Iage\\.absdnb \\$-\\$ p\\.age\\.absdnb",
+                  "Âge relatif (classe)") %>% 
+      str_replace("sexe\\.modM", "Sexe - Garçon") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") %>% 
+      str_replace("Iage\\.absdnb \\$-\\$ p\\.Âge aux examens",
+                  "Âge relatif (classe)")
+    d
+  }) %>% 
+  ## set_colnames(c("", 
+  ##                
+  ##                rep(c("\\makecell{Données \\\\ complètes}",
+  ##                      "\\makecell{Sans sections \\\\ spécifiques}"),
+  ##                    3) %>% 
+  ##                  col_numbers())) %>% 
+  set_colnames(c("",
+                 c("Histoire-et-géographie",
+                   "Dictée", "Rédaction") %>% 
+                   col_numbers())) %>% 
+  (function (d) {
+    d[- nrow(d), ]
+  }) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Effets de l'âge relatif hétérogènes selon le sexe à moyen terme, variables dépendantes alternatives") %>% 
+  ## add_header_above(c("", 
+  ##                    "Histoire-et-géographie" = 2,
+  ##                    "Dictée" = 2,
+  ##                    "Rédaction" = 2)) %>% 
+  add_header_above(c("", 
+                     "Variable dépendante :" = 3)) %>% 
+  kable_styling(font_size = 7) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers DNB (2014 à 2016), Fichiers constats (2013 à 2016), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les modèles labellisés ABS sont estimés par fonction de contrôle. Les autres modèles sont estimés par variables instrumentales. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "ABS, REL et ABSREL sont décrits dans le corps du texte.", 
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."))
+```
+  
+\newpage
+  
+### Effets hétérogènes selon la catégorie sociale {#agemodelsmtsupppcsregmodssmoy}
+
+```{r, "agemodelsmtrelpcsregmodssmoy"}
+agemodelsmtrel_pcs_reg_mod_ssmoy %>% 
+  (function (a) {
+    a[, 1] <- str_replace(a[, 1], 
+                          "pcs\\.reg\\.modMoy:Iage\\.absdnb \\$-\\$ p\\.age\\.absdnb",
+                          "Iage.absdnb $-$ p.age.absdnb:pcs.reg.modMoy") %>% 
+      str_replace("pcs\\.reg\\.modFav:Iage\\.absdnb \\$-\\$ p\\.age\\.absdnb",
+                  "Iage.absdnb $-$ p.age.absdnb:pcs.reg.modFav") %>% 
+      str_replace("pcs\\.reg\\.modTresfav:Iage\\.absdnb \\$-\\$ p\\.age\\.absdnb",
+                  "Iage.absdnb $-$ p.age.absdnb:pcs.reg.modTresfav") %>% 
+      str_replace("pcs\\.reg\\.modAutres:Iage\\.absdnb \\$-\\$ p\\.age\\.absdnb",
+                  "Iage.absdnb $-$ p.age.absdnb:pcs.reg.modAutres")
+    a
+  }) %>% 
+  (function (d) d[, - c(2, 4, 6)]) %>% 
+## Sélection de lignes. 
+  (function (d) {
+    sapply(c("age.absdnb", 
+             "age.absdnb:pcs.reg.modMoy",
+             "age.absdnb:pcs.reg.modFav",
+             "age.absdnb:pcs.reg.modTresfav",
+             "age.absdnb:pcs.reg.modAutres",
+             
+             "Iage.absdnb $-$ p.age.absdnb",
+             "Iage.absdnb $-$ p.age.absdnb:pcs.reg.modMoy",
+             "Iage.absdnb $-$ p.age.absdnb:pcs.reg.modFav",
+             "Iage.absdnb $-$ p.age.absdnb:pcs.reg.modTresfav",
+             "Iage.absdnb $-$ p.age.absdnb:pcs.reg.modAutres"), 
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>%
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles", rep("Oui", ncol(d) - 1)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "^age.absdnb$", "Âge aux examens") %>%
+      str_replace("Iage\\.absdnb \\$-\\$ p\\.age\\.absdnb",
+                  "Âge relatif (classe)") %>% 
+      str_replace("age\\.absdnb", "Âge aux examens") %>% 
+      str_replace("pcs\\.reg\\.mod", "CSP - ") %>% 
+      str_replace("Moy", "Moyenne") %>% 
+      str_replace("Fav", "Favorisée") %>% 
+      str_replace("Tresfav", "Très favorisée") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("arsq", "R$^2$ ajusté") %>% 
+      str_replace_all(":", " $\\\\times$ ") 
+    d
+  }) %>% 
+  ## set_colnames(c("", 
+  ##                
+  ##                rep(c("\\makecell{Données \\\\ complètes}",
+  ##                      "\\makecell{Sans sections \\\\ spécifiques}"),
+  ##                    3) %>% 
+  ##                  col_numbers())) %>% 
+  set_colnames(c(" ",
+                 c("Histoire-et-géographie",
+                 "Dictée", "Rédaction") %>% 
+                   col_numbers())) %>% 
+  (function (d) {
+    d[- nrow(d), ]
+  }) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Effets de l'âge relatif à moyen terme hétérogènes selon la catégorie sociale, variables dépendantes alternatives") %>% 
+  ## add_header_above(c("", 
+  ##                    "Histoire-et-géographie" = 2,
+  ##                    "Dictée" = 2,
+  ##                    "Rédaction" = 2)) %>% 
+  add_header_above(c("", 
+                     "Variable dépendante :" = 3)) %>% 
+  kable_styling(font_size = 8) %>% 
+  footnote(general = c("\\\\textit{Sources :} Fichiers DNB (2014 à 2016), Fichiers constats (2013 à 2016), calculs de l'auteur.",
+                       "\\\\textit{Notes :} Une colonne correspond à une régression. La note est normalisée sur l'année scolaire. Écart-types entre parenthèses. Les modèles labellisés ABS sont estimés par fonction de contrôle. Les autres modèles sont estimés par variables instrumentales. Les écart-types des estimations par fonction de contrôle sont calculés par wild bootstrap avec 1001 réplications. Les contrôles utilisés sont le sexe, la CSP et l'année scolaire.",
+                       "ABS, REL et ABSREL sont décrits dans le corps du texte. CSP : Catégorie socio-professionnelle.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***.")) 
+```

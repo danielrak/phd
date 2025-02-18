@@ -1,0 +1,1 @@
+Refait les opérations KS-test en version Brodaty et Gurgand 2016. 

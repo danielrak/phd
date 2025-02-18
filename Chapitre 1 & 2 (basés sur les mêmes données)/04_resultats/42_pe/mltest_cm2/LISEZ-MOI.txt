@@ -1,0 +1,4 @@
+Sert pour l'exploitation de l'idée des oldpeers. 
+Il faut que les oldpeers ne soit pas groupés dans les classes de CM2 selon leurs anciens niveau. 
+Comme nous n'avons pas d'anciens niveaux, nous utilisons le test mlogit à la BM18. 
+Je peux également faire les tests d'AM08 et comparer les résultats. 

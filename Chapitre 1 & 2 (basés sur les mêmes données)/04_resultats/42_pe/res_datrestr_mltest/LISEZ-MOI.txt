@@ -1,0 +1,2 @@
+Résultats lorsque l'on se restreint aux données après restriction au mlogit : la meilleure selon les mesures d'exposition. exp_q1pq5 et exp_q5pq1. 
+

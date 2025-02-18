@@ -1,0 +1,11 @@
+Créé le 2021_11_11. 
+Regroupe les résultats pcml. 
+Rappel : les coefs estimés en pcml sur les maths hors datcompl sont trop importants. 
+
+
+2021_12_09 : 
+	PAS BESOIN DES DAT et autres trucs pour ça. DATCOMPL suffit largement. 
+	Voir Izaguirre et Di Capua 2020, juste avant SECTION 4, qui permettent la formation endogène des pairs. 
+
+
+pepcml_essai c'était juste pour voir si la fonction donnait bien les mêmes résultats (2022_03_01). Non, mais c'est lié aux minuscules observations que j'ai enlevées dans les données, ne change rien. 

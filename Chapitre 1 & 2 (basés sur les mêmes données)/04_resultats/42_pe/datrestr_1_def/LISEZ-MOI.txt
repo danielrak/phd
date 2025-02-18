@@ -1,0 +1,4 @@
+2022_01_04. 
+
+datrestr_1, on exclue un établissement s'il est détecté une fois sur les trois à faire des classes de niveau. 
+pval à utiliser : .017. 

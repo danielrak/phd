@@ -1,0 +1,16 @@
+le papier wp pe res datrestr 2 suite 3 a été copié depuis
+
+D:\backup\9_resultats\92_pe\947_afse\WP. 
+
+Le 2021_10_27, je projette de faire les résultats définitifs des effets de pairs. 
+Le challenge c'est de suivre exactement les mêmes règles établies pour l'âge (def2). Sauf qu'ici je vais appeler les résultats "def". 
+
+Pour ajd (2021_10_27), il ne faut pas trop en faire car il faut encore écrire deux rapports. Mais cela ne va pas m'empêcher d'être aussi rigoureux (utilisation de docear, méthode de programmation des régressions anticipatives) que dans le chapitre sur l'âge. 
+
+Les règles de dossier-script pour les régressions que j'ai suivi sont : 
+	
+	- Nomenclature : chapitre (pe), mod-spec-depvar-sousech-donnees. 
+	- un dossier = un modèle-spec => plusieurs sous-échantillons, variables dépendantes, hétérogénéité sur observables, tests de robustesse. Le nom du dossier est un résumé des noms de fichiers. 
+	- On change de fichier lorsque l'on change de sous-échantillon ou d'hétérogénéité sur observables. 
+		Le nom du fichier est un résumé des noms des objets sauvegardés. 
+	- Objets sauvegardés : ct, n, rsquared, les autres objets n'étant pas à exclure, au besoin. 

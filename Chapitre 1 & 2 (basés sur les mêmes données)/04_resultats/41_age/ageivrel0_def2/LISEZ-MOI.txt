@@ -1,0 +1,4 @@
+rel0 : pas de p_covars. 
+
+
+2021_11_29 : pas besoin de scores_f_norm0912 et scores_f_norm101112 car utiles seulement pour abs. 

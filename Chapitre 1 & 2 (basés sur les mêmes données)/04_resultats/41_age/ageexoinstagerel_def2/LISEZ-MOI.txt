@@ -1,0 +1,5 @@
+2021_12_27. 
+
+Les régressions décrites dans Cascio et Schanzenbach (2016), tableau 2. 
+Pour tester la validité de l'exogénéité de p_z. 
+

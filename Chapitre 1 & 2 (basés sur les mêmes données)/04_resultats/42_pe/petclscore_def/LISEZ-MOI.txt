@@ -1,0 +1,3 @@
+Régression simple de la taille de classe en fonction de la note. 
+	Avec effets de classe. 
+	Avec sexe, pcs, age, position, regime scolaire comme contrôle. Mais dans ce cas il faut dire qu'il n'y a pas de politique de regroupement de sexe, d'âge, de position ou de régime scolaire en France ou même à La Réunion. 

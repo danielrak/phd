@@ -1,0 +1,1789 @@
+
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Forme réduite en écart par rapport à la moyenne de la classe de l'équation structurelle {#pebealwithin}
+
+À partir de l'équation \@ref(eq:pebeal) et selon la formule du calcul de la moyenne chez les pairs, nous avons : 
+
+$$
+\begin{aligned}
+y^{dnb}_{ice} &= \beta_{ce} + \beta_1 (\frac{\displaystyle\sum_{i \in ce} y^{dnb}_{ice} - y^{dnb}_{ice}}{t_{ce} - 1}) + x_{ice}' \beta_2 + (\frac{\displaystyle\sum_{i \in ce} x_{ice}' - x_{ice}'}{t_{ce} - 1}) \beta_3 + \psi_{ice} \\
+&= \beta_{ce} + \beta_1 (\frac{t_{ce} \bar{y}^{dnb}_{ce} - y^{dnb}_{ice}}{t_{ce} - 1}) + x_{ice}' \beta_2 + (\frac{\bar{x}_{ce}'t_{ce} - x_{ice}'}{t_{ce} - 1}) \beta_3 + \psi_{ice} \\
+&= \beta_{ce} + \beta_1 \frac{t_{ce}}{t_{ce} - 1}  \bar{y}^{dnb}_{ce} - \beta_1 \frac{1}{t_{ce} - 1}y^{dnb}_{ice} + x_{ice}' \beta_2 + \bar{x}_{ce}' \frac{t_{ce}}{t_{ce} - 1} \beta_3 - x_{ice}' \frac{1}{t_{ce} - 1} \beta_3 + \psi_{ice} \\
+&= \beta_{ce} + \beta_1 \frac{t_{ce}}{t_{ce} - 1} \bar{y}^{dnb}_{ce} - \beta_1 \frac{1}{t_{ce} - 1} y^{dnb}_{ice} + x_{ice}' (\beta_2 - \frac{1}{t_{ce} - 1} \beta_3) + \bar{x}_{ce}' \frac{t_{ce}}{t_{ce} - 1} + \psi_{ice}.
+\end{aligned}
+$$
+En ramenant le terme $- \beta_1 \frac{1}{t_{ce} - 1} y^{dnb}_{ice}$ à gauche, nous obtenons : 
+
+```{=tex}
+\begin{equation}
+(\#eq:pebealwithin1)
+y^{dnb}_{ice} (1 + \frac{\beta_1}{t_{ce} - 1}) = \beta_{ce} + \beta_1 \frac{t_{ce}}{t_{ce} - 1}  \bar{y}^{dnb}_{ce} + x_{ice}' \beta_2 + \bar{x}_{ce}' \frac{t_{ce}}{t_{ce} - 1} \beta_3 - x_{ice}' \frac{1}{t_{ce} - 1} \beta_3 + \psi_{ice}.
+\end{equation}
+```
+
+Sachant que la moyenne sur la classe des variables ne dépendant que de la classe ($t_{ce}, \bar{y}^{dnb}_{ce} \text{ et } \bar{x}_{ce}$) sont égales à elles-mêmes, la moyenne sur la classe de l'équation \@ref(eq:pebealwithin1) s'écrit : 
+
+```{=tex}
+\begin{equation}
+(\#eq:pebealwithin2)
+\bar{y}^{dnb}_{ce} (1 + \frac{\beta_1}{t_{ce} - 1}) = \beta_{ce} + \beta_1 \frac{t_{ce}}{t_{ce} - 1} \bar{y}^{dnb}_{ce} + \bar{x}_{ce}' (\beta_2 - \frac{\beta_3}{t_{ce} - 1}) + \bar{x}_{ce}' \frac{t_{ce}}{t_{ce} - 1} \beta_3 + \bar{\psi_{ce}}.
+\end{equation}
+```
+
+La différence entre l'équation \@ref(eq:pebealwithin1) et \@ref(eq:pebealwithin2) est alors : 
+
+$$
+\begin{aligned}
+(y_{ice}^{dnb} - \bar{y}_{ce}^{dnb})(1 + \frac{\beta_1}{t_{ce} - 1}) &= (x_{ice}' - \bar{x}_{ce}')(\beta_2 - \frac{\beta_3}{t_{ce} - 1}) + (\psi_{ice} - \bar{\psi}_{ce}) \\ 
+\Rightarrow (y_{ice}^{dnb} - \bar{y}_{ce}^{dnb}) &= (x_{ice}' - \bar{x}_{ce}') \frac{(\beta_2 - \frac{\beta_3}{t_{ce} - 1})}{(1 + \frac{\beta_1}{t_{ce} - 1})} + \frac{1}{(1 + \frac{\beta_1}{t_{ce} - 1})} (\psi_{ice} - \bar{\psi}_{ce}), 
+\end{aligned}
+$$
+
+ce qui correspond à l'équation \@ref(eq:pebealwithin) dans le corps du texte. 
+
+<!-- \setcounter{table}{0} -->
+<!-- \setcounter{figure}{0} -->
+<!-- ## De l'équation structurelle à la forme réduite {#peendofr} -->
+
+<!-- $$ -->
+<!-- y_i^{dnb} = \beta_0 + \beta_1 \overline{y}^{dnb}_{-i} + \beta_2 \overline{y}^{cm2}_{-i} + \beta_3y^{cm2}_i + \epsilon_i -->
+<!-- $$ -->
+<!-- $$ -->
+<!-- \overline{y}^{dnb} = \beta_0 + \beta_1 \overline{y}^{dnb} + (\beta_2 + \beta_3) \overline{y}^{cm2} + \overline{\epsilon} -->
+<!-- $$ -->
+<!-- $$ -->
+<!-- \overline{y}^{dnb} = \frac{\beta_0}{1 - \beta_1} + \frac{\beta_2 + \beta_3}{1 - \beta_1} \overline{y}^{cm2} + \frac{\overline{\epsilon}}{1 - \beta_1} -->
+<!-- $$ -->
+<!-- $$ -->
+<!-- y_i^{dnb} = \beta_0 + \beta_1 \big[ \frac{t \overline{y}^{dnb} - y_i^{dnb}}{t - 1} \big] + \beta_2 \overline{y}^{cm2}_{- i} + \beta_3 y^{cm2}_i + \epsilon_i -->
+<!-- $$ -->
+
+<!-- $$ -->
+<!-- \big[ 1 + \frac{\beta_1}{t - 1} \big] y_i^{dnb} = \beta_0 + \frac{\beta_1 t}{t-1} \big[ \frac{\beta_0}{1 - \beta_1} + \frac{\beta_2 + \beta_3}{1 - \beta_1} \overline{y}^{cm2} + \frac{\overline{\epsilon}}{1 - \beta_1} \big] + \beta_2 \overline{y}^{cm2}_{-i} + \beta_3 y^{cm2}_i + \epsilon_i -->
+<!-- $$ -->
+
+
+<!-- \begin{equation} -->
+<!-- \begin{aligned} -->
+<!-- \big[ 1 + \frac{\beta_1}{t - 1} \big] y_i^{dnb} =  -->
+<!-- \beta_0 +  \frac{\beta_1 t \beta_0}{(t - 1)(1 - \beta_1)} -->
+<!-- + \frac{\beta_1 t (\beta_2 + \beta_3)}{(t - 1)(1 - \beta_1)} \overline{y}^{cm2} + \frac{\beta_1 t \overline{\epsilon}}{(t - 1)(1 - \beta_1)} + \beta_2 \overline{y}^{cm2}_{- i} \\ -->
+<!-- + \beta_3 y_i^{cm2} + \epsilon_i -->
+<!-- \end{aligned} -->
+<!-- \end{equation} -->
+
+
+<!-- \begin{equation} -->
+<!-- \begin{aligned} -->
+<!-- \big[ 1 + \frac{\beta_1}{t - 1} \big] y_i^{dnb} = \beta_0 + \frac{\beta_1 t \beta_0}{(t - 1)(1 - \beta_1)} + \frac{\beta_1 t (\beta_2 + \beta_3)}{(t - 1)(1 - \beta_1)} \big[ \frac{(t - 1) \overline{y}^{cm2}_{-i} + y_i^{cm2}}{t} \big] \\ -->
+<!-- + \beta_2 \overline{y}^{cm2}_{-i} + \beta_3 y_i^{cm2} + \epsilon_i -->
+<!-- + \frac{\beta_1 t\overline{\epsilon}}{(t - 1) (1 - \beta_1)} -->
+<!-- \end{aligned} -->
+<!-- \end{equation} -->
+
+
+
+<!-- \begin{equation} -->
+<!-- \begin{aligned} -->
+<!-- \big[ 1 + \frac{\beta_1}{t - 1} \big] y_i^{dnb} =  -->
+<!-- \beta_0 + \frac{\beta_1 t \beta_0}{(t - 1)(1 - \beta_1)} -->
+<!-- + \big[ \frac{\beta_1 (\beta_2 + \beta_3)}{1 - \beta_1} + \beta_2 \big] \overline{y}^{cm2}_{-i} -->
+<!-- + \big[ \frac{\beta_1 (\beta_2 + \beta_3)}{(t - 1)(1 - \beta_1)} + \beta_3 \big] y_i^{cm2} \\ -->
+<!-- + \epsilon_i + \frac{\beta_1 t \overline{\epsilon}}{(t - 1) (1 - \beta_1)} -->
+<!-- \end{aligned} -->
+<!-- \end{equation} -->
+
+
+<!-- \begin{equation} -->
+<!-- \begin{aligned} -->
+<!-- y^{dnb}_i = \big[ \beta_0 + \frac{\beta_1 t \beta_0}{(t - 1)(1 - \beta_1)} \big] \big[ \frac{1}{1 + \frac{\beta_1}{t - 1}} \big]  -->
+<!-- + \big[ \frac{\beta_1 (\beta_2 + \beta_3)}{1 - \beta_1} + \beta_2 \big] \big[ \frac{1}{1 + \frac{\beta_1}{t - 1}} \big] \overline{y}^{cm2}_{- i} \\ -->
+<!-- + \big[ \frac{\beta_1 (\beta_2 + \beta_3)}{(t - 1)(1 - \beta_1)} + \beta_3 \big] \big[ \frac{1}{1 + \frac{\beta_1}{t - 1}}\big] y_i^{cm2} \\ -->
+<!-- + \big[ \epsilon_i + \frac{\beta_1 t \overline{\epsilon}}{(t - 1) (1 - \beta_1)} \big] \big[  \frac{1}{1 + \frac{\beta_1}{t - 1}}  \big] -->
+<!-- \end{aligned} -->
+<!-- \end{equation} -->
+
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+\blandscape
+## Résultats principaux sur les effets de pairs linéaires en moyenne - Version complète {#pemodels0compl}
+
+```{r, "pemodels0compl"}
+## Résultats et tests principaux. 
+pemodels0 %>% set_colnames(NULL) %>% 
+  ## Sélection des lignes. 
+  (function (d) {
+    sapply(c("p.score.norm", "p.score.norm:p", "score.norm",
+             "p", 
+             "age.absdnb", 
+             "positiondnb2Heure", "positiondnb2Avance",
+             "sexe.modM", "pcs.reg.modMoy", "pcs.reg.modFav",
+             "pcs.reg.modTresfav", "pcs.reg.modAutres",
+             "lregime.constat.gint", "lregime.constat.gext",
+             "tdivconstatrneses",
+             "p.age.absdnb",
+             "p.positiondnb2.Heure", "p.positiondnb2.Avance",
+             "p.sexe.mod.M", "p.pcs.reg.mod.Moy", 
+             "p.pcs.reg.mod.Fav", "p.pcs.reg.mod.Tresfav", 
+             "p.pcs.reg.mod.Autres",
+             "p.lregime.constat.g.int", 
+             "p.lregime.constat.g.ext"),
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>% 
+  
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "p\\.score\\.norm", 
+                          "Note au CM2 des pairs") %>% 
+      str_replace("^p\\.age\\.absdnb$", "Âge au DNB") %>% 
+      str_replace("^p\\.positiondnb2\\.Heure$",
+                  "Position - À l'heure") %>% 
+      str_replace("^p\\.positiondnb2\\.Avance$", 
+                  "Position - En avance") %>% 
+      str_replace("^age\\.absdnb$", "Âge au DNB") %>% 
+      str_replace("^positiondnb2Heure$", "Position - À l'heure") %>% 
+      str_replace("^positiondnb2Avance$", "Position - En avance") %>% 
+      str_replace("^tdivconstatrneses$", "Taille de classe") %>% 
+      str_replace("score\\.norm", "Note au CM2") %>% 
+      str_replace(":p", " $\\\\times \\\\ p$") %>% 
+      str_replace("sexe\\.modM", "Sexe - Garçon") %>% 
+      str_replace("sexe\\.mod\\.M", "Sexe - Garçon") %>% 
+      str_replace("pcs\\.reg\\.mod", "CSP - ") %>% 
+      str_replace("\\.Moy$", "Moyenne") %>% 
+      str_replace("Moy$", "Moyenne") %>% 
+      str_replace("\\.Fav$", "Favorisée") %>% 
+      str_replace("Fav$", "Favorisée") %>% 
+      str_replace("\\.Tresfav", "Très favorisée") %>% 
+      str_replace("Tresfav", "Très favorisée") %>% 
+      str_replace("\\.Autres$", "Autres") %>% 
+      str_replace("lregime\\.constat\\.g", 
+                  "Régime scolaire - ") %>% 
+      str_replace("\\.int$", "Interne") %>% 
+      str_replace("int$", "Interne") %>% 
+      str_replace("\\.ext$", "Externe") %>% 
+      str_replace("ext$", "Externe") %>% 
+      str_replace("^p\\.", "") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("^arsq$", "R$^2$ ajusté")
+    d
+  }) %>% 
+  set_colnames(c("", 
+                 c("\\makecell{Sans \\\\ effets fixes \\\\ \\ }", 
+                   "\\makecell{Avec \\\\ effets fixes \\\\ \\ }", 
+                   "\\makecell{Sans \\\\ effets fixes \\\\ \\ }",
+                   "\\makecell{Avec \\\\ effets fixes \\\\ \\ }", 
+                   "\\makecell{Avec \\\\ effets fixes, \\\\ + sec.av.}",
+                   "\\makecell{Avec \\\\ effets fixes \\\\ + sec.désav.}",
+                   "\\makecell{Avec \\\\ effets fixes \\\\ \\ }", 
+                   "\\makecell{Avec \\\\ effets fixes, \\\\ + sec.av.}",
+                   "\\makecell{Avec \\\\ effets fixes \\\\ + sec.désav.}") %>% 
+                   col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Résultats principaux sur les effets de pairs linéaires en moyenne - version complète") %>% 
+  kable_styling(font_size = 8) %>% 
+  group_rows(" ", 1, 4) %>%
+  group_rows(" ", 5, 30) %>%
+  group_rows("Moyennes chez les pairs", 31, 50) %>%
+  add_header_above(c("", 
+                     "\\\\makecell{Régression simple, sans \\\\\\\\ var.endo.}" = 2,
+                     "\\\\makecell{Sojourner (2013), sans \\\\\\\\ var.endo.}" = 4,
+                     "\\\\makecell{Sojourner (2013), avec \\\\\\\\ var.endo.}" = 3),
+                   escape = FALSE) %>% 
+  add_header_above(c("",
+                     "\\\\makecell{Variable dépendante : \\\\\\\\ Note DNB totale (écrits)}" = 9),
+                   escape = FALSE) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT (2013 à 2016), calculs de l'auteur.",
+    "\\\\textit{Notes :} Une colonne correspond à une régression. Les notes au CM2 et au DNB sont normalisées sur l'année scolaire de CM2 et de DNB, respectivement. Écart-types robustes entre parenthèses. Des effets fixes collèges-année sont utilisés. CSP : catégorie socio-professionnelle. CM2 : Cours Moyen 2\\\\textsuperscript{ème} année. DNB : Diplôme National du Brevet.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+  ))
+```
+\elandscape
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Pourquoi les effets de pairs sont fortement différents lorsque l'échantillon est rajouté des élèves des classes atypiques désavantagées mais pas avantagées ? {#petestsbiaisasym}
+
+```{r, "petestsbiaisasymeff", fig.cap = "Effets de pairs estimés lorsque moins de classes atypiques inférieures sont rajoutées à l'échantillon d'estimation"}
+petests_biais_asym_eff + 
+  labs(x = "Les 1000 combinaisons de \n46 classes atypiques désavantagées",
+       y = "Effet de pairs estimé",
+       caption = "Source : Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT (2013 à 2016), calculs de l'auteur. <br>Notes : Chaque point correspond à un effet de pairs estimé par une régression. La différence entre les régressions se trouve <br>dans les classes atypiques désavantagées rajoutées à l'échantillon. 1000 combinaisons aléatoires de 46 classes atypiques <br>désavantagées ont été rajoutées pour chaque régression. Les traits verticaux en pointillés représentent les intervalles de <br>confiance à 95% calculés à partir d'écart-types robustes.") + 
+  theme_bw() + 
+  mytheme %>% (function (m) {
+    m$plot.caption <- element_textbox_simple(
+      vjust = 1,
+      size = m$plot.caption$size,
+      hjust = 0,
+      padding = margin(10, -100, 20, 0)
+      )
+    m
+  })
+```
+
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Fonctions de répartition empiriques des notes au CM2 selon le type de classe en 3^ème^ {#peecdfscore}
+
+```{r, "peecdfscore", fig.cap = "Fonctions de répartition empiriques des notes au CM2 selon le type de classe en 3ème"}
+peecdf_score %>% 
+  (function (g) {
+    g$data <- g$data %>% 
+      mutate(type_classe = factor(type_classe, 
+                                  levels = c("atypique_sup", 
+                                             "non_atypique", 
+                                             "atypique_inf"),
+                                  labels = c("Atypique avantagée",
+                                             "Non atypique",
+                                             "Atypique désavantagée")),
+             type_note = factor(type_note, 
+                                levels = c("score_norm",
+                                           "score_f_norm",
+                                           "score_m_norm"),
+                                labels = c("Totale",
+                                           "En français",
+                                           "En mathématiques")))
+    g
+  }) + 
+  labs(x = "Note au CM2", 
+       y = "Fréquences cumulées croissantes",
+       caption = "Sources : Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), calculs de l'auteur. <br>Notes : Trois années de 3ème empilées. Pour des soucis de comparaison à travers les années (voir corps du texte), les notes sont au CM2 sont normalisées en moyenne 0 et écart-type 1 par année de CM2.") + 
+  scale_color_manual(name = "Type de classe", 
+                     values = c("blue", "green", "red")) + 
+  scale_linetype_manual(name = "Type de classe",
+                        values = c("dotted", "solid", "longdash")) + 
+  theme_bw() + 
+  mytheme %>% (function (m) {
+    m$strip.text <- element_text(size = m$strip.text$size - 6)
+    m$plot.caption <- element_textbox_simple(
+      vjust = 1,
+      size = m$plot.caption$size,
+      hjust = 0,
+      padding = margin(10, -100, 20, 0)
+      )
+    m$legend.position <- "bottom"
+    m
+  })
+```
+
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+\blandscape
+## Résultats d'estimation des effets de pairs, notamment sur les autres matières au DNB {#pemodelsssmoy0}
+
+
+### Spécification d'effets de pairs linéaires en moyennes {#pemodelsssmoy}
+
+```{r, "pemodelsssmoy"}
+pemodels_ssmoy %>% set_colnames(NULL) %>% 
+  ## Sélection des lignes. 
+  (function (d) {
+    sapply(c("p.score.norm:p", "score.norm",
+             "p"),
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>% 
+  
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles individuels", 
+                        rep("Oui", ncol(d) - 1)),
+                      c("Contrôles chez les pairs",
+                        rep("Oui", ncol(d) - 1)),
+                      c("Contrôles potentiellement endogènes",
+                        rep(c("Non", "Oui"), (ncol(d) - 1) / 2)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "p\\.score\\.norm", 
+                          "Note au CM2 des pairs") %>% 
+      str_replace("^score.norm$", "Note au CM2") %>% 
+      str_replace(":p", " $\\\\times \\\\ p$") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("^arsq$", "R$^2$ ajusté")
+    d
+  }) %>% 
+  set_colnames(c("", 
+                 c("Sans var.endo.", 
+                   "Avec var.endo.") %>% rep(3) %>% 
+                   col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Effets de pairs linéaires en moyenne sur les autres matières") %>% 
+  kable_styling(font_size = 8) %>% 
+  add_header_above(c("", 
+                     "Histoire-Géographie (écrits)" = 2,
+                     "Dictée (écrits)" = 2,
+                     "Rédaction (écrits)" = 2)) %>% 
+  add_header_above(c("", 
+                     "Variable dépendante : Note en" = 6)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT (2013 à 2016), calculs de l'auteur.",
+    "\\\\textit{Notes :} Une colonne correspond à une régression. Les notes au CM2 et au DNB sont normalisées sur l'année scolaire de CM2 et de DNB, respectivement. Écart-types robustes entre parenthèses. Des effets fixes collèges-année sont utilisés. Contrôles potentiellement endogènes : âge, position et taille de classe au DNB. Autres contrôles : sexe, catégorie socio-professionnelle et régime scolaire. CM2 : Cours Moyen 2\\\\textsuperscript{ème} année.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+  ))
+```
+
+\elandscape
+
+\blandscape
+### Spécification d'effets de pairs linéaires en moyennes, différents selon le sexe {#pemodelssexemodssmoy}
+
+```{r, "pemodelssexemodssmoy"}
+pemodels_sexe_mod_ssmoy %>% set_colnames(NULL) %>% 
+  ## Sélection des lignes. 
+  (function (d) {
+    sapply(c("p.score.norm:p",
+             "p.score.norm:p:sexe.modM", 
+             "score.norm",
+             "p"),
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>% 
+  
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles individuels", 
+                        rep("Oui", ncol(d) - 1)),
+                      c("Contrôles chez les pairs",
+                        rep("Oui", ncol(d) - 1)),
+                      c("Contrôles potentiellement endogènes",
+                        rep(c("Non", "Oui"), (ncol(d) - 1) / 2)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "p\\.score\\.norm", 
+                          "Note au CM2 des pairs") %>% 
+      str_replace("^score.norm$", "Note au CM2") %>% 
+      str_replace(":p", " $\\\\times \\\\ p$") %>% 
+      str_replace(":sexe.modM", 
+                  " $\\\\times \\\\ $Sexe - Garçon") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("^arsq$", "R$^2$ ajusté")
+    d
+  }) %>% 
+  set_colnames(c("", 
+                 c("Sans var.endo.", 
+                   "Avec var.endo.",
+                   "Sans var.endo.", 
+                   "Avec var.endo.",
+                   "Sans var.endo.", 
+                   "Avec var.endo.") %>% 
+                   col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Effets de pairs linéaires en moyenne sur les autres matières, hétérogènes selon le sexe") %>% 
+  kable_styling(font_size = 8) %>% 
+  add_header_above(c("", 
+                     "Histoire-Géographie (écrits)" = 2,
+                     "Dictée (écrits)" = 2,
+                     "Rédaction (écrits)" = 2)) %>% 
+  add_header_above(c("", 
+                     "Variable dépendante : Note" = 6)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT (2013 à 2016), calculs de l'auteur.",
+    "\\\\textit{Notes :} Une colonne correspond à une régression. Les notes au CM2 et au DNB sont normalisées sur l'année scolaire de CM2 et de DNB, respectivement. Écart-types robustes entre parenthèses. Des effets fixes collèges-année sont utilisés. Contrôles potentiellement endogènes : âge, position et taille de classe au DNB. Autres contrôles : sexe, catégorie socio-professionnelle et régime scolaire. CM2 : Cours Moyen 2\\\\textsuperscript{ème} année.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+  ))
+```
+\elandscape
+
+\blandscape
+### Spécification d'effets de pairs linéaires en moyennes, différents selon la catégorie sociale {#pemodelspcsregmodssmoy}
+
+```{r, "pemodelspcsregmod"}
+pemodels_pcs_reg_mod %>% set_colnames(NULL) %>% 
+  ## Sélection des lignes. 
+  (function (d) {
+    sapply(c("p.score.norm:p",
+             "p.score.norm:p:pcs.reg.modMoy",
+             "p.score.norm:p:pcs.reg.modFav",
+             "p.score.norm:p:pcs.reg.modTresfav",
+             "p.score.norm:p:pcs.reg.modAutres",
+             "score.norm",
+             "p"),
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>% 
+  
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles individuels", 
+                        rep("Oui", ncol(d) - 1)),
+                      c("Contrôles chez les pairs",
+                        rep("Oui", ncol(d) - 1)),
+                      c("Contrôles potentiellement endogènes",
+                        rep(c("Non", "Oui"), (ncol(d) - 1) / 2)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "p\\.score\\.norm", 
+                          "Note au CM2 des pairs") %>% 
+      str_replace("^score.norm$", "Note au CM2") %>% 
+      str_replace(":p", " $\\\\times \\\\ p$") %>% 
+      str_replace("pcs.reg.modMoy", "CSP - Moyenne") %>% 
+      str_replace("pcs.reg.modFav", "CSP - Favorisée") %>% 
+      str_replace("pcs.reg.modTresfav", "CSP - Très favorisée") %>% 
+      str_replace("pcs.reg.modAutres", "CSP - Autres") %>% 
+      str_replace(":", " $\\\\times \\\\ $") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("^arsq$", "R$^2$ ajusté")
+    d
+  }) %>% 
+  set_colnames(c("", 
+                 c("Sans var.endo.", 
+                   "Avec var.endo.",
+                   "Sans var.endo.", 
+                   "Avec var.endo.",
+                   "Sans var.endo.", 
+                   "Avec var.endo.") %>% 
+                   col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Effets de pairs linéaires en moyenne, hétérogènes selon la catégorie sociale") %>% 
+  kable_styling(font_size = 8) %>% 
+  add_header_above(c("", 
+                     "Totale (écrits)" = 2,
+                     "En français (écrits)" = 2,
+                     "En Mathématiques (écrits)" = 2)) %>% 
+  add_header_above(c("", 
+                     "Variable dépendante : Note" = 6)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT (2013 à 2016), calculs de l'auteur.",
+    "\\\\textit{Notes :} Une colonne correspond à une régression. Les notes au CM2 et au DNB sont normalisées sur l'année scolaire de CM2 et de DNB, respectivement. Écart-types robustes entre parenthèses. Des effets fixes collèges-année sont utilisés. Contrôles potentiellement endogènes : âge, position et taille de classe au DNB. Autres contrôles : sexe, catégorie socio-professionnelle et régime scolaire. CM2 : Cours Moyen 2\\\\textsuperscript{ème} année.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+  ))
+```
+\elandscape
+
+\blandscape
+```{r, "pemodelspcsregmodssmoy"}
+pemodels_pcs_reg_mod_ssmoy %>% set_colnames(NULL) %>% 
+  ## Sélection des lignes. 
+  (function (d) {
+    sapply(c("p.score.norm:p",
+             "p.score.norm:p:pcs.reg.modMoy",
+             "p.score.norm:p:pcs.reg.modFav",
+             "p.score.norm:p:pcs.reg.modTresfav",
+             "p.score.norm:p:pcs.reg.modAutres",
+             "score.norm",
+             "p"),
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>% 
+  
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles individuels", 
+                        rep("Oui", ncol(d) - 1)),
+                      c("Contrôles chez les pairs",
+                        rep("Oui", ncol(d) - 1)),
+                      c("Contrôles potentiellement endogènes",
+                        rep(c("Non", "Oui"), (ncol(d) - 1) / 2)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "p\\.score\\.norm", 
+                          "Note au CM2 des pairs") %>% 
+      str_replace("^score.norm$", "Note au CM2") %>% 
+      str_replace(":p", " $\\\\times \\\\ p$") %>% 
+      str_replace("pcs.reg.modMoy", "CSP - Moyenne") %>% 
+      str_replace("pcs.reg.modFav", "CSP - Favorisée") %>% 
+      str_replace("pcs.reg.modTresfav", "CSP - Très favorisée") %>% 
+      str_replace("pcs.reg.modAutres", "CSP - Autres") %>% 
+      str_replace(":", " $\\\\times \\\\ $") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("^arsq$", "R$^2$ ajusté")
+    d
+  }) %>% 
+  set_colnames(c("", 
+                 c("Sans var.endo.", 
+                   "Avec var.endo.",
+                   "Sans var.endo.", 
+                   "Avec var.endo.",
+                   "Sans var.endo.", 
+                   "Avec var.endo.") %>% 
+                   col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Effets de pairs linéaires en moyenne sur les autres matières, hétérogènes selon la catégorie sociale") %>% 
+  kable_styling(font_size = 8) %>% 
+  add_header_above(c("", 
+                     "Histoire-Géographie (écrits)" = 2,
+                     "Dictée (écrits)" = 2,
+                     "Rédaction (écrits)" = 2)) %>% 
+  add_header_above(c("", 
+                     "Variable dépendante : Note" = 6)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT (2013 à 2016), calculs de l'auteur.",
+    "\\\\textit{Notes :} Une colonne correspond à une régression. Les notes au CM2 et au DNB sont normalisées sur l'année scolaire de CM2 et de DNB, respectivement. Écart-types robustes entre parenthèses. Des effets fixes collèges-année sont utilisés. Contrôles potentiellement endogènes : âge, position et taille de classe au DNB. Autres contrôles : sexe, catégorie socio-professionnelle et régime scolaire. CM2 : Cours Moyen 2\\\\textsuperscript{ème} année.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+  ))
+```
+\elandscape
+
+### Spécification d'effets de pairs hétérogènes {#pemodelsh5corrssmoy}
+
+<!-- Corrigé, et en graphe, ci-dessous.  -->
+
+```{r,  "pemodelsh5corrssmoygraph", fig.cap = "Effets de pairs hétérogènes sur les autres matières", fig.asp = 1, fig.pos = "H"}
+  ## Après corrections structurelles résultats CROISSANT. 
+list(pemodelsh5corr_sDexo_ssmoy_graph,
+     pemodelsh5corr_sD_ssmoy_graph) %>% 
+  lapply(function (x) x %>% (function (g) {
+    g$data <- g$data %>% 
+      mutate(indiv = factor(indiv, 
+                            levels = paste("q", 1:5, sep = ""),
+                            labels = paste("Q", 1:5, sep = "")),
+             depvar = factor(depvar, 
+                             levels = c("moy_hist_ec_norm",
+                                        "moy_dic_ec_norm",
+                                        "moy_red_ec_norm"),
+                             labels = c("Note en histoire-\ngéographie (écrits)",
+                                        "Note en dictée \n(écrits)",
+                                        "Note en rédaction \n(écrits)")))
+    g
+  }) + coord_fixed(ratio = 5) +
+    theme_bw() + 
+    labs(x = "Individu", y = "Coefficient estimé") + 
+    mytheme %>% 
+    (function (m) {
+          m$strip.text <- element_text(size = m$strip.text$size - 6)
+          m
+    })) %>% 
+  (function (l) ggarrange(l[[1]], l[[2]], ncol = 1, 
+                          labels = c("Panel A : Sans variables potentiellement endogènes",
+                                     "Panel B : Avec variables potentiellement endogènes")) %>% 
+     annotate_figure(bottom = 
+                       text_grob("Sources : Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT (2013 à 2016), calculs de l'auteur. \nNotes : Une case correspond à une régression. Q1 à Q5 : quintiles de note au CM2 calculés sur les retrouvés \npar année de DNB. Intervalles de confiance à 95% à partir d'écart-types robustes. Des effets fixes collèges-année sont \nutilisés. Contrôles potentiellement endogènes : âge, position et taille de classe au DNB. Autres contrôles : note au CM2, sexe, \ncatégorie socio-professionnelle et régime scolaire. Ces contrôles calculés chez les pairs sont inclus dans les régressions.",
+                     x = .075, just = "left", vjust = .5)))
+```
+
+\newpage
+### Spécification d'effets de pairs hétérogènes, différents selon le sexe {#pemodelsh5corrsexemodssmoy}
+
+```{r, "pemodelsh5corrsexemodgraph", fig.cap = "Effets de pairs hétérogènes, différents selon le sexe",fig.asp = 1, fig.pos = "H"}
+list(pemodelsh5corr_sDexo_sexe_mod_graph,
+     pemodelsh5corr_sD_sexe_mod_graph) %>% 
+  lapply(function (x) x %>% (function (g) {
+    g$data <- g$data %>% 
+      mutate(indiv = factor(indiv, 
+                            levels = paste("q", 1:5, sep = ""),
+                            labels = paste("Q", 1:5, sep = "")),
+             depvar = factor(depvar, 
+                             levels = c("moy_ec1_norm",
+                                        "moy_fran_ec_norm",
+                                        "moy_maths_ec_norm"),
+                             labels = c("Note aux écrits",
+                                        "Note en français \n(écrits)",
+                                        "Note en mathématiques \n(écrits)")))
+    
+    g$layers[[5]]$data <- g$layers[[5]]$data %>%
+        ## se comporte bizarrement. 
+        ## même dans une fonction elle à l'air de changer l'objet
+        ## après un lancement. 
+        ## Oui c'est bien cela, j'ai vérifié.
+        ## Un bug à reporter ou quelque chose à approfondir après la thèse. 
+      mutate(indiv = factor(indiv,
+                            levels = paste("q", (1:5)[- 3],
+                                           sep = ""),
+                            labels = paste("Q", (1:5)[- 3], 
+                                           sep = "")),
+             depvar = factor(depvar,
+                             levels = c("moy_ec1_norm",
+                                        "moy_fran_ec_norm",
+                                        "moy_maths_ec_norm"),
+                             labels = c("Note aux écrits",
+                                        "Note en français \n(écrits)",
+                                        "Note en mathématiques \n(écrits)")))
+    
+    g
+  }) + coord_fixed(ratio = 5)
+  +
+    theme_bw() + 
+    labs(x = "Individu", y = "Coefficient estimé") +
+  scale_shape_manual(name = "",
+                     values = 8,
+                     labels = "Effets supp. significatifs - Garçons") + 
+    mytheme %>% 
+    (function (m) {
+          m$strip.text <- element_text(size = m$strip.text$size - 6)
+          m$legend.position <- "bottom"
+          m$plot.caption <- element_textbox_simple(
+            vjust = 1,
+            size = m$plot.caption$size,
+            hjust = 0
+            ## ,
+            ## padding = margin(10, -100, 20, 0)
+      )
+          m
+    })) %>% 
+  (function (l) ggarrange(l[[1]], l[[2]], ncol = 1, 
+                          labels = c("Panel A : Sans variables potentiellement endogènes",
+                                     "Panel B : Avec variables potentiellement endogènes"),
+                          common.legend = TRUE, legend = "bottom") %>% 
+     annotate_figure(bottom = 
+                       text_grob("Sources : Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT (2013 à 2016), calculs de l'auteur. \nNotes : Une case correspond à une régression. Q1 à Q5 : quintiles de note au CM2 calculés sur les retrouvés \npar année de DNB. Intervalles de confiance à 95% à partir d'écart-types robustes. Des effets fixes collèges-année sont \nutilisés. Contrôles potentiellement endogènes : âge, position et taille de classe au DNB. Autres contrôles : note au CM2, sexe, \ncatégorie socio-professionnelle et régime scolaire. Ces contrôles calculés chez les pairs sont inclus dans les régressions.",
+                     x = .075, just = "left", vjust = .5)))
+```
+
+<!-- Corrigé et transformé en graphe, voir ci-dessous.  -->
+
+```{r,  "pemodelsh5corrsexemodssmoygraph", fig.cap = "Effets de pairs hétérogènes sur les autres matières, différents selon le sexe",fig.asp = 1, fig.pos = "H"}
+## Comportement bizarre, si on lance plusieurs fois le code (création de strip NA). 
+## Vérifié le 2022_02_22 que ça se comporte bien comme ça. Il y a une espèce d'évaluation permatente dans les fonctions. 
+list(pemodelsh5corr_sDexo_sexe_mod_ssmoy_graph,
+     pemodelsh5corr_sD_sexe_mod_ssmoy_graph) %>% 
+  lapply(function (x) x %>% (function (g) {
+    g$data <- g$data %>% 
+      mutate(indiv = factor(indiv, 
+                            levels = paste("q", 1:5, sep = ""),
+                            labels = paste("Q", 1:5, sep = "")),
+             depvar = factor(depvar, 
+                             levels = c("moy_hist_ec_norm",
+                                        "moy_dic_ec_norm",
+                                        "moy_red_ec_norm"),
+                             labels = c("Note en histoire-\ngéographie (écrits)",
+                                        "Note en dictée \n(écrits)",
+                                        "Note en rédaction \n(écrits)")))
+    
+    g$layers[[5]]$data <- g$layers[[5]]$data %>%
+        ## se comporte bizarrement. 
+        ## même dans une fonction elle à l'air de changer l'objet
+        ## après un lancement. 
+        ## Oui c'est bien cela, j'ai vérifié.
+        ## Un bug à reporter ou quelque chose à approfondir après la thèse. 
+      mutate(indiv = factor(indiv,
+                            levels = paste("q", (1:5)[- 3],
+                                           sep = ""),
+                            labels = paste("Q", (1:5)[- 3], 
+                                           sep = "")),
+             depvar = factor(depvar,
+                             levels = c("moy_hist_ec_norm",
+                                        "moy_dic_ec_norm",
+                                        "moy_red_ec_norm"),
+                             labels = c("Note en histoire-\ngéographie (écrits)",
+                                        "Note en dictée \n(écrits)",
+                                        "Note en rédaction \n(écrits)")))
+    
+    g
+  }) + coord_fixed(ratio = 5)
+  +
+    theme_bw() + 
+    labs(x = "Individu", y = "Coefficient estimé") +
+  scale_shape_manual(name = "",
+                     values = 8,
+                     labels = "Effets supp. significatifs - Garçons") + 
+    mytheme %>% 
+    (function (m) {
+          m$strip.text <- element_text(size = m$strip.text$size - 6)
+          m$legend.position <- "bottom"
+          m$plot.caption <- element_textbox_simple(
+            vjust = 1,
+            size = m$plot.caption$size,
+            hjust = 0
+            ## ,
+            ## padding = margin(10, -100, 20, 0)
+      )
+          m
+    })) %>% 
+  (function (l) ggarrange(l[[1]], l[[2]], ncol = 1, 
+                          labels = c("Panel A : Sans variables potentiellement endogènes",
+                                     "Panel B : Avec variables potentiellement endogènes"),
+                          common.legend = TRUE, legend = "bottom") %>% 
+     annotate_figure(bottom = 
+                       text_grob("Sources : Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT (2013 à 2016), calculs de l'auteur. \nNotes : Une case correspond à une régression. Q1 à Q5 : quintiles de note au CM2 calculés sur les retrouvés \npar année de DNB. Intervalles de confiance à 95% à partir d'écart-types robustes. Des effets fixes collèges-année sont \nutilisés. Contrôles potentiellement endogènes : âge, position et taille de classe au DNB. Autres contrôles : note au CM2, sexe, \ncatégorie socio-professionnelle et régime scolaire. Ces contrôles calculés chez les pairs sont inclus dans les régressions.",
+                     x = .075, just = "left", vjust = .5)))
+```
+
+\newpage
+### Spécification d'effets de pairs hétérogènes, différents selon la catégorie sociale {#pemodelsh5corrpcsregmodssmoy}
+
+```{r, "pemodelsh5corrpcsregmodgraph", fig.cap = "Effets de pairs hétérogènes, différents selon la catégorie sociale", fig.asp = 1, fig.pos = "H"}
+list(pemodelsh5corr_sDexo_pcs_reg_mod_graph,
+     pemodelsh5corr_sD_pcs_reg_mod_graph) %>% 
+  lapply(function (x) x %>% (function (g) {
+    g$data <- g$data %>% 
+      mutate(indiv = factor(indiv, 
+                            levels = paste("q", 1:5, sep = ""),
+                            labels = paste("Q", 1:5, sep = "")),
+             depvar = factor(depvar, 
+                             levels = c("moy_ec1_norm",
+                                        "moy_fran_ec_norm",
+                                        "moy_maths_ec_norm"),
+                             labels = c("Note aux écrits",
+                                        "Note en français \n(écrits)",
+                                        "Note en mathématiques \n(écrits)")))
+    
+    g$layers[[5]]$data <- g$layers[[5]]$data %>%
+        ## se comporte bizarrement. 
+        ## même dans une fonction elle à l'air de changer l'objet
+        ## après un lancement. 
+        ## Oui c'est bien cela, j'ai vérifié.
+        ## Un bug à reporter ou quelque chose à approfondir après la thèse. 
+      mutate(indiv = factor(indiv,
+                            levels = paste("q", (1:5)[- 3],
+                                           sep = ""),
+                            labels = paste("Q", (1:5)[- 3], 
+                                           sep = "")),
+             depvar = factor(depvar,
+                             levels = c("moy_ec1_norm",
+                                        "moy_fran_ec_norm",
+                                        "moy_maths_ec_norm"),
+                             labels = c("Note aux écrits",
+                                        "Note en français \n(écrits)",
+                                        "Note en mathématiques \n(écrits)")),
+             pcs_reg_mod = factor(pcs_reg_mod, 
+                                  levels = c("Moy", "Fav", "Tresfav"),
+                                  labels = c("Moyens", "Favorisés", "Très favorisés")))
+    
+    g
+  }) + coord_fixed(ratio = 4)
+  + theme_bw() + 
+    labs(x = "Individu", y = "Coefficient estimé") +
+  scale_shape_manual(name = "Effets supp. significatifs",
+                     values = c(8, 11, 24)) + 
+    mytheme %>% 
+    (function (m) {
+          m$strip.text <- element_text(size = m$strip.text$size - 6)
+          m$legend.position <- "bottom"
+          m$plot.caption <- element_textbox_simple(
+            vjust = 1,
+            size = m$plot.caption$size,
+            hjust = 0
+            ## ,
+            ## padding = margin(10, -100, 20, 0)
+      )
+          m
+    })) %>% 
+  (function (l) ggarrange(l[[1]], l[[2]], ncol = 1, 
+                          labels = c("Panel A : Sans variables potentiellement endogènes",
+                                     "Panel B : Avec variables potentiellement endogènes"),
+                          common.legend = TRUE, legend = "bottom") %>% 
+     annotate_figure(bottom = 
+                       text_grob("Sources : Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT (2013 à 2016), calculs de l'auteur. \nNotes : Une case correspond à une régression. Q1 à Q5 : quintiles de note au CM2 calculés sur les retrouvés \npar année de DNB. Intervalles de confiance à 95% à partir d'écart-types robustes. Des effets fixes collèges-année sont \nutilisés. Contrôles potentiellement endogènes : âge, position et taille de classe au DNB. Autres contrôles : note au CM2, sexe, \ncatégorie socio-professionnelle et régime scolaire. Ces contrôles calculés chez les pairs sont inclus dans les régressions.",
+                     x = .075, just = "left", vjust = .5)))
+
+```
+
+<!-- Corrigé, et en graphe, voir ci-dessous.  -->
+
+```{r, "pemodelsh5corrpcsregmodssmoygraph", fig.cap = "Effets de pairs hétérogènes sur les autres matières, différents selon la catégorie sociale", fig.asp = 1, fig.pos = "H"}
+list(pemodelsh5corr_sDexo_pcs_reg_mod_ssmoy_graph,
+     pemodelsh5corr_sD_pcs_reg_mod_ssmoy_graph) %>% 
+  lapply(function (x) x %>% (function (g) {
+    g$data <- g$data %>% 
+      mutate(indiv = factor(indiv, 
+                            levels = paste("q", 1:5, sep = ""),
+                            labels = paste("Q", 1:5, sep = "")),
+             depvar = factor(depvar, 
+                             levels = c("moy_hist_ec_norm",
+                                        "moy_dic_ec_norm",
+                                        "moy_red_ec_norm"),
+                             labels = c("Note en histoire-\ngéographie (écrits)",
+                                        "Note en dictée \n(écrits)",
+                                        "Note en rédaction \n(écrits)")))
+    
+    g$layers[[5]]$data <- g$layers[[5]]$data %>%
+        ## se comporte bizarrement. 
+        ## même dans une fonction elle à l'air de changer l'objet
+        ## après un lancement. 
+        ## Oui c'est bien cela, j'ai vérifié.
+        ## Un bug à reporter ou quelque chose à approfondir après la thèse. 
+      mutate(indiv = factor(indiv,
+                            levels = paste("q", (1:5)[- 3],
+                                           sep = ""),
+                            labels = paste("Q", (1:5)[- 3], 
+                                           sep = "")),
+             depvar = factor(depvar,
+                             levels = c("moy_hist_ec_norm",
+                                        "moy_dic_ec_norm",
+                                        "moy_red_ec_norm"),
+                             labels = c("Note en histoire-\ngéographie (écrits)",
+                                        "Note en dictée \n(écrits)",
+                                        "Note en rédaction \n(écrits)")),
+             pcs_reg_mod = factor(pcs_reg_mod, 
+                                  levels = c("Moy", "Fav", "Tresfav"),
+                                  labels = c("Moyens", "Favorisés", "Très favorisés")))
+    
+    g
+  }) + coord_fixed(ratio = 4)
+  + theme_bw() + 
+    labs(x = "Individu", y = "Coefficient estimé") +
+  scale_shape_manual(name = "Effets supp. significatifs",
+                     values = c(8, 11, 24)) + 
+    mytheme %>% 
+    (function (m) {
+          m$strip.text <- element_text(size = m$strip.text$size - 6)
+          m$legend.position <- "bottom"
+          m$plot.caption <- element_textbox_simple(
+            vjust = 1,
+            size = m$plot.caption$size,
+            hjust = 0
+            ## ,
+            ## padding = margin(10, -100, 20, 0)
+      )
+          m
+    })) %>% 
+  (function (l) ggarrange(l[[1]], l[[2]], ncol = 1, 
+                          labels = c("Panel A : Sans variables potentiellement endogènes",
+                                     "Panel B : Avec variables potentiellement endogènes"),
+                          common.legend = TRUE, legend = "bottom") %>% 
+     annotate_figure(bottom = 
+                       text_grob("Sources : Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT (2013 à 2016), calculs de l'auteur. \nNotes : Une case correspond à une régression. Q1 à Q5 : quintiles de note au CM2 calculés sur les retrouvés \npar année de DNB. Intervalles de confiance à 95% à partir d'écart-types robustes. Des effets fixes collèges-année sont \nutilisés. Contrôles potentiellement endogènes : âge, position et taille de classe au DNB. Autres contrôles : note au CM2, sexe, \ncatégorie socio-professionnelle et régime scolaire. Ces contrôles calculés chez les pairs sont inclus dans les régressions.",
+                     x = .075, just = "left", vjust = .5)))
+```
+
+
+### Spécification d'effets de pairs hétérogènes et non linéaires {#pemodelshnolinq5corrssmoy}
+
+```{r, "pemodelshnolinq5corrsDexossmoygraph", fig.cap = "Effets de pairs hétérogènes et non linéaires sur les autres matières, sans contrôles potentiellement endogènes", fig.pos = "H"}
+pemodelshnolinq5corr_sDexo_ssmoy_graph %>% 
+  (function (g) {
+    g$data <- g$data %>% 
+      mutate(indiv = factor(indiv, 
+                            levels = paste("q", 1:5, sep = ""),
+                            labels = paste("Q", 1:5, sep = "")),
+             peer = factor(peer, 
+                           levels = paste("pq", (1:5)[- 3],
+                                          sep = ""),
+                           labels = paste("PQ", (1:5)[- 3],
+                                          sep = "")),
+             depvar = factor(depvar, 
+                             levels = c("moy_hist_ec_norm",
+                                        "moy_dic_ec_norm",
+                                        "moy_red_ec_norm"),
+                             labels = c("Note en histoire-\ngéographie (écrits)",
+                                        "Note en dictée \n(écrits)",
+                                        "Note en rédaction \n(écrits)")))
+    g
+  }) + 
+  labs(x = "Augmentation de 10% chez les pairs",
+       y = "Coefficient estimé",
+       caption = "Sources : Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT (2013 à 2016), calculs de l'auteur. <br>Notes : Une case correspond à une régression. Q1 à Q5 : quintiles de note au CM2 calculés sur les retrouvés par année de DNB. Intervalles de confiance à 95% à partir d'écart-types robustes. Des effets fixes collèges-année sont utilisés. <br>Contrôles : note au CM2, sexe, catégorie socio-professionnelle et régime scolaire. À part la note au CM2, ces contrôles calculés chez les pairs sont inclus dans les régressions.") + 
+  scale_x_discrete(labels = peerlab) + 
+  theme_bw() + 
+  mytheme %>% 
+  (function (m) {
+    m$strip.text.y <- element_text(size = m$strip.text$size - 6, 
+                                   angle = 45)
+    m$plot.caption <- element_textbox_simple(
+      vjust = 1,
+      size = m$plot.caption$size,
+      hjust = 0,
+      padding = margin(10, -100, 20, 0)
+      )
+    m
+  })
+```
+
+### Spécification d'effets de pairs hétérogènes et non linéaires, différents selon le sexe {#pemodelshnolinq5corrsexemodssmoy}
+
+```{r, "pemodelshnolinq5corrsDexosexemodgraph", fig.cap = "Effets de pairs hétérogènes et non linéaires, différents selon le sexe, sans contrôles potentiellement endogènes", fig.pos = "H", fig.asp = .8}
+  ## La version sD : si seulement quelqu'un me la demande. 
+pemodelshnolinq5corr_sDexo_sexe_mod_graph %>% 
+  (function (g) {
+    g$data <- g$data %>% 
+      mutate(indiv = factor(indiv, 
+                            levels = paste("q", 1:5, sep = ""),
+                            labels = paste("Q", 1:5, sep = "")),
+             peer = factor(peer, 
+                           levels = paste("pq", (1:5)[- 3],
+                                          sep = ""),
+                           labels = paste("PQ", (1:5)[- 3],
+                                          sep = "")),
+             depvar = factor(depvar, 
+                             levels = c("moy_ec1_norm",
+                                        "moy_fran_ec_norm",
+                                        "moy_maths_ec_norm"),
+                             labels = c("Note aux écrits",
+                                        "Note en français \n(écrits)",
+                                        "Note en mathématiques \n(écrits)")))
+    
+    g$layers[[5]]$data <- g$layers[[5]]$data %>%
+        ## se comporte bizarrement. 
+        ## même dans une fonction elle à l'air de changer l'objet
+        ## après un lancement. 
+        ## Oui c'est bien cela, j'ai vérifié.
+        ## Un bug à reporter ou quelque chose à approfondir après la thèse. 
+      mutate(indiv = factor(indiv,
+                            levels = paste("q", (1:5)[- 3],
+                                           sep = ""),
+                            labels = paste("Q", (1:5)[- 3], 
+                                           sep = "")),
+             peer = factor(peer,
+                           levels = paste("pq", (1:5)[- 3],
+                                          sep = ""),
+                           labels = paste("PQ", (1:5)[- 3],
+                                          sep = "")),
+             depvar = factor(depvar,
+                             levels = c("moy_ec1_norm",
+                                        "moy_fran_ec_norm",
+                                        "moy_maths_ec_norm"),
+                             labels = c("Note aux écrits",
+                                        "Note en français \n(écrits)",
+                                        "Note en mathématiques \n(écrits)")))
+    g
+  }) + 
+  labs(x = "Augmentation de 10% chez les pairs",
+       y = "Coefficient estimé",
+       caption = "Sources : Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT (2013 à 2016), calculs de l'auteur. <br>Notes : Une case correspond à une régression. Q1 à Q5 : quintiles de note au CM2 calculés sur les retrouvés par année de DNB. Intervalles de confiance à 95% à partir d'écart-types robustes. Des effets fixes collèges-année sont utilisés. Contrôles : note au CM2, sexe, catégorie socio-professionnelle et régime scolaire. À part la note au CM2, ces contrôles calculés chez les pairs sont inclus dans les régressions.") + 
+  scale_x_discrete(labels = peerlab) +
+  scale_shape_manual(name = "",
+                     values = 8,
+                     labels = "Effets supp. significatifs - Garçons") + 
+  theme_bw() + 
+  mytheme %>% 
+  (function (m) {
+    m$strip.text.y <- element_text(size = m$strip.text$size - 6, 
+                                   angle = 45)
+    m$legend.position <- "bottom"
+    m$plot.caption <- element_textbox_simple(
+      vjust = 1,
+      size = m$plot.caption$size,
+      hjust = 0,
+      padding = margin(10, -100, 20, 0)
+      )
+    m
+  })
+```
+
+
+```{r, "pemodelshnolinq5corrsDexosexemodssmoygraph", fig.cap = "Effets de pairs hétérogènes et non linéaires sur les autres matières, différents selon le sexe, sans contrôles potentiellement endogènes", fig.pos = "H", fig.asp = .8}
+  ## La version sD : si seulement quelqu'un me la demande. 
+pemodelshnolinq5corr_sDexo_sexe_mod_ssmoy_graph %>% 
+  (function (g) {
+    g$data <- g$data %>% 
+      mutate(indiv = factor(indiv, 
+                            levels = paste("q", 1:5, sep = ""),
+                            labels = paste("Q", 1:5, sep = "")),
+             peer = factor(peer, 
+                           levels = paste("pq", (1:5)[- 3],
+                                          sep = ""),
+                           labels = paste("PQ", (1:5)[- 3],
+                                          sep = "")),
+             depvar = factor(depvar, 
+                             levels = c("moy_hist_ec_norm",
+                                        "moy_dic_ec_norm",
+                                        "moy_red_ec_norm"),
+                             labels = c("Note en histoire-\ngéographie (écrits)",
+                                        "Note en dictée \n(écrits)",
+                                        "Note en rédaction \n(écrits)")))
+    
+    g$layers[[5]]$data <- g$layers[[5]]$data %>%
+        ## se comporte bizarrement. 
+        ## même dans une fonction elle à l'air de changer l'objet
+        ## après un lancement. 
+        ## Oui c'est bien cela, j'ai vérifié.
+        ## Un bug à reporter ou quelque chose à approfondir après la thèse. 
+      mutate(indiv = factor(indiv,
+                            levels = paste("q", (1:5)[- 3],
+                                           sep = ""),
+                            labels = paste("Q", (1:5)[- 3], 
+                                           sep = "")),
+             peer = factor(peer,
+                           levels = paste("pq", (1:5)[- 3],
+                                          sep = ""),
+                           labels = paste("PQ", (1:5)[- 3],
+                                          sep = "")),
+             depvar = factor(depvar, 
+                             levels = c("moy_hist_ec_norm",
+                                        "moy_dic_ec_norm",
+                                        "moy_red_ec_norm"),
+                             labels = c("Note en histoire-\ngéographie (écrits)",
+                                        "Note en dictée \n(écrits)",
+                                        "Note en rédaction \n(écrits)")))
+    g
+  }) + 
+  labs(x = "Augmentation de 10% chez les pairs",
+       y = "Coefficient estimé",
+       caption = "Sources : Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT (2013 à 2016), calculs de l'auteur. <br>Notes : Une case correspond à une régression. Q1 à Q5 : quintiles de note au CM2 calculés sur les retrouvés par année de DNB. Intervalles de confiance à 95% à partir d'écart-types robustes. Des effets fixes collèges-année sont utilisés. <br>Contrôles : note au CM2, sexe, catégorie socio-professionnelle et régime scolaire. À part la note au CM2, ces contrôles calculés chez les pairs sont inclus dans les régressions.") + 
+  scale_x_discrete(labels = peerlab) +
+  scale_shape_manual(name = "",
+                     values = 8,
+                     labels = "Effets supp. significatifs - Garçons") + 
+  theme_bw() + 
+  mytheme %>% 
+  (function (m) {
+    m$strip.text.y <- element_text(size = m$strip.text$size - 6, 
+                                   angle = 45)
+    m$legend.position <- "bottom"
+    m$plot.caption <- element_textbox_simple(
+      vjust = 1,
+      size = m$plot.caption$size,
+      hjust = 0,
+      padding = margin(10, -100, 20, 0)
+      )
+    m
+  })
+```
+
+
+### Spécification d'effets de pairs hétérogènes et non linéaires, différents selon la catégorie sociale {#pemodelshnolinq5corrpcsregmodssmoy}
+
+```{r, "pemodelshnolinq5corrsDexopcsregmodgraph", fig.cap = "Effets de pairs hétérogènes et non linéaires, différents selon la catégorie sociale, sans contrôles potentiellement endogènes", fig.pos = "H", fig.asp = .8}
+## La version sD : si seulement quelqu'un me la demande. 
+pemodelshnolinq5corr_sDexo_pcs_reg_mod_graph %>% 
+  (function (g) {
+    g$data <- g$data %>% 
+      mutate(indiv = factor(indiv, 
+                            levels = paste("q", 1:5, sep = ""),
+                            labels = paste("Q", 1:5, sep = "")),
+             peer = factor(peer, 
+                           levels = paste("pq", (1:5)[- 3],
+                                          sep = ""),
+                           labels = paste("PQ", (1:5)[- 3],
+                                          sep = "")),
+             depvar = factor(depvar, 
+                             levels = c("moy_ec1_norm",
+                                        "moy_fran_ec_norm",
+                                        "moy_maths_ec_norm"),
+                             labels = c("Note aux écrits",
+                                        "Note en français \n(écrits)",
+                                        "Note en mathématiques \n(écrits)")))
+    
+    g$layers[[5]]$data <- g$layers[[5]]$data %>%
+        ## se comporte bizarrement. 
+        ## même dans une fonction elle à l'air de changer l'objet
+        ## après un lancement. 
+        ## Oui c'est bien cela, j'ai vérifié.
+        ## Un bug à reporter ou quelque chose à approfondir après la thèse. 
+      mutate(indiv = factor(indiv,
+                            levels = paste("q", (1:5)[- 3],
+                                           sep = ""),
+                            labels = paste("Q", (1:5)[- 3], 
+                                           sep = "")),
+             peer = factor(peer,
+                           levels = paste("pq", (1:5)[- 3],
+                                          sep = ""),
+                           labels = paste("PQ", (1:5)[- 3],
+                                          sep = "")),
+             depvar = factor(depvar,
+                             levels = c("moy_ec1_norm",
+                                        "moy_fran_ec_norm",
+                                        "moy_maths_ec_norm"),
+                             labels = c("Note aux écrits",
+                                        "Note en français \n(écrits)",
+                                        "Note en mathématiques \n(écrits)")),
+             pcs_reg_mod = factor(pcs_reg_mod, 
+                                  levels = c("Moy", "Fav", "Tresfav"),
+                                  labels = c("Moyens", "Favorisés", "Très favorisés")))
+    g
+  }) + 
+  labs(x = "Augmentation de 10% chez les pairs",
+       y = "Coefficient estimé",
+       caption = "Sources : Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT (2013 à 2016), calculs de l'auteur. <br>Notes : Une case correspond à une régression. Q1 à Q5 : quintiles de note au CM2 calculés sur les retrouvés par année de DNB. Intervalles de confiance à 95% à partir d'écart-types robustes. Des effets fixes collèges-année sont utilisés. Contrôles : note au CM2, sexe, catégorie socio-professionnelle et régime scolaire. À part la note au CM2, ces contrôles calculés chez les pairs sont inclus dans les régressions.") + 
+  scale_x_discrete(labels = peerlab) +
+  scale_shape_manual(name = "Effets supp. significatifs",
+                     values = c(8, 11, 24)
+                     ) + 
+  theme_bw() + 
+  mytheme %>% 
+  (function (m) {
+    m$strip.text.y <- element_text(size = m$strip.text$size - 6, 
+                                   angle = 45)
+    m$legend.position <- "bottom"
+    m$plot.caption <- element_textbox_simple(
+      vjust = 1,
+      size = m$plot.caption$size,
+      hjust = 0,
+      padding = margin(10, -100, 20, 0)
+      )
+    m
+  })
+```
+
+
+```{r, "pemodelshnolinq5corrsDexopcsregmodssmoygraph", fig.cap = "Effets de pairs hétérogènes et non linéaires sur les autres matières, différents selon la catégorie sociale, sans contrôles potentiellement endogènes", fig.pos = "H", fig.asp = .8}
+## La version sD : si seulement quelqu'un me la demande. 
+pemodelshnolinq5corr_sDexo_pcs_reg_mod_ssmoy_graph %>% 
+  (function (g) {
+    g$data <- g$data %>% 
+      mutate(indiv = factor(indiv, 
+                            levels = paste("q", 1:5, sep = ""),
+                            labels = paste("Q", 1:5, sep = "")),
+             peer = factor(peer, 
+                           levels = paste("pq", (1:5)[- 3],
+                                          sep = ""),
+                           labels = paste("PQ", (1:5)[- 3],
+                                          sep = "")),
+             depvar = factor(depvar, 
+                             levels = c("moy_hist_ec_norm",
+                                        "moy_dic_ec_norm",
+                                        "moy_red_ec_norm"),
+                             labels = c("Note en histoire-\ngéographie (écrits)",
+                                        "Note en dictée \n(écrits)",
+                                        "Note en rédaction \n(écrits)")))
+    
+    g$layers[[5]]$data <- g$layers[[5]]$data %>%
+        ## se comporte bizarrement. 
+        ## même dans une fonction elle à l'air de changer l'objet
+        ## après un lancement. 
+        ## Oui c'est bien cela, j'ai vérifié.
+        ## Un bug à reporter ou quelque chose à approfondir après la thèse. 
+      mutate(indiv = factor(indiv,
+                            levels = paste("q", (1:5)[- 3],
+                                           sep = ""),
+                            labels = paste("Q", (1:5)[- 3], 
+                                           sep = "")),
+             peer = factor(peer,
+                           levels = paste("pq", (1:5)[- 3],
+                                          sep = ""),
+                           labels = paste("PQ", (1:5)[- 3],
+                                          sep = "")),
+             depvar = factor(depvar, 
+                             levels = c("moy_hist_ec_norm",
+                                        "moy_dic_ec_norm",
+                                        "moy_red_ec_norm"),
+                             labels = c("Note en histoire-\ngéographie (écrits)",
+                                        "Note en dictée \n(écrits)",
+                                        "Note en rédaction \n(écrits)")),
+             pcs_reg_mod = factor(pcs_reg_mod, 
+                                  levels = c("Moy", "Fav", "Tresfav"),
+                                  labels = c("Moyens", "Favorisés", "Très favorisés")))
+    g
+  }) + 
+  labs(x = "Augmentation de 10% chez les pairs",
+       y = "Coefficient estimé",
+       caption = "Sources : Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT (2013 à 2016), calculs de l'auteur. <br>Notes : Une case correspond à une régression. Q1 à Q5 : quintiles de note au CM2 calculés sur les retrouvés par année de DNB. Intervalles de confiance à 95% à partir d'écart-types robustes. Des effets fixes collèges-année sont utilisés. <br>Contrôles : note au CM2, sexe, catégorie socio-professionnelle et régime scolaire. À part la note au CM2, ces contrôles calculés chez les pairs sont inclus dans les régressions.") + 
+  scale_x_discrete(labels = peerlab) +
+  scale_shape_manual(name = "Effets supp. significatifs",
+                     values = c(8, 11, 24)) + 
+  theme_bw() + 
+  mytheme %>% 
+  (function (m) {
+    m$strip.text.y <- element_text(size = m$strip.text$size - 6, 
+                                   angle = 45)
+    m$legend.position <- "bottom"
+    m$plot.caption <- element_textbox_simple(
+      vjust = 1,
+      size = m$plot.caption$size,
+      hjust = 0,
+      padding = margin(10, -100, 20, 0)
+      )
+    m
+  })
+```
+
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+\blandscape
+## Robustesse des résultats d'estimation des effets de pairs sur les autres matières par rapport au découpage du niveau au CM2 {#pemodelshbssmoy0}
+
+### Spécification d'effets de pairs hétérogènes {#pemodelshbcorrssmoy}
+
+```{r, "pemodelshbcorrssmoy"}
+pemodelshbcorr_ssmoy %>%  set_colnames(NULL) %>% 
+  ## Sélection des lignes. 
+  (function (d) {
+    sapply(c("p.score.norm:p:qbscorelow",
+             "p.score.norm:p:qbscoremiddle",
+             "p.score.norm:p:qbscorehigh",
+             "p"),
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>% 
+  
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles individuels", 
+                        rep("Oui", ncol(d) - 1)),
+                      c("Contrôles chez les pairs",
+                        rep("Oui", ncol(d) - 1)),
+                      c("Contrôles potentiellement endogènes",
+                        rep(c("Non", "Oui"), (ncol(d) - 1) / 2)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "p\\.score\\.norm", 
+                          "Note au CM2 des pairs") %>% 
+      str_replace("^score\\.norm$", "Note au CM2") %>% 
+      str_replace(":p:", " $\\\\times \\\\ p \\\\ \\\\times$") %>% 
+      str_replace("qbscorelow", " Q1") %>% 
+      str_replace("qbscoremiddle", " (Q2 à Q4)") %>% 
+      str_replace("qbscorehigh", " Q5") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("^arsq$", "R$^2$ ajusté")
+    d
+  }) %>% 
+  set_colnames(c("", 
+                 rep(c(
+                   "Sans var.endo", 
+                   "Avec var.endo"), 3) %>% 
+                   col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Effets de pairs hétérogènes - découpage alternatif du niveau au CM2") %>% 
+  kable_styling(font_size = 8) %>% 
+  add_header_above(c("", 
+                     "Histoire-Géographie (écrits)" = 2,
+                     "Dictée (écrits)" = 2,
+                     "Rédaction (écrits)" = 2)) %>% 
+  add_header_above(c("", 
+                     "Variable dépendante : Note en" = 6)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT (2013 à 2016), calculs de l'auteur.",
+    "\\\\textit{Notes :} Une colonne correspond à une régression. Les notes au CM2 et au DNB sont normalisées sur l'année scolaire de CM2 et de DNB, respectivement. Q1 à Q5 : quintiles de note au CM2 calculés sur les retrouvés par année de DNB. Écart-types robustes entre parenthèses. Des effets fixes collèges-année sont utilisés. Contrôles potentiellement endogènes : âge, position et taille de classe au DNB. Autres contrôles : découpage alternatif de la note au CM2, sexe, catégorie socio-professionnelle et régime scolaire. CM2 : Cours Moyen 2\\\\textsuperscript{ème} année.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+  ))
+```
+\elandscape
+
+### Spécification d'effets de pairs hétérogènes et non linéaires {#pemodelshnolinqbcorr}
+
+```{r, "pemodelshnolinqbcorrsDexossmoy", fig.cap = "Effets de pairs hétérogènes et non linéaires sur les autres matières, sans contrôles potentiellement endogènes - découpage alternatif de la note au CM2"}
+  ## sDexo uniquement. 
+pemodelshnolinqbcorr_sDexo_ssmoy_graph %>% 
+  (function (g) {
+    g$data <- g$data %>% 
+      mutate(indiv = factor(indiv, 
+                            levels = c("low", "middle", "high"),
+                            labels = c("Faible", "Moyen", "Fort")),
+             peer = factor(peer, 
+                           levels = c("plow", "phigh"),
+                           labels = c("Pairs faibles", 
+                                      "Pairs forts")),
+             depvar = factor(depvar, 
+                             levels = c("moy_hist_ec_norm",
+                                        "moy_dic_ec_norm",
+                                        "moy_red_ec_norm"),
+                             labels = c("Note en histoire-\ngéographie (écrits)",
+                                        "Note en dictée \n(écrits)",
+                                        "Note en rédaction \n(écrits)")
+))
+    g
+  }) + 
+  labs(x = "Augmentation de 10% chez les pairs",
+       y = "Coefficient estimé",
+       caption = "Sources : Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT (2013 à 2016), calculs de l'auteur. <br>Notes : Une case correspond à une régression. Niveau faible : Q1, niveau moyen : Q2 à Q4, niveau fort : Q5. Q1 à Q5 : quintiles de note au CM2 calculés sur les retrouvés par année de DNB. Intervalles de confiance à 95% à partir <br>d'écart-types robustes. Des effets fixes collèges-année sont utilisés. Contrôles : note au CM2, sexe, catégorie socio-professionnelle et régime scolaire. À part la note au CM2, ces contrôles calculés chez les pairs sont inclus dans les régressions.") + 
+  scale_x_discrete(labels = peerlab) + 
+  theme_bw() + 
+  mytheme %>% 
+  (function (m) {
+    m$strip.text.y <- element_text(size = m$strip.text$size - 6, 
+                                   angle = 45)
+    m$plot.caption <- element_textbox_simple(
+      vjust = 1,
+      size = m$plot.caption$size,
+      hjust = 0,
+      padding = margin(10, -100, 20, 0)
+      )
+    m
+  })
+```
+
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+
+\newpage
+\blandscape
+## Résultats d'estimation des effets de pairs séparément pour les nouveaux pairs et les anciens pairs sur les autres matières {#pemodelsnpssmoy0}
+
+
+### Spécification d'effets de pairs linéaires en moyennes {#pemodelsnppsfessmoy}
+<!-- Rappel : tableau à deux panels -->
+```{r, "pemodelsnppsfeh5nppsfessmoy"}
+pemodelsnppsfe_ssmoy %>% set_colnames(NULL) %>% 
+  ## Sélection des lignes. 
+  (function (d) {
+    sapply(c("pnp.score.norm:p",
+             "p:pop.score.norm",
+             "p"),
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+      as.vector %>% 
+      (function (v) sapply(c("n", "arsq"),
+                           function (x) which(d[, 1] == x)) %>% 
+         as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  })%>% 
+  
+  ## Rajout de ligne : contrôles. 
+  (function (d) rbind(d[1:(nrow(d) - 2), ],
+                      rep("", ncol(d)),
+                      c("Contrôles individuels", 
+                        rep("Oui", ncol(d) - 1)),
+                      c("Contrôles chez les pairs",
+                        rep("Oui", ncol(d) - 1)),
+                      c("Contrôles potentiellement endogènes",
+                        rep(c("Non", "Oui"), (ncol(d) - 1) / 2)),
+                      d[(nrow(d) - 1):nrow(d), ])) %>% 
+  
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "pnp\\.score\\.norm", 
+                          "Note au CM2 (nouveaux pairs)") %>% 
+      str_replace("p:pop.score.norm", 
+                  "pop.score.norm:p") %>%
+      str_replace("pop.score.norm", 
+                  "Note au CM2 anciens pairs") %>%
+      str_replace(":p", " $\\\\times \\\\ p$") %>% 
+      str_replace("^n$", "Observations") %>% 
+      str_replace("^arsq$", "R$^2$ ajusté")
+    d
+  }) %>% 
+  set_colnames(c("", 
+                 c("Sans var.endo.", 
+                   "Avec var.endo.") %>% rep(3) %>% 
+                   col_numbers())) %>% 
+  ## rbind(pemodelsh5np_ssmoy %>% set_colnames(NULL) %>% 
+  ## # Sélection des lignes. 
+  ## (function (d) {
+  ##   sapply(c("pnp.score.norm:p:q5scoreq1",
+  ##            "pnp.score.norm:p:q5scoreq2",
+  ##            "pnp.score.norm:p:q5scoreq3",
+  ##            "pnp.score.norm:p:q5scoreq4",
+  ##            "pnp.score.norm:p:q5scoreq5",
+  ##            "p:q5scoreq1:pop.score.norm",
+  ##            "p:q5scoreq2:pop.score.norm",
+  ##            "p:q5scoreq3:pop.score.norm",
+  ##            "p:q5scoreq4:pop.score.norm",
+  ##            "p:q5scoreq5:pop.score.norm",
+  ##            "p"),
+  ##          function (x) which(d[, 1] == x) %>% 
+  ##            (function (w) c(w, w + 1))) %>% 
+  ##     as.vector %>% 
+  ##     (function (v) sapply(c("n", "arsq"),
+  ##                          function (x) which(d[, 1] == x)) %>% 
+  ##        as.vector %>% (function (v2) c(v, v2))) %>% 
+  ##     (function (v3) d[v3, ])
+  ## }) %>% 
+  ## 
+  ## # Rajout de ligne : contrôles. 
+  ## (function (d) rbind(d[1:(nrow(d) - 2), ],
+  ##                     rep("", ncol(d)),
+  ##                     c("Contrôles individuels", 
+  ##                       rep("Oui", ncol(d) - 1)),
+  ##                     c("Contrôles chez les pairs",
+  ##                       rep("Oui", ncol(d) - 1)),
+  ##                     c("Contrôles potentiellement endogènes",
+  ##                       rep(c("Non", "Oui"), (ncol(d) - 1) / 2)),
+  ##                     d[(nrow(d) - 1):nrow(d), ])) %>% 
+  ## 
+  ## # Remplacement nom de variables. 
+  ## (function (d) {
+  ##   d[, 1] <- str_replace(d[, 1], "pnp\\.score\\.norm", 
+  ##                         "Note au CM2 (nouveaux pairs)") %>% 
+  ##     str_replace("p:q5scoreq1:pop.score.norm",
+  ##                 "pop.score.norm:p:q5scoreq1") %>%
+  ##     str_replace("p:q5scoreq2:pop.score.norm",
+  ##                 "pop.score.norm:p:q5scoreq2") %>%
+  ##     str_replace("p:q5scoreq3:pop.score.norm",
+  ##                 "pop.score.norm:p:q5scoreq3") %>%
+  ##     str_replace("p:q5scoreq4:pop.score.norm",
+  ##                 "pop.score.norm:p:q5scoreq4") %>%
+  ##     str_replace("p:q5scoreq5:pop.score.norm",
+  ##                 "pop.score.norm:p:q5scoreq5") %>%
+  ##     str_replace("pop.score.norm",
+  ##                 "Note au CM2 anciens pairs") %>% 
+  ##     str_replace("q5scoreq", "Q") %>% 
+  ##     str_replace_all(":", " $\\\\times$ ") %>% 
+  ##     str_replace("^n$", "Observations") %>% 
+  ##     str_replace("^arsq$", "R$^2$ ajusté")
+  ##   d
+  ## }) %>% 
+  ## set_colnames(c("", 
+  ##                c("Sans var.endo.", 
+  ##                  "Avec var.endo.") %>% rep(3) %>% 
+  ##                  col_numbers()))) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Effets de pairs linéaires en moyenne, séparément pour les nouveaux pairs et les anciens pairs du CM2") %>% 
+  ## group_rows("Panel A : Effets de pairs homogènes", 1, 12,
+  ##            hline_after = TRUE) %>% 
+  ## group_rows("Panel B : Effets de pairs hétérogènes", 13, 40,
+  ##            hline_after = TRUE) %>% 
+  kable_styling(font_size = 8) %>% 
+  add_header_above(c("", 
+                     "Histoire-Géographie (écrits)" = 2,
+                     "Dictée (écrits)" = 2,
+                     "Rédaction (écrits)" = 2)) %>% 
+  add_header_above(c("", 
+                     "Variable dépendante : Note en" = 6)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT (2013 à 2016), calculs de l'auteur.",
+    "\\\\textit{Notes :} Une colonne correspond à une régression. Les notes au CM2 et au DNB sont normalisées sur l'année scolaire de CM2 et de DNB, respectivement. Q1 à Q5 : quintiles de note au CM2 calculés sur les retrouvés par année de DNB. Écart-types robustes entre parenthèses. Des effets fixes collèges-année sont utilisés. Contrôles potentiellement endogènes : âge, position et taille de classe au DNB. Autres contrôles : note au CM2 (panel A)/quintile de note au CM2 (panel B), sexe, catégorie socio-professionnelle et régime scolaire. CM2 : Cours Moyen 2\\\\textsuperscript{ème} année.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+  ))
+```
+\elandscape
+
+### Spécification d'effets de pairs hétérogènes {#pemodelsh5corrnppsfessmoy}
+
+<!-- Rappel : en graphique. -->
+
+```{r, "pemodelsh5corrnppsfesDexossmoygraph", fig.cap = "Effets de pairs hétérogènes sur les autres matières, séparément pour les nouveaux pairs et les anciens pairs du CM2, sans contrôles potentiellement endogènes", fig.pos = "H"}
+pemodelsh5corrnppsfe_sDexo_ssmoy_graph %>% 
+  (function (g) {
+    g$data <- g$data %>% 
+      mutate(indiv = factor(indiv, 
+                            levels = paste("q", 1:5, sep = ""),
+                            labels = paste("Q", 1:5, sep = "")),
+             depvar = factor(depvar, 
+                             levels = c("moy_hist_ec_norm",
+                                        "moy_dic_ec_norm",
+                                        "moy_red_ec_norm"),
+                             labels = c("Note en histoire-\ngéographie (écrits)",
+                                        "Note en dictée \n(écrits)",
+                                        "Note en rédaction \n(écrits)")),
+             np_op = factor(np_op, 
+                            levels = c("np", "op"),
+                            labels = c("Nouveaux pairs",
+                                       "Anciens pairs")))
+    g
+  }) + 
+  labs(x = "Individus",
+       y = "Coefficient estimé",
+       caption = "Sources : Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT (2013 à 2016), calculs de l'auteur. <br>Notes : Une colonne de cases correspond à une même régression. Les première et seconde lignes renseignent <br>respectivement les effets du niveau scolaire des nouveaux pairs et anciens pairs, respectivement. Q1 à Q5 : quintiles de note au CM2 calculés sur les retrouvés par année de DNB. Intervalles de confiance à 95% à partir d'écart-types robustes. Des effets fixes collèges-année et écoles(primaires)-année(au CM2) sont utilisés. Contrôles : note au CM2, sexe, catégorie socio-professionnelle et régime scolaire. Ces contrôles calculés chez les pairs sont inclus dans les régressions.") + 
+  theme_bw() + 
+  mytheme %>% 
+  (function (m) {
+    m$strip.text.y <- element_text(size = m$strip.text$size - 6, 
+                                   angle = 45)
+    m$plot.caption <- element_textbox_simple(
+      vjust = 1,
+      size = m$plot.caption$size, 
+      hjust = 0,
+      padding = margin(10, - 100, 20, 0)
+    )
+    m
+  })
+```
+
+
+### Spécification d'effets de pairs hétérogènes et non linéaires {#pemodelshnolinq5corrnpssmoy}
+
+<!-- Correction : montrer les effets des anciens pairs. Voir ci-dessous.  -->
+
+```{r, "pemodelshnolinq5corrnppsfesDexossmoygraph", fig.cap = "Effets de pairs hétérogènes et non linéaires sur les autres matières, séparément pour les nouveaux pairs et les anciens pairs du CM2, sans contrôles potentiellement endogènes", fig.pos = "H", fig.asp = 1}
+pemodelshnolinq5corrnppsfe_sDexo_ssmoy_graph %>% 
+  (function (g) {
+    g$data <- g$data %>% 
+      mutate(indiv = factor(indiv, 
+                            levels = paste("q", 1:5, sep = ""),
+                            labels = paste("Q", 1:5, sep = "")),
+             peer = factor(peer, 
+                           levels = paste("pq", (1:5)[- 3],
+                                          sep = ""),
+                           labels = paste("PQ", (1:5)[- 3],
+                                          sep = "")),
+             depvar = factor(depvar, 
+                             levels = c("moy_hist_ec_norm",
+                                        "moy_dic_ec_norm",
+                                        "moy_red_ec_norm"),
+                             labels = c("Note en histoire-\ngéographie (écrits)",
+                                        "Note en dictée \n(écrits)",
+                                        "Note en rédaction \n(écrits)")),
+             np_op = factor(np_op, 
+                            levels = c("np", "op"),
+                            labels = c("Nouveaux pairs", 
+                                       "Anciens pairs")))
+    g
+  }) + 
+  labs(x = "Augmentation de 10% chez les pairs",
+       y = "Coefficient estimé",
+       caption = "Sources : Fichiers DNB (2014 à 2016), fichiers CM2 (2010 à 2012), fichiers CONSTAT (2013 à 2016), calculs de l'auteur. <br>Notes : Pour une même variable dépendante, une colonne de cases correspond à une même régression. Les première et seconde lignes renseignent les effets du niveau scolaire des nouveaux pairs et anciens pairs, respectivement. <br>Q1 à Q5 : quintiles de note au CM2 calculés sur les retrouvés par année de DNB. Intervalles de confiance à 95% à partir d'écart-types robustes. Des effets fixes collèges-année et écoles(primaires)-année(au CM2) sont utilisés. <br>Contrôles : note au CM2, sexe, catégorie socio-professionnelle et régime scolaire. À part la note au CM2, ces contrôles <br>calculés chez les pairs sont inclus dans les régressions.") + 
+  scale_x_discrete(labels = peerlab) + 
+  facet_nested(depvar + np_op ~ indiv) + 
+  theme_bw() + 
+  mytheme %>% 
+  (function (m) {
+    m$strip.text.y <- element_text(size = m$strip.text$size - 6,
+                                   angle = 45)
+    
+    m$plot.caption <- element_textbox_simple(
+      vjust = 1,
+      size = m$plot.caption$size,
+      hjust = 0,
+      padding = margin(10, - 200, 20, 0)
+      )
+    m
+  })
+
+```
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+\blandscape
+## Résultats d'estimation des effets de pairs endogènes au DNB sur les autres matières {#pepcmlmodelsssmoy0}
+
+### Sur tout l'échantillon {#pepcmlmodelsssmoy}
+
+```{r, "pepcmlmodelsssmoy"}
+pepcmlmodels_ssmoy %>% set_colnames(NULL) %>% 
+  ## Sélection des lignes. 
+  (function (d) {
+    sapply(c("peer.y", 
+             "age.absdnb", 
+             "positiondnb2Heure", "positiondnb2Avance",
+             "sexe.modM", 
+             "pcs.reg.modMoy", "pcs.reg.modFav", 
+             "pcs.reg.modTresfav",
+             "pcs.reg.modAutres",
+             "peer.age.absdnb", 
+             "peer.positiondnb2Heure", 
+             "peer.positiondnb2Avance",
+             "peer.sexe.modM", 
+             "peer.pcs.reg.modMoy", "peer.pcs.reg.modFav", 
+             "peer.pcs.reg.modTresfav", "peer.pcs.reg.modAutres"),
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+             as.vector %>% 
+             (function (v) sapply(c("n"),
+                                  function (x) which(d[, 1] == x)) %>% 
+                as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) %>% 
+  
+  ## Rajout de ligne : n. 
+  (function (d) rbind(d[1:(nrow(d) - 1), ],
+                      rep("", ncol(d)),
+                      d[nrow(d), ])) %>% 
+  
+  ## Remplacement nom de variables. 
+  (function (d) {
+    d[, 1] <- str_replace(d[, 1], "peer.y",
+                          "Note contemporaine des pairs") %>% 
+      str_replace("peer.", "") %>% 
+      str_replace("age.absdnb", "Âge aux examens") %>% 
+      str_replace("positiondnb2Heure", "Position - À l'heure") %>% 
+      str_replace("positiondnb2Avance", "Position - En avance") %>% 
+      str_replace("sexe.modM", "Sexe - Garçon") %>% 
+      str_replace("pcs.reg.mod", "CSP - ") %>% 
+      str_replace("Moy", "Moyenne") %>% 
+      str_replace("Fav", "Favorisée") %>% 
+      str_replace("Tresfav", "Très favorisée") %>% 
+      str_replace("Autres", "Autre") %>%
+      str_replace("^n$", "Observations")
+    d
+  }) %>% 
+  set_colnames(c("",
+                 rep(c("Sans var.endo.", 
+                   "Avec var.endo."), 3) %>% 
+                   col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Effets de pairs endogènes sur les autres matières au DNB") %>% 
+  group_rows("", 1, 2) %>%
+  group_rows("", 3, 18) %>%
+  group_rows("Moyenne chez les pairs", 19, 34) %>%
+  kable_styling(font_size = 8) %>% 
+  add_header_above(c("", 
+                     "Histoire-Géographie (écrits)" = 2,
+                     "Dictée (écrits)" = 2,
+                     "Rédaction (écrits)" = 2)) %>% 
+  add_header_above(c("", 
+                     "Variable dépendante : Note en" = 6)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Fichiers DNB (2014 à 2016), fichiers CONSTAT (2013 à 2016), calculs de l'auteur.",
+    "\\\\textit{Notes :} Une colonne correspond à une régression. La note contemporaine des pairs est de même nature que la variable dépendante (exemple : Note totale dans la colonne (1) et note en français aux écrits dans la colonne (3)). Les valeurs manquantes sur les variables dépendantes sont exclues avant toute estimation. Écart-types entre parenthèses. Des effets fixes de classe sont utilisés. Contrôles potentiellement endogènes : âge et position au DNB. Autres contrôles : sexe, catégorie socio-professionnelle (CSP) et régime scolaire.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+  ))
+```
+\elandscape
+
+\blandscape
+### Selon le statut et le réseau d'éducation prioritaire {#pepcmlmodelsssmoystatutreseau}
+
+
+```{r, "pepcmlmodelsssmoystatutreseau"}
+list(pepcmlmodels_ssmoy_PR, 
+     pepcmlmodels_ssmoy_PUhep, 
+     pepcmlmodels_ssmoy_PUep) %>% 
+  lapply(function (d0) d0 %>% 
+           (function (d) {
+              d %>% set_colnames(NULL) %>% 
+  ## Sélection des lignes. 
+  (function (d) {
+    sapply(c("peer.y"),
+           function (x) which(d[, 1] == x) %>% 
+             (function (w) c(w, w + 1))) %>% 
+             as.vector %>% 
+             (function (v) 
+               sapply(c("n"),
+                      function (x) which(d[, 1] == x)) %>% 
+                as.vector %>% (function (v2) c(v, v2))) %>% 
+      (function (v3) d[v3, ])
+  }) 
+           }) %>% 
+    ## Rajout de ligne : contrôles. 
+    (function (d) rbind(d[1:(nrow(d) - 1), ],
+                        rep("", ncol(d)),
+                        c("Contrôles individuels",
+                          rep("Oui", ncol(d) - 1)),
+                        c("Contrôles chez les pairs",
+                          rep("Oui", ncol(d) - 1)),
+                      c("Contrôles potentiellement endogènes",
+                        rep(c("Non", "Oui"), (ncol(d) - 1) / 2)),
+                        d[(nrow(d)), ],
+                      rep("", ncol(d)) ## saut de ligne
+                      ## pour le panel suivant. 
+                      )) %>% 
+    
+    ## Remplacement nom de variables.
+    (function (d) {
+      d[, 1] <- str_replace(d[, 1], 
+                            "peer.y", 
+                            "Note contemporaine des pairs") %>% 
+        str_replace("^n$", "Observations")
+      d
+    })
+    ) %>% 
+  do.call(what = rbind) %>% 
+  set_colnames(c("",
+                 rep(c("Sans var.endo.", 
+                   "Avec var.endo."), 3) %>% 
+                   col_numbers())) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, linesep = "",
+        escape = FALSE,
+        caption = "Effets de pairs endogènes sur les autres matières au DNB, par type de collège") %>% 
+  kable_styling(font_size = 8) %>% 
+  group_rows("Panel A : Collèges privés", 1, 7,
+             hline_after = TRUE) %>% 
+  group_rows("Panel B : Collèges publics HEP", 9, 15,
+             hline_after = TRUE) %>% 
+  group_rows("Panel C : Collèges publics EP", 17, 23,
+             hline_after = TRUE) %>% 
+  add_header_above(c("", 
+                     "Histoire-Géographie (écrits)" = 2,
+                     "Dictée (écrits)" = 2,
+                     "Rédaction (écrits)" = 2)) %>% 
+  add_header_above(c("", 
+                     "Variable dépendante : Note en" = 6)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Fichiers DNB (2014 à 2016), fichiers CONSTAT (2013 à 2016), calculs de l'auteur.",
+    "\\\\textit{Notes :} Une colonne correspond à une régression. La note contemporaine des pairs est de même nature que la variable dépendante (exemple : Note totale dans la colonne (1) et note en français aux écrits dans la colonne (3)). Les valeurs manquantes sur les variables dépendantes sont exclues avant toute estimation. Écart-types entre parenthèses. Des effets fixes de classe sont utilisés. Contrôles potentiellement endogènes : âge et position au DNB. Autres contrôles : sexe, catégorie socio-professionnelle (CSP) et régime scolaire. (H)EP : (Hors-)Éducation Prioritaire.",
+                       "Significativité : 10\\\\% * 5\\\\% ** 1\\\\% ***."
+  ))
+```
+\elandscape
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+## Robustesse des coefficients d'effets de pairs endogènes en fonction des variables explicatives
+
+### Au CM2 {#pepcmlmodelscm2robcov}
+
+```{r, "pepcmlmodelscm2robcov"}
+pepcmlmodels_cm2_robcov %>% (function (d) {
+  rownames(d) <- str_replace(rownames(d), "\\_", ".") %>% 
+    str_replace("cov2", "Contrôles 1") %>% 
+    str_replace("cov3", "Contrôles 2") %>% 
+    str_replace("cov4", "Contrôles 3") %>% 
+    str_remove("^PR.|^PUhep.|^PUep.")
+  d
+}) %>% 
+  set_colnames(c("Totale", "En français", "En mathématiques") %>% 
+                 col_numbers()) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, escape = FALSE, 
+        linesep = "",
+        caption = "Robustesse des effets de pairs endogènes au CM2 aux variables de contrôles (maximum de vraisemblance)") %>% 
+  kable_styling(font_size = 8) %>% 
+  group_rows("Tout l'échantillon", 1, 3,
+             hline_after = TRUE) %>% 
+  group_rows("Écoles privées", 4, 6,
+             hline_after = TRUE) %>% 
+  group_rows("Écoles publiques HEP", 7, 9,
+             hline_after = TRUE) %>% 
+  group_rows("Écoles publiques EP", 10, 12,
+             hline_after = TRUE) %>% 
+  add_header_above(c(" ", "Variable dépendante : Note" = 3)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Fichiers CM2 (2010 à 2012), calculs de l'auteur.",
+    "\\\\textit{Notes :} Chaque coefficient provient d'une régression différente. Méthode d'estimation : maximum de vraisemblance conditionnelle (Boucher et al., 2014). Contrôles 1 : sexe et catégorie socio-professionnelles. Contrôles 2 : Contrôles 1, âge aux évaluations nationales du CM2. Contrôles 3 : Contrôles 2, position (en retard, à l'heure, en avance) au CM2. Contrôles individuels et chez les pairs utilisés. (H)EP : (Hors-)Éducation Prioritaire.",
+    "Significativité : 10 \\\\% * 5\\\\% ** 1\\\\% ****."
+  ))
+```
+  
+\newpage
+  
+### Au DNB {#pepcmlmodelsdnbrobcov}
+
+```{r, "pepcmlmodelsrobcov"}
+act <- NA
+pepcmlmodels_robcov %>% (function (d) {
+  rownames(d) <- str_replace(rownames(d), "\\_", ".") %>% 
+    str_replace("cov2", "Contrôles 1") %>% 
+    str_replace("cov3", "Contrôles 2") %>% 
+    str_replace("cov4", "Contrôles 3") %>%
+    str_replace("cov5", "Contrôles 4") %>%
+    str_remove("^PR.|^PUhep.|^PUep.")
+  d
+}) %>% 
+  set_colnames(c("Toutes matières", "Français", "Mathématiques",
+                 "Histoire-et-géographie", "Dictée", "Rédaction") %>% 
+                 col_numbers()) %>% 
+  kable(booktabs = TRUE, longtable = TRUE, escape = FALSE, 
+        linesep = "",
+        caption = "Robustesse des effets de pairs endogènes au DNB aux variables de contrôles (maximum de vraisemblance)") %>% 
+  kable_styling(font_size = 8) %>% 
+  group_rows("Tout l'échantillon", 1, 4,
+             hline_after = TRUE) %>% 
+  group_rows("Collèges privés", 5, 8,
+             hline_after = TRUE) %>% 
+  group_rows("Collèges publics HEP", 9, 12,
+             hline_after = TRUE) %>% 
+  group_rows("Collèges publics EP", 13, 16,
+             hline_after = TRUE) %>% 
+  add_header_above(c(" ", "Variable dépendante : Note aux écrits de" = 6)) %>% 
+  footnote(general = c(
+    "\\\\textit{Sources :} Fichiers DNB (2014 à 2015), fichiers CONSTAT (2013 à 2016), calculs de l'auteur.",
+    "\\\\textit{Notes :} Chaque coefficient provient d'une régression différente. Méthode d'estimation : maximum de vraisemblance conditionnelle (Boucher et al., 2014). Contrôles 1 : sexe et catégorie socio-professionnelles. Contrôles 2 : Contrôles 1, régime scolaire. Contrôles 3 : Contrôles 2, âge aux épreuves du DNB. Contrôles 4 : Contrôles 3, position (en retard, à l'heure, en avance) en 3ème. Contrôles individuels et chez les pairs utilisés. (H)EP : (Hors-)Éducation Prioritaire.",
+    "Significativité : 10 \\\\% * 5\\\\% ** 1\\\\% ****."
+  ))
+```
+

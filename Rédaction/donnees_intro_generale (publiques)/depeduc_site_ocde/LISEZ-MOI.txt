@@ -1,0 +1,4 @@
+Source : https://data.oecd.org/fr/eduresource/depenses-d-education.htm.
+Part du PIB affectée à l'éducation et dépense par élève / étudiant.
+
+v2 : lorsque toutes les étapes de l'éducation possibles.

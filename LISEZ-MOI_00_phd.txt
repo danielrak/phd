@@ -1,0 +1,3 @@
+le 10 sept 2020 à 21h18. 
+
+le dossier où tout est au propre, où il n'y a plus aucun doute : de la construction des données à la production de docs. Cela va également servir d'expérimentation : l'idéal c'est d'avoir exactement les mêmes résultats que ceux dans les backup. 

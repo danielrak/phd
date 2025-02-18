@@ -1,0 +1,5 @@
+fonctions_avant_correction_bealer2 veut dire que je sépare finalement la version où je mets des variables endo et celle où je n'en mets pas en deux fonctions. 
+
+En effet, le 04 Nov 2020, j'ai constaté pour la première fois que la version fusionnée ne marche pas lorsque ne veut pas de variable endogène. 
+
+load("D:/00_phd/00_fonctions/fonctions.rda")

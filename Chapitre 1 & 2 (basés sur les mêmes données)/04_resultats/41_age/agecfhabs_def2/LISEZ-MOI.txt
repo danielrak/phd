@@ -1,0 +1,25 @@
+régression :
+	principale : y sur age, sexe, pcs, age : cohorte, resid, age : resid, resid : cohorte, resid : age : cohorte
+
+******************
+
+	sexe : y sur age, sexe, pcs, age : cohorte, age : sexe, age : cohorte : sexe, 
+
+		resid, age : resid, 
+		resid : cohorte, resid : age : cohorte,
+		resid : sexe, resid : age : sexe,
+		resid : cohorte : sexe, resid : age : cohorte : sexe
+
+	Trop d'interactions : pas utilisé. 
+
+******************
+
+	pcs : y sur age, sexe, pcs, age : cohorte, age : pcs, age : cohorte : pcs, 
+
+		resid, age : resid, 
+		resid : cohorte, resid : age : cohorte,
+		resid : pcs, resid : age : pcs,
+		resid : cohorte : pcs, resid : age : cohorte : pcs
+
+	Trop d'interactions : pas utilisé. 
+	

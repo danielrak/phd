@@ -1,0 +1,28 @@
+% Version propre. Voir divers fichiers au cours de la thèse pour les détails.
+\usepackage{mdsymbol, lscape, pdfpages, makecell, booktabs, multirow, enumitem, float, longtable, tikz, caption, lscape, setspace, upgreek, biblatex}
+%\usepackage[authoryear,round]{natbib}
+\bibliographystyle{apalike2}
+\usepackage[fontsize=12pt]{scrextend}  
+\usepackage[utf8]{inputenc}
+\AtEndPreamble{\hypersetup{hypertexnames=false}}
+%\onehalfspacing
+\setlist[itemize,1]{label=$\bullet$} 
+\newcommand{\blandscape}{\begin{landscape}}
+\newcommand{\elandscape}{\end{landscape}}
+\newcommand\latexcode[1]{#1}
+\captionsetup[table]{name = \textsc{Tableau}}
+\DeclareUnicodeCharacter{1D52}{$^o$} 
+%\DeclareDelimFormat[cbx@textcite]{nameyeardelim}{\addcomma\space}
+
+
+\maxdeadcycles=200
+
+\raggedbottom
+\usepackage[bottom]{footmisc}
+%\index{Paragraph}paragraph
+
+\renewcommand*{\nametitledelim}{\addcomma\space}
+
+\usepackage{etoolbox}
+\apptocmd{\thebibliography}{\setlength{\itemsep}{18pt}}{}{}
+

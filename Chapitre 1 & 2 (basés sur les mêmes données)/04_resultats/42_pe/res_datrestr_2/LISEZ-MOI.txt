@@ -1,0 +1,17 @@
+Une version encore plus clean des résultats. 
+
+Pour éviter le mal de tête avec les numérotations de script : fonctionner par sous-dossiers. 
+Régressions optimisés avec les strings pour réduire à zéro le risque d'erreur. 
+prendre systématiquement le score total comme niveau scolaire des pairs. 
+Les scripts et objets sont toujours nommés comme précédemment, avec des améliorations pas à exclure. 
+
+Tout ce dossier est la copie de res_datrestr_2_suite3. 
+Mais j'ai renommé. 
+
+rappel : je pensais pouvoir corriger les estimations en faisant les full interactions mais il y a plein de problèmes. 
+
+J'ai également que ce point n'est pas précisé dans la littérature. On laisse comme cela pour l'instant. 
+
+Au pire ça ne serait pas trop difficile de faire des estimations sample split. 
+
+np : newpeers. 
